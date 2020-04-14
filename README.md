@@ -60,5 +60,5 @@ Docker is installed on the machine.
     $ ./run-app-in-docker.sh
     ```
     
-4. Yep, that's it. Visit `http://localhost:8080/` to checkout the app.
+4. Yep, that's it. Visit `http://localhost:3000/` to checkout the app.
 
