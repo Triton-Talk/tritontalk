@@ -5,6 +5,9 @@ This is an example video chat application built with [Twilio Video](https://www.
 
 Learn how to build this entire application in the blog post [Build a Twilio Video Chat with React Hooks](https://www.twilio.com/blog/video-chat-react-hooks).
 
+### To run the app in Docker
+online demo @ https://157.245.233.52:3000/
+
 ## Preparing the application
 
 To run the application you will need a [Twilio account](https://www.twilio.com/try-twilio) and Node.js and npm installed. Start by cloning or downloading the repo to your machine.
