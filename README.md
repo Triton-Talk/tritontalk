@@ -6,7 +6,7 @@ This is an example video chat application built with [Twilio Video](https://www.
 Learn how to build this entire application in the blog post [Build a Twilio Video Chat with React Hooks](https://www.twilio.com/blog/video-chat-react-hooks).
 
 ### Online Demo
-online demo @ https://157.245.233.52:3000/
+https://157.245.233.52:3000/
 
 ## Preparing the application
 
