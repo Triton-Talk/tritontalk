@@ -1,4 +1,4 @@
-# Twilio Video chat with React Hooks
+# CSE 110 Team :: M^3 and C
 
 ![GitHub Logo](https://i.imgur.com/KoEzlLt.jpg)
 Format: ![Alt Text](url)
