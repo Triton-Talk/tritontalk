@@ -1,5 +1,7 @@
 # Twilio Video chat with React Hooks
 
+![GitHub Logo](https://i.imgur.com/KoEzlLt.jpg)
+Format: ![Alt Text](url)
 This is an example video chat application built with [Twilio Video](https://www.twilio.com/docs/video) and React, using Hooks.
 
 Learn how to build this entire application in the blog post [Build a Twilio Video Chat with React Hooks](https://www.twilio.com/blog/video-chat-react-hooks).
