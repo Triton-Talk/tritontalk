@@ -5,10 +5,8 @@ echo "Creating a new production build"
 # create a production react build
 npm run --silent --prefix client/ build > /dev/null
 # set up production react build to be served by nginx
-cp -r client/build .
+cp -r client/build ./backend/
 
 echo "Rebuilding container with new production build"
 # build the container
-docker build -t tttvlw-production backend/
-docker tag tttvlw-production tritontalk/tritontalk
-docker push tritontalk/tritontalk
+

@@ -9,7 +9,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use(express.static('build'));
+app.use(express.static('build'));
 
 const sendTokenResponse = (token, res) => {
 	  res.set('Content-Type', 'application/json');
@@ -43,7 +43,7 @@ app.post('/api/video/token', (req, res) => {
 
 app.get('/*', function(req, res) {
       console.log('call has arrived');
-      res.send('hello world');
+      res.sendFile('./build/index.html')
 });
 
 app.listen(3000, () =>
