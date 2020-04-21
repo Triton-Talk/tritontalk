@@ -43,7 +43,7 @@ app.post('/api/video/token', (req, res) => {
 
 app.get('/*', function(req, res) {
       console.log('call has arrived');
-      res.sendFile('./build/index.html')
+      res.sendFile(path.join(__dirname, 'build', 'index.html'))
 });
 
 app.listen(3000, () =>
