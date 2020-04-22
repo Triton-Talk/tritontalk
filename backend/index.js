@@ -5,6 +5,8 @@ const express = require('express');
 const { videoToken } = require('./tokens');
 const path = require('path');
 
+const socket = require('socketio');
+
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
