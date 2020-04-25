@@ -1,4 +1,6 @@
 ![GitHub Logo](https://i.imgur.com/KoEzlLt.jpg)
+<img src="https://i.imgur.com/KoEzlLt.jpg" alt="GitHub Logo" width="800"/>
+
 
 # CSE 110 Team :: M^3 and C
 

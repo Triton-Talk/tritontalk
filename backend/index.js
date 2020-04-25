@@ -5,7 +5,7 @@ const express = require('express');
 const { videoToken } = require('./tokens');
 const path = require('path');
 
-const socket = require('socketio');
+const socket = require('socket.io');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -44,8 +44,8 @@ app.post('/api/video/token', (req, res) => {
 
 
 app.get('/*', function(req, res) {
-      console.log('call has arrived');
-      res.sendFile(path.join(__dirname, 'build', 'index.html'))
+          console.log(req.url);
+	  console.log('call has arrived');
 });
 
 app.listen(3000, () =>
