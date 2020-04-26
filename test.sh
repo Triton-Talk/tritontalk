@@ -1,4 +1,6 @@
 echo "Cleaning out the old builds"
+rm -rf client/build
+rm -rf testing/nginx/build
 # clean out the old build folder
 
 echo "Creating a new production build"
