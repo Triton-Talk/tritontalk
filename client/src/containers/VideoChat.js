@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import Lobby from './Lobby';
-import Room from './Room';
+import Lobby from '../components/Lobby';
+import Room from '../components/Room';
 
 const VideoChat = () => {
   const [username, setUsername] = useState('');
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
+
+
 
   const handleUsernameChange = useCallback(event => {
     setUsername(event.target.value);
