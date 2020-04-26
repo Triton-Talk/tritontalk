@@ -1,13 +1,32 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar } from 'react-bootstrap'
+import Auth from '../auth';
+import db, { GoogleSignOn } from '../firebase'
 
 const NavigationBar = () => {
     
-    //const { user, loggedIn } = useContext(AuthContext);
+    const { user, setUser } = useContext(Auth);
 
-    const [user, setUser] = useState("none")
-    const [loggedIn, setLoggedIn] = useState(false)
+    const handleLoginWithGoogle = () => {
+      try{
+	db.auth().signInWithPopup(GoogleSignOn).then(result => {
+
+          const email = result.user.email
+          console.log(email)
+          console.log(email.substr(email.lastIndexOf('@')));
+          if(!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu'){
+            alert("That's not a UCSD email address!")
+            return
+          }
+
+          setUser(result.user.displayName);
+        });
+      }
+      catch (error){
+	alert(error);
+      }
+    }
 
     return (
       <Navbar bg="dark" variant="dark">
@@ -15,12 +34,12 @@ const NavigationBar = () => {
         <Navbar.Toggle />
 
         <Navbar.Collapse className="justify-content-end">
-          { loggedIn ? 
+          { user !== null ? 
           ( 
             <>
               <Navbar.Text>
                 Signed in as:  {user} 
-                <button onClick={() => {setLoggedIn(!loggedIn)}}> sign out </button>
+                <button onClick={() => {setUser(null)}}> sign out </button>
               </Navbar.Text>
             </>
             )
@@ -28,7 +47,7 @@ const NavigationBar = () => {
             (
             <Navbar.Text> 
               Not currently signed in
-              <button onClick={() => {setLoggedIn(!loggedIn)}}> sign in </button>
+              <button onClick={handleLoginWithGoogle}> sign in </button>
             </Navbar.Text>
             )
           }

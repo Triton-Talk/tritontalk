@@ -4,15 +4,16 @@ import '../styles/App.css';
 import VideoChat from './VideoChat';
 import Chat from './Chat';
 import Navbar from './Navbar'
+
 const App = () => {
   return (
 
     <div className="app">
       <main>
+        <Navbar />
         <div style={{ backgroundColor: "lightblue", width: "100%", textAlign: "center", top: 0, position: "relative" }}>
           <VideoChat />
           <Chat />
-          {/* make a new project with redux for state management */}
         </div>
       </main>
       <footer>
