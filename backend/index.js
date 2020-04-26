@@ -5,8 +5,6 @@ const express = require('express');
 const { videoToken } = require('./tokens');
 const path = require('path');
 
-const socket = require('socket.io');
-
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -48,6 +46,18 @@ app.get('/*', function(req, res) {
 	  console.log('call has arrived');
 });
 
-app.listen(3000, () =>
-	  console.log('Express server is running on localhost:3000')
-);
+server = app.listen(3001, () => console.log('node running on localhost:3000'));
+
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('new user connected')
+
+//  socket.on('change_username', (data) => {
+//    socket.username = data.username
+//  })
+
+  socket.on('new_message', (data) => {
+    io.sockets.emit('new_message', data);
+  })
+})
