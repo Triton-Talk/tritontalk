@@ -1,16 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
+import Auth from '../auth';
 
 const VideoChat = () => {
-  const [username, setUsername] = useState('');
+  const { user, setUser } = React.useContext(Auth);
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
 
 
 
   const handleUsernameChange = useCallback(event => {
-    setUsername(event.target.value);
+    setUser(event.target.value);
   }, []);
 
   const handleRoomNameChange = useCallback(event => {
@@ -20,10 +21,11 @@ const VideoChat = () => {
   const handleSubmit = useCallback(
     async event => {
       event.preventDefault();
-      const data = await fetch('/api/video/token', {
+      //const data = await fetch('/api/video/token', {
+      const data = await fetch('http://localhost:3001/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
-          identity: username,
+          identity: user,
           room: roomName
         }),
         headers: {
@@ -32,7 +34,7 @@ const VideoChat = () => {
       }).then(res => res.json());
       setToken(data.token);
     },
-    [roomName, username]
+    [roomName, user]
   );
 
   const handleLogout = useCallback(event => {
@@ -47,9 +49,7 @@ const VideoChat = () => {
   } else {
     render = (
       <Lobby
-        username={username}
         roomName={roomName}
-        handleUsernameChange={handleUsernameChange}
         handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}
       />

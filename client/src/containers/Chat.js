@@ -3,7 +3,6 @@ import io from 'socket.io-client/dist/socket.io';
 import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
 
-
 const URL = 'http://localhost/'
 
 class Chat extends Component {

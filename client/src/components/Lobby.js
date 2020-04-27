@@ -1,24 +1,20 @@
+import Auth from '../auth'
 import React from 'react';
 
 const Lobby = ({
-  username,
-  handleUsernameChange,
   roomName,
   handleRoomNameChange,
   handleSubmit
 }) => {
+  const { user } = React.useContext(Auth)
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Enter a room</h2>
       <div>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="field"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
+        { user ? 
+        <label htmlFor="name">Name: {user} </label>  : 
+        <label htmlFor="name">Name: Please sign in first!</label>}
       </div>
 
       <div>
@@ -32,8 +28,6 @@ const Lobby = ({
         /><br></br>
         <button type="submit">Submit</button>
       </div>
-
-
     </form>
   );
 };

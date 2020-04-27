@@ -4,10 +4,13 @@ const config = require('./config');
 const express = require('express');
 const { videoToken } = require('./tokens');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(cors());
 
 app.use(express.static('build'));
 
@@ -44,6 +47,7 @@ app.post('/api/video/token', (req, res) => {
 app.get('/*', function(req, res) {
           console.log(req.url);
 	  console.log('call has arrived');
+          res.send('hello world')
 });
 
 server = app.listen(3000, () => console.log('node running on localhost:3000'));
@@ -52,10 +56,6 @@ const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
   console.log('new user connected')
-
-//  socket.on('change_username', (data) => {
-//    socket.username = data.username
-//  })
 
   socket.on('new_message', (data) => {
     io.sockets.emit('new_message', data);
