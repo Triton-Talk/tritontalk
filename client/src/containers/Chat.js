@@ -4,7 +4,7 @@ import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
 import Auth from '../auth';
 
-const URL = 'http://localhost/'
+const URL = '/'
 
 class Chat extends Component {
   state = {
@@ -15,11 +15,7 @@ class Chat extends Component {
   componentDidMount() {
     this.state.socket.on('new_message', data => {
       this.setState(state => ({ messages: [data, ...state.messages] }))
-      console.log(this.state.messages)
     })
-  }
-
-  componentDidUpdate(){
   }
 
   submitMessage = messageString => {
