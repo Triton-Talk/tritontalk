@@ -4,15 +4,9 @@ import Room from '../components/Room';
 import Auth from '../auth';
 
 const VideoChat = () => {
-  const { user, setUser } = React.useContext(Auth);
-  const [roomName, setRoomName] = useState('');
+  const { user } = React.useContext(Auth);
+  const [roomName, setRoomName] = useState(null);
   const [token, setToken] = useState(null);
-
-
-
-  const handleUsernameChange = useCallback(event => {
-    setUser(event.target.value);
-  }, []);
 
   const handleRoomNameChange = useCallback(event => {
     setRoomName(event.target.value);
@@ -21,8 +15,13 @@ const VideoChat = () => {
   const handleSubmit = useCallback(
     async event => {
       event.preventDefault();
-      //const data = await fetch('/api/video/token', {
-      const data = await fetch('http://localhost:3001/api/video/token', {
+
+      if(!user || !roomName){ 
+        alert('You must sign in first!')
+        return
+      }
+
+      const data = await fetch('/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
           identity: user,

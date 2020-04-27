@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import io from 'socket.io-client/dist/socket.io';
 import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
+import Auth from '../auth';
 
 const URL = 'http://localhost/'
 
 class Chat extends Component {
   state = {
-    name: 'Bob',
     messages: [],
     socket: io(URL)
   }
@@ -19,27 +19,36 @@ class Chat extends Component {
     })
   }
 
+  componentDidUpdate(){
+  }
+
   submitMessage = messageString => {
     // on submitting the ChatInput form, send the message, reset the input
-    const message = { name: this.state.name, message: messageString }
+    if(! this.context.user){
+      alert('You must sign in before sending messages!')
+      return
+    }
+
+    const message = { name: this.context.user, message: messageString }
     this.state.socket.emit('new_message', message)
   }
 
   render() {
+    const user = this.context.user
+
     return (
       <div>
+
+        { user ? 
         <label htmlFor="name">
-          Name:&nbsp;
-          <input
-            type="text"
-            id={'name'}
-            placeholder={'Enter your name...'}
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
-          />
+          Name: {user}
         </label>
+        : 
+        <label htmlFor="name">
+          Name: Please sign in first! 
+        </label>
+        }
         <ChatInput
-          //ws={this.ws}
           onSubmitMessage={messageString => this.submitMessage(messageString)}
         />
         {this.state.messages.map((message, index) =>
@@ -53,5 +62,7 @@ class Chat extends Component {
     )
   }
 }
+
+Chat.contextType = Auth
 
 export default Chat

@@ -13,8 +13,6 @@ const NavigationBar = () => {
 	db.auth().signInWithPopup(GoogleSignOn).then(result => {
 
           const email = result.user.email
-          console.log(email)
-          console.log(email.substr(email.lastIndexOf('@')));
           if(!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu'){
             alert("That's not a UCSD email address!")
             return
