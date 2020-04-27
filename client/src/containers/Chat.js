@@ -4,7 +4,7 @@ import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
 
 
-const URL = 'http://localhost/api'
+const URL = 'http://localhost/'
 
 class Chat extends Component {
   state = {
