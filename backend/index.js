@@ -46,7 +46,7 @@ app.get('/*', function(req, res) {
 	  console.log('call has arrived');
 });
 
-server = app.listen(3001, () => console.log('node running on localhost:3000'));
+server = app.listen(3000, () => console.log('node running on localhost:3000'));
 
 const io = require('socket.io')(server);
 
