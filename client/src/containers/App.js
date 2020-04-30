@@ -3,7 +3,8 @@ import '../styles/App.css';
 
 import VideoChat from './VideoChat';
 import Chat from './Chat';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
+import LibraryWalk from '../components/LibraryWalk';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <div style={{ backgroundColor: "lightblue", width: "100%", textAlign: "center", top: 0, position: "relative" }}>
           <VideoChat />
           <Chat />
+	  <LibraryWalk />
         </div>
       </main>
       <footer>
