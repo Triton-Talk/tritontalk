@@ -24,44 +24,47 @@ app.use(cors());
 app.use(express.static('build'));
 
 const sendTokenResponse = (token, res) => {
-    res.set('Content-Type', 'application/json');
-    res.send(
-         JSON.stringify({ token: token.toJwt() })
-    );
+  res.set('Content-Type', 'application/json');
+  res.send(JSON.stringify({ token: token.toJwt() }));
 };
 
+//TESTING ROUTES
+app.get('/*', function(req, res, next) {
+  console.log(req.url);
+  console.log('call has arrived');
+  res.send('hello world')
+  next()
+});
+
 app.get('/api/greeting', (req, res) => {
-    const name = req.query.name || 'World';
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+  const name = req.query.name || 'World';
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
 app.get('/api/video/token', (req, res) => {
-    const identity = req.query.identity;
-    const room = req.query.room;
-    const token = videoToken(identity, room, config);
-    sendTokenResponse(token, res);
-
+  const identity = req.query.identity;
+  const room = req.query.room;
+  const token = videoToken(identity, room, config);
+  sendTokenResponse(token, res);
 });
+
+// PRODUCTION ROUTES
+app.post('/api/*', (req, res, next) => {
+  admin.auth().verifyIdToken(req.body.credential).then(identity => {
+    req.identity = identity
+  })
+})
+
+app.post('/api/login', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ greeting: `Hello ${req.identity.name}!` }));
+});
+
 app.post('/api/video/token', (req, res) => {
-    admin.auth().verifyIdToken(req.body.credential).then(decodedToken => {
-        const uid = decodedToken.uid;
-        console.log(decodedToken)
-    }).catch(error => {
-        console.log(error)
-    });
-          
-    const identity = req.body.identity;
-    const room = req.body.room;
-    const token = videoToken(identity, room, config);
-    sendTokenResponse(token, res);
-});
-
-
-app.get('/*', function(req, res) {
-          console.log(req.url);
-	  console.log('call has arrived');
-          res.send('hello world')
+  const room = req.body.room;
+  const token = videoToken(req.identity.email, room, config);
+  sendTokenResponse(token, res);
 });
 
 server = app.listen(3000, () => console.log('node running on localhost:3000'));
@@ -69,8 +72,6 @@ server = app.listen(3000, () => console.log('node running on localhost:3000'));
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  console.log('new user connected')
-
   socket.on('new_message', (data) => {
     io.sockets.emit('new_message', data);
   })

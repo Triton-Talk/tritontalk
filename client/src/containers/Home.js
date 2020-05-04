@@ -42,6 +42,7 @@ const Home = () => {
 
   const handleSignOut = () => {
     setUser(null)
+    setCredential(null)
   }
 
   return (
