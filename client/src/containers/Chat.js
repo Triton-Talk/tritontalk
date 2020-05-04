@@ -37,7 +37,7 @@ class Chat extends Component {
 
         { user ? 
         <label htmlFor="name">
-          Name: {user}
+          Name: {user.displayName}
         </label>
         : 
         <label htmlFor="name">

@@ -4,27 +4,9 @@ import { Navbar } from 'react-bootstrap'
 import Auth from '../auth';
 import db, { GoogleSignOn } from '../firebase'
 
-const NavigationBar = () => {
+const NavigationBar = ({handleSignOn, handleSignOut}) => {
     
-    const { user, setUser } = useContext(Auth);
-
-    const handleLoginWithGoogle = () => {
-      try{
-	db.auth().signInWithPopup(GoogleSignOn).then(result => {
-
-          const email = result.user.email
-          if(!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu'){
-            alert("That's not a UCSD email address!")
-            return
-          }
-
-          setUser(result.user.displayName);
-        });
-      }
-      catch (error){
-	alert(error);
-      }
-    }
+    const { user } = useContext(Auth);
 
     return (
       <Navbar bg="dark" variant="dark">
@@ -36,8 +18,8 @@ const NavigationBar = () => {
           ( 
             <>
               <Navbar.Text>
-                Signed in as:  {user} 
-                <button onClick={() => {setUser(null)}}> sign out </button>
+                Signed in as: {user.displayName} 
+                <button onClick={handleSignOut}> sign out </button>
               </Navbar.Text>
             </>
             )
@@ -45,7 +27,7 @@ const NavigationBar = () => {
             (
             <Navbar.Text> 
               Not currently signed in
-              <button onClick={handleLoginWithGoogle}> sign in </button>
+              <button onClick={handleSignOn}> sign in </button>
             </Navbar.Text>
             )
           }

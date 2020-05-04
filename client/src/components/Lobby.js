@@ -13,7 +13,7 @@ const Lobby = ({
       <h2>Enter a room</h2>
       <div>
         { user ? 
-        <label htmlFor="name">Name: {user} </label>  : 
+        <label htmlFor="name">Name: {user.displayName} </label>  : 
         <label htmlFor="name">Name: Please sign in first!</label>}
       </div>
 

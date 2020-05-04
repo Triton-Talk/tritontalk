@@ -7,6 +7,14 @@ const path = require('path');
 const cors = require('cors');
 const admin = require('firebase-admin')
 
+//set up firebase admin
+const serviceAccount = require("./tritontalk-d063d-firebase-adminsdk-hnpwi-f1538684d6.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://tritontalk-d063d.firebaseio.com"
+});
+
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -16,32 +24,37 @@ app.use(cors());
 app.use(express.static('build'));
 
 const sendTokenResponse = (token, res) => {
-	  res.set('Content-Type', 'application/json');
-	  res.send(
-		      JSON.stringify({
-			            token: token.toJwt()
-			          })
-		    );
+    res.set('Content-Type', 'application/json');
+    res.send(
+         JSON.stringify({ token: token.toJwt() })
+    );
 };
 
 app.get('/api/greeting', (req, res) => {
-	  const name = req.query.name || 'World';
-	  res.setHeader('Content-Type', 'application/json');
-	  res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+    const name = req.query.name || 'World';
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
 app.get('/api/video/token', (req, res) => {
-	  const identity = req.query.identity;
-	  const room = req.query.room;
-	  const token = videoToken(identity, room, config);
-	  sendTokenResponse(token, res);
+    const identity = req.query.identity;
+    const room = req.query.room;
+    const token = videoToken(identity, room, config);
+    sendTokenResponse(token, res);
 
 });
 app.post('/api/video/token', (req, res) => {
-	  const identity = req.body.identity;
-	  const room = req.body.room;
-	  const token = videoToken(identity, room, config);
-	  sendTokenResponse(token, res);
+    admin.auth().verifyIdToken(req.body.credential).then(decodedToken => {
+        const uid = decodedToken.uid;
+        console.log(uid)
+    }).catch(error => {
+        console.log(error)
+    });
+          
+    const identity = req.body.identity;
+    const room = req.body.room;
+    const token = videoToken(identity, room, config);
+    sendTokenResponse(token, res);
 });
 
 

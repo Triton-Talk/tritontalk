@@ -2,10 +2,11 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 import Auth from '../auth';
+import db from '../firebase';
 
 const VideoChat = () => {
-  const { user } = React.useContext(Auth);
-  const [roomName, setRoomName] = useState(null);
+  const { user, credential } = React.useContext(Auth);
+  const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
 
   const handleRoomNameChange = useCallback(event => {
@@ -24,7 +25,8 @@ const VideoChat = () => {
       const data = await fetch('/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
-          identity: user,
+          identity: user.email,
+          credential: credential,
           room: roomName
         }),
         headers: {
@@ -33,7 +35,7 @@ const VideoChat = () => {
       }).then(res => res.json());
       setToken(data.token);
     },
-    [roomName, user]
+    [roomName, user, credential]
   );
 
   const handleLogout = useCallback(event => {

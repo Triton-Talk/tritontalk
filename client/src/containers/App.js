@@ -7,7 +7,7 @@ import LibraryWalk from '../components/LibraryWalk';
 const App = () => {
   return (
     <div className="app">
-	<Router>
+      <Router>
         <Switch>
           <Route path="/" exact component={() => <Home />} />
           <Route path="/home" exact component={() => <LibraryWalk />} />
