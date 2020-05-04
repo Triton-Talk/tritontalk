@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar } from 'react-bootstrap'
-import Auth from '../auth';
-import db, { GoogleSignOn } from '../firebase'
+
+import Auth from '../auth'
 
 const NavigationBar = ({handleSignOn, handleSignOut}) => {
     

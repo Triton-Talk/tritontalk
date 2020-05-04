@@ -46,7 +46,7 @@ app.get('/api/video/token', (req, res) => {
 app.post('/api/video/token', (req, res) => {
     admin.auth().verifyIdToken(req.body.credential).then(decodedToken => {
         const uid = decodedToken.uid;
-        console.log(uid)
+        console.log(decodedToken)
     }).catch(error => {
         console.log(error)
     });
