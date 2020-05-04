@@ -25,7 +25,7 @@ const clubSchema = new mongoose.Schema({
     type: Buffer,
   },
   meeting_times: [ meetingTimeSchema ], 
-})
+}, {collection: 'Clubs'})
 
 const Club = mongoose.model('Club', clubSchema)
 module.exports = Club

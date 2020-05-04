@@ -32,7 +32,7 @@ const roomSchema = new mongoose.Schema({
       ref: 'User'
     }
   ]
-})
+}, {collection: 'Rooms'})
 
 const Room = mongoose.model('Room', roomSchema)
 module.exports = Room

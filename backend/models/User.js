@@ -22,11 +22,9 @@ const userSchema = new mongoose.Schema({
   },
   bio: {
     type: String,
-    required: true
   },
   hobbies: {
     type: String,
-    required: true
   },
   friends: [{
     type: ObjectId, 
@@ -40,7 +38,7 @@ const userSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Room'
   }],
-})
+}, {collection: 'Users'})
 
 const User = mongoose.model('User', userSchema)
 module.exports = User
