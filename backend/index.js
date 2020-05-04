@@ -5,6 +5,7 @@ const express = require('express');
 const { videoToken } = require('./tokens');
 const path = require('path');
 const cors = require('cors');
+const admin = require('firebase-admin')
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
