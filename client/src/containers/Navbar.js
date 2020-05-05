@@ -14,7 +14,7 @@ const NavigationBar = ({handleSignOn, handleSignOut}) => {
         <Navbar.Toggle />
 
         <Navbar.Collapse className="justify-content-end">
-          { user !== null ? 
+          { user !== null && user !== undefined ? 
           ( 
             <>
               <Navbar.Text>
