@@ -20,24 +20,24 @@ const Home = () => {
     position: "relative" 
   }
 
+
   const handleSignOn = () => {
-    try{
-      db.auth().signInWithPopup(GoogleSignOn).then(result => {
+    db.auth().signInWithPopup(GoogleSignOn).then(result => {
+      const email = result.user.email
+      if(!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu'){
+        alert("That's not a UCSD email address!")
+        return undefined
+      }
+      
+      setUser(result.user);
 
-        const email = result.user.email
-        if(!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu'){
-          alert("That's not a UCSD email address!")
-          return
-        }
-        
-        setUser(result.user);
-
-        db.auth().currentUser.getIdToken().then(token => setCredential(token))
-      });
-    }
-    catch (error){
-      alert(error);
-    }
+      return db.auth().currentUser.getIdToken()
+    }).then(token => {
+      if(token)
+        setCredential(token)
+    }).catch(error => {
+      alert(error)
+    })
   }
 
   const handleSignOut = () => {

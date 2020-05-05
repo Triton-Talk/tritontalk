@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import io from 'socket.io-client/dist/socket.io';
+import io from 'socket.io-client';
 import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
 import Auth from '../auth';

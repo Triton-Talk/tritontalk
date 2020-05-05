@@ -21,10 +21,12 @@ const VideoChat = () => {
         return
       }
 
+      console.log(user, credential)
+
       const data = await fetch('/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
-          credential, 
+          credential: credential, 
           room: roomName
         }),
         headers: {

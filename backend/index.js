@@ -55,8 +55,12 @@ app.get('/api/video/token', (req, res) => {
 
 // PRODUCTION ROUTES
 app.post('/api/*', (req, res, next) => {
+  console.log(req.body)
   admin.auth().verifyIdToken(req.body.credential).then(identity => {
     req.identity = identity
+    next()
+  }).catch(error => {
+    res.status(404).send('Error: failed to parse identity')
   })
 })
 
@@ -66,6 +70,8 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/video/token', (req, res) => {
+  console.log('request has arrived')
+
   const room = req.body.room;
   const token = videoToken(req.identity.email, room, config);
   sendTokenResponse(token, res);
