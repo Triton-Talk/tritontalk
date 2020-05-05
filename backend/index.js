@@ -7,6 +7,10 @@ const path = require('path');
 const cors = require('cors');
 const admin = require('firebase-admin')
 
+const User = require('./models/User')
+const Room = require('./models/Room')
+const Club = require('./models/Club')
+
 //set up firebase admin
 const serviceAccount = require("./tritontalk-d063d-firebase-adminsdk-hnpwi-f1538684d6.json");
 
