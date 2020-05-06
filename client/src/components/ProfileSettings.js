@@ -3,12 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
 import DummyImage from "./dummy_profile_photo.png";
-const Settings = ({ user }) => {
-
-  user = {
+const Settings = ({ p }) => {
+  const { user } = React.useContext(Auth)
+  console.log({ user })
+  p = {
     name: "Kimba  Stanzah",
     title: "Class President",
-    email: "kstanzah@ucsd.edu"
+    email: "kstanzah@ucsd.esdu"
   }
   return (
     <div>
@@ -19,7 +20,7 @@ const Settings = ({ user }) => {
 
             <Form.Group controlId="settings.image">
               <center>
-                <Image src={DummyImage} rounded />
+                <Image src={user.photoURL} rounded />
               </center>
             </Form.Group>
             <Form.Group controlId="settings.College">
@@ -62,8 +63,8 @@ const Settings = ({ user }) => {
 
             <Form.Group controlId="settings.Name">
               <Form.Label>Title<b></b></Form.Label>
-              <Form.Control size="lg" type="Title" placeholder={user.title} />
-              <Form.Control size="lg" type="email" placeholder={user.name} disabled />
+              <Form.Control size="lg" type="Title" placeholder={p.title} />
+              <Form.Control size="lg" type="email" placeholder={user.displayName} disableds />
 
             </Form.Group>
             <Form.Group controlId="settings.Hobbies">
