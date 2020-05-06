@@ -71,6 +71,10 @@ const Settings = ({ p }) => {
               <Form.Label>Hobbies</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" />
             </Form.Group>
+            <Form.Group controlId="settings.Clubs">
+              <Form.Label>Clubs</Form.Label>
+              <Form.Control size="lg" as="textarea" rows="3" />
+            </Form.Group>
             <Form.Group controlId="settings.Bio">
               <Form.Label>Mini Biography</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" />
