@@ -1,12 +1,35 @@
 .NavBarLogo {
     color: white;
-     font-family: 'Londrina Solid', cursive;
-     font-size:50px;
-     -webkit-text-stroke-width: 1px;
-     -webkit-text-stroke-color: #4B7FE6;
-     padding:0px;
-     margin: 0px;
+    font-family: 'Londrina Solid', cursive;
+    font-size:50px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #4B7FE6;
+    padding:0px;
+    margin: 0px;
+}
 
+.NavBarLogo:hover{
+    color: #1295d8;
+    border-bottom: 7px solid #ffb511;
+}
+
+button {
+    background-color: #ffb511;
+    color: black;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.dropdown-button{
+    width: 100%;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+a:hover{
+  text-decoration: none
 }
 
 .centered {
@@ -15,4 +38,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
 }
