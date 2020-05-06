@@ -7,8 +7,7 @@ const connectionURL = `mongodb+srv://${user}:${pass}@${host}`;
 const databaseOptions = {useNewUrlParser: true, useUnifiedTopology: true, 
                          useCreateIndex: true};
 
-mongoose.connect(connectionURL, databaseOptions).catch(error => console.log(error));
+mongoose.connect(connectionURL, databaseOptions).catch(e => console.log(e));
 
 
-mongoose.connection.on('connected', () => console.log('success'));
-
+mongoose.connection.on('connected', () => console.log('Connected to MongoDB'));

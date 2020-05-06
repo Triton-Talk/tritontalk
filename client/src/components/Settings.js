@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
+
 import SelectOneThing from '../components/SelectOneThing';
+
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
   console.log({ user })
@@ -14,7 +18,7 @@ const Settings = ({ p }) => {
 
 
 
-  return (
+  return (user ?
     <div>
       <hr />
       <Form style={{ maxWidth: "95%" }}>
@@ -40,7 +44,7 @@ const Settings = ({ p }) => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Title<b></b></Form.Label>
               <Form.Control size="lg" type="Title" placeholder={p.title} />
-              <Form.Control size="lg" type="name" placeholder={user.displayName} disabled />
+              <Form.Control size="lg" type="email" placeholder={user.name} />
 
             </Form.Group>
             <Form.Group controlId="settings.Hobbies">
@@ -65,7 +69,8 @@ const Settings = ({ p }) => {
         </center>
       </Form>
 
-    </div>
+    </div> :
+    <Redirect to="/SplashPage" />
   )
 }
 

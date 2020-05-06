@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar';
-import Responsive_Table from "../components/responsive_table";
+
+import ResponsiveTable from "../components/responsive_table";
+
+
 class Friends extends Component {
 
   constructor(props) {
@@ -18,7 +21,8 @@ class Friends extends Component {
     return (
       <div>
         <Navbar />
-        <Responsive_Table friends={this.state.friends} />
+        <ResponsiveTable friends={this.state.friends} />
+
       </div >
     )
   }

@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  title: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
     required: true,
@@ -19,6 +23,18 @@ const userSchema = new mongoose.Schema({
       if(!validator.isEmail(value))
         throw new Error('Email is invalid')
     }
+  },
+  picture: {
+    type: String,
+  },
+  college: {
+    type: String
+  },
+  year: {
+    type: String
+  },
+  major: {
+    type: String
   },
   bio: {
     type: String,
