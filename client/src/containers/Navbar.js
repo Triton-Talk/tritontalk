@@ -43,7 +43,8 @@ const NavigationBar = () => {
           <>
             <button className="dropbtn">Account Settings</button>
             <div className="dropdown-content">
-              <button className="dropdown-button">Profile Settings</button>
+              <button onClick={()=> history.push('/profilesettings') }
+                      className="dropdown-button">Profile Settings</button>
               <button className="dropdown-button" 
                       onClick={handleSignOut}>Sign out</button>
             </div>
