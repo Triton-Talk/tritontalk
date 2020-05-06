@@ -16,7 +16,7 @@ const Settings = ({ p }) => {
       <hr />
       <Form style={{ maxWidth: "95%" }}>
         <Form.Row>
-          <Col xs={12} lg={6}>
+          <Col xs={12} md={12} lg={12} xl={6}>
 
             <Form.Group controlId="settings.image">
               <center>
