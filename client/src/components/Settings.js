@@ -9,14 +9,17 @@ import SelectOneThing from '../components/SelectOneThing';
 
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
-  console.log({ user })
   p = {
     name: "Kimba  Stanzah",
     title: "Class President",
     email: "kstanzah@ucsd.esdu"
   }
 
+  const colleges = ["Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
 
+  const majors = ["Computer Science", "Biology", "Electrical Engineering", "Other"]
+
+  const year = ["First year", "Second year", "Third year", "Fourth year"]
 
   return (user ?
     <div>
@@ -27,12 +30,12 @@ const Settings = ({ p }) => {
 
             <Form.Group controlId="settings.image">
               <center>
-                <Image src={user.photoURL} rounded />
+                <Image src={user.picture} rounded />
               </center>
             </Form.Group>
-            <SelectOneThing controlId="settings.School" Label="School" options={[{ key: "Thursgood Marshall" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
-            <SelectOneThing controlId="settings.Major" Label="Major" options={[{ key: "Computer Science" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
-            <SelectOneThing controlId="settings.Year" Label="Year" options={[{ key: "2019" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
+            <SelectOneThing controlId="settings.School" Label="School" options={colleges}/>
+            <SelectOneThing controlId="settings.Major" Label="Major" options={majors} />
+            <SelectOneThing controlId="settings.Year" Label="Year" options={year} />
           </Col>
 
           <Col xs={12} md={12} lg={12} xl={6}>
@@ -44,7 +47,7 @@ const Settings = ({ p }) => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Title<b></b></Form.Label>
               <Form.Control size="lg" type="Title" placeholder={p.title} />
-              <Form.Control size="lg" type="email" placeholder={user.displayName} disabled />
+              <Form.Control size="lg" type="email" placeholder={user.name} />
 
             </Form.Group>
             <Form.Group controlId="settings.Hobbies">

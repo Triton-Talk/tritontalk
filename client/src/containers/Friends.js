@@ -1,42 +1,35 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Navbar from './Navbar';
 
 import ResponsiveTable from "../components/responsive_table";
 
+const Friends = (props) => {
 
-class Friends extends Component {
+  const dumData = [
+    { id: "hi1", title: "title0", updatedDate: "123", content: "content0", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi2", title: "title1", updatedDate: "123", content: "content1", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi3", title: "title2", updatedDate: "123", content: "content2", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi4", title: "title3", updatedDate: "123", content: "content3", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi5", title: "title4", updatedDate: "123", content: "content4", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi6", title: "title5", updatedDate: "123", content: "content5", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
+    { id: "hi7", title: "title6", updatedDate: "123", content: "content6", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" }
+  ]
 
-  constructor(props) {
-    super(props);
+  const [friends] = React.useState(dumData);
+  /*
+  const [friends, _setFriends] = React.useState(dumData);
+  const [selectedNote, setSelectedNote] = React.useState(null)
+  const [isAddNoteModalOpen, setIsAddNoteModalOpen] = React.useState(false)
+  const [isEditNoteModalOpen, setIsEditNoteModalOpen] = React.useState(false)
+  */
 
-    this.state = {
-      friends: dumData,
-      selectedNote: null,
-      isAddNoteModalOpen: false,
-      isEditNoteModalOpen: false
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <ResponsiveTable friends={this.state.friends} />
-
-      </div >
-    )
-  }
+  return (
+    <div>
+      <Navbar />
+      <ResponsiveTable friends={friends} />
+    </div >
+  )
 }
-
-
-const dumData = [{ id: "hi", title: "title0", updatedDate: "123", content: "content0", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title1", updatedDate: "123", content: "content1", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title2", updatedDate: "123", content: "content2", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title3", updatedDate: "123", content: "content3", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title4", updatedDate: "123", content: "content4", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title5", updatedDate: "123", content: "content5", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" },
-{ id: "hi", title: "title6", updatedDate: "123", content: "content6", image: "https://image.flaticon.com/icons/svg/2858/2858063.svg" }]
-
 
 
 export default Friends;
