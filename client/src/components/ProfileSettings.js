@@ -64,7 +64,7 @@ const Settings = ({ p }) => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Title<b></b></Form.Label>
               <Form.Control size="lg" type="Title" placeholder={p.title} />
-              <Form.Control size="lg" type="email" placeholder={user.displayName} disableds />
+              <Form.Control size="lg" type="name" placeholder={user.displayName} disabled />
 
             </Form.Group>
             <Form.Group controlId="settings.Hobbies">
