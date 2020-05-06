@@ -44,8 +44,6 @@ export const AuthProvider = (props) => {
         return undefined
       }
 
-      setUser(result.user);
-
       return db.auth().currentUser.getIdToken()
     }).then(token => {
       if (token){
@@ -68,8 +66,9 @@ export const AuthProvider = (props) => {
       headers
     }).then(response => {
       return response.json()
-    }).then(json => {
-      console.log(json)
+    }).then(user => {
+      console.log(user)
+      setUser(user)
     })
   }
 
@@ -79,8 +78,8 @@ export const AuthProvider = (props) => {
   }
 
   const exportObj = {
-    user, setUser, 
-    credential, setCredential,
+    user, // setUser, 
+    credential, //setCredential,
     handleSignOn, handleSignOut
   }
 

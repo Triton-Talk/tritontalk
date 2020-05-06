@@ -20,7 +20,7 @@ const NavigationBar = () => {
           (
             <>
               <Navbar.Text>
-                Signed in as: {user.displayName}
+                Signed in as: {user.name}
                 <button onClick={handleSignOut}> sign out </button>
               </Navbar.Text>
             </>

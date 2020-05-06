@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
-//import DummyImage from "./dummy_profile_photo.png";
+import DummyImage from "./dummy_profile_photo.png";
 
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
@@ -21,7 +21,7 @@ const Settings = ({ p }) => {
 
             <Form.Group controlId="settings.image">
               <center>
-                <Image src={user.photoURL} rounded />
+                <Image src={user.picture} rounded />
               </center>
             </Form.Group>
             <Form.Group controlId="settings.College">
@@ -65,7 +65,7 @@ const Settings = ({ p }) => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Title<b></b></Form.Label>
               <Form.Control size="lg" type="Title" placeholder={p.title} />
-              <Form.Control size="lg" type="email" placeholder={user.displayName} disableds />
+              <Form.Control size="lg" type="email" placeholder={user.name}  />
 
             </Form.Group>
             <Form.Group controlId="settings.Hobbies">

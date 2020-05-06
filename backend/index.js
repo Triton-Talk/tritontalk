@@ -7,6 +7,7 @@ const path = require('path');
 const cors = require('cors');
 const admin = require('firebase-admin')
 
+require('./db')
 const User = require('./models/User')
 const Room = require('./models/Room')
 const Club = require('./models/Club')
@@ -54,7 +55,7 @@ app.get('/api/video/token', (req, res) => {
 
 // PRODUCTION ROUTES
 app.post('/api/*', (req, res, next) => {
-  console.log(req.body)
+  console.log('Processing identity')
   admin.auth().verifyIdToken(req.body.credential).then(identity => {
     req.identity = identity
     next()
@@ -63,10 +64,45 @@ app.post('/api/*', (req, res, next) => {
   })
 })
 
-app.post('/api/login', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ greeting: `Hello ${req.identity.name}!` }));
+app.post('/api/login', async (req, res) => {
+  const query = {email: req.identity.email}
+
+  let user = await User.findOne(query)
+
+  if(!user){
+    console.log('User not found')
+
+    user = new User({
+      name: req.identity.name,
+      email: req.identity.email,
+      picture: req.identity.picture
+    })
+
+    user.save()
+    console.log(user)
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(user));
+  }
+
+  else{
+    console.log('User successfully found')
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(user));
+  }
 });
+
+app.put('/api/updateUser', async (req, res) => {
+  const query = {email: req.identity.email}
+
+  let user = await User.findOne(query)
+
+  if(!user)
+    res.status(404).send('Cannot modify a nonexistent user')
+
+  user = {...user, ...req.body.user}
+
+
+})
 
 app.post('/api/video/token', (req, res) => {
   console.log('request has arrived')
