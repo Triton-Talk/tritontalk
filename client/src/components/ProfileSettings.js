@@ -55,7 +55,7 @@ const Settings = ({ p }) => {
             </Form.Group>
           </Col>
 
-          <Col xs={12} lg={6}>
+          <Col xs={12} md={12} lg={12} xl={6}>
             <Form.Group controlId="settings.email">
               <Form.Label>Email address <b>(Cannot be changed)</b></Form.Label>
               <Form.Control size="sm" type="email" placeholder={user.email} disabled />
