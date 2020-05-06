@@ -60,14 +60,13 @@ export const AuthProvider = (props) => {
     const body = JSON.stringify({credential: token})
     const headers = {'Content-Type': 'application/json'}
 
-    return fetch('http://localhost:3001/api/login', {
+    return fetch('/api/login', {
       method,
       body,
       headers
     }).then(response => {
       return response.json()
     }).then(user => {
-      console.log(user)
       setUser(user)
     })
   }
