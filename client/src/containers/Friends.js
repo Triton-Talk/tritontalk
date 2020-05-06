@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from './Navbar';
 
 import ResponsiveTable from "../components/responsive_table";
 
@@ -25,7 +24,6 @@ const Friends = (props) => {
 
   return (
     <div>
-      <Navbar />
       <ResponsiveTable friends={friends} />
     </div >
   )

@@ -1,4 +1,4 @@
-import Auth from '../auth'
+import Auth from '../context/auth'
 import React from 'react';
 
 const Lobby = ({

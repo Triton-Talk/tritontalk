@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Col, Image } from 'react-bootstrap'
+//import { Form, Button, Col, Image } from 'react-bootstrap'
 
 const Filter = ({ props }) => {
   return (

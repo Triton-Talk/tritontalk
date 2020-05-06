@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import io from 'socket.io-client';
 import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
-import Auth from '../auth';
+import Auth from '../context/auth';
 
 const URL = '/'
 

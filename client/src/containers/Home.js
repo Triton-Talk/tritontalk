@@ -3,7 +3,6 @@ import '../styles/App.css';
 
 import VideoChat from './VideoChat';
 import Chat from './Chat';
-import Navbar from './Navbar';
 
 const Home = () => {
 
@@ -27,7 +26,6 @@ const Home = () => {
   return (
     <>
       <main>
-        <Navbar />
         <div style={homeStyle}>
           {body}
         </div>

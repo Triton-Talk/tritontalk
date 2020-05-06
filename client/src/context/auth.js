@@ -1,6 +1,6 @@
 import React from 'react';
 
-import db, {GoogleSignOn} from './firebase'
+import db, {GoogleSignOn} from '../firebase'
 import Cookies from 'universal-cookie'
 
 const Auth = React.createContext();
@@ -60,7 +60,7 @@ export const AuthProvider = (props) => {
     const body = JSON.stringify({credential: token})
     const headers = {'Content-Type': 'application/json'}
 
-    return fetch('/api/login', {
+    return fetch('http://localhost:3001/api/login', {
       method,
       body,
       headers

@@ -3,35 +3,40 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import '../styles/App.css';
 
+import Navbar from './Navbar'
+
 import Home from './Home';
 import LibraryWalk from '../components/LibraryWalk';
-import Friends from '../containers/Friends';
-import ProfileSettings from '../containers/ProfileSettings';
-import RandomCall from '../containers/RandomCall';
-import RegisterOrganization from '../containers/RegisterOrganization';
-import SplashPage from '../containers/SplashPage';
+import Friends from './Friends';
+import ProfileSettings from './ProfileSettings';
+import RandomCall from './RandomCall';
+import RegisterOrganization from './RegisterOrganization';
+import SplashPage from './SplashPage';
 
-
-import { AuthProvider } from '../auth'
+import { AuthProvider } from '../context/auth'
+import { PageProvider } from '../context/page'
 
 const App = () => {
   return (
 
-    <AuthProvider>
-      <div className="app">
-        <Router>
-          <Switch>
-            <Route path="/" exact component={() => <Home />} />
-            <Route path="/home" exact component={() => <LibraryWalk />} />
-            <Route path="/friends" exact component={() => <Friends />} />
-            <Route path="/ProfileSettings" exact component={() => <ProfileSettings />} />
-            <Route path="/RandomCall" exact component={() => <RandomCall />} />
-            <Route path="/RegisterOrganization" exact component={() => <RegisterOrganization />} />
-            <Route path="/SplashPage" exact component={() => <SplashPage />} />
-          </Switch>
-        </Router>
-      </div >
-    </AuthProvider>
+    <Router>
+      <PageProvider>
+        <AuthProvider>
+          <div className="app">
+              <Navbar />
+              <Switch>
+                <Route path="/" exact component={() => <Home />} />
+                <Route path="/home" exact component={() => <LibraryWalk />} />
+                <Route path="/friends" exact component={() => <Friends />} />
+                <Route path="/settings" exact component={() => <ProfileSettings />} />
+                <Route path="/random" exact component={() => <RandomCall />} />
+                <Route path="/registerorganization" exact component={() => <RegisterOrganization />} />
+                <Route path="/splash" exact component={() => <SplashPage />} />
+              </Switch>
+          </div >
+        </AuthProvider>
+      </PageProvider>
+    </Router>
   );
 };
 

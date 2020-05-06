@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
-import Auth from '../auth'
+import Auth from '../context/auth'
 
 import SelectOneThing from '../components/SelectOneThing';
 

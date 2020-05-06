@@ -1,48 +1,46 @@
 import React, { useContext } from 'react';
+import {Navbar} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar } from 'react-bootstrap'
 import styles from '../styles/NavBar.css';
-import Auth from '../auth'
 
-import { Redirect } from 'react-router-dom';
+import Auth from '../context/auth'
+import Page from '../context/page'
+
+import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
 
   const { user, handleSignOn, handleSignOut } = useContext(Auth);
 
-  const [redirect, setRedirect] = React.useState(null)
+  const { page, setPage } = useContext(Page)
 
-  if(redirect)
-    return <Redirect to={redirect} />
-
-  else
-    return (
-      <Navbar style={styles} bg="dark" variant="dark">
-        <Navbar.Toggle />
-        <button>Go Chat</button>
-        <div className="centered">
-          <a href="/"><h1 className="NavBarLogo">TritonTalk</h1></a>
-        </div>
-        <Navbar.Collapse className="justify-content-end">
-          {
-            user !== null && user !== undefined ?
-            <div class="dropdown">
-              <button className="dropbtn">Account Settings</button>
-              <div className="dropdown-content">
-                <button onClick={()=> setRedirect('/settings') }
-                        className="dropdown-button">Profile Settings</button>
-                <button className="dropdown-button" 
-                        onClick={handleSignOut}>Sign out</button>
-              </div>
+  return (
+    <Navbar style={styles} bg="dark" variant="dark">
+      <Navbar.Toggle />
+      <button>Go Chat</button>
+      <div className="centered">
+        <Link to="/"><h1 className="NavBarLogo">TritonTalk</h1></Link>
+      </div>
+      <Navbar.Collapse className="justify-content-end">
+        {
+          user !== null && user !== undefined ?
+          <div className="dropdown">
+            <button className="dropbtn">Account</button>
+            <div className="dropdown-content">
+              <button className="dropdown" 
+                      onClick={() => setPage('/settings')}>Settings</button>
+              <button className="dropdown" 
+                      onClick={handleSignOut}>Sign out</button>
             </div>
-            : 
-            <div class="dropdown">
-              <button className="dropbtn" onClick={handleSignOn}>Sign in</button>
-            </div>
-          }
-        </Navbar.Collapse>
-      </Navbar >
-    )
+          </div>
+          : 
+          <div className="dropdown">
+            <button className="dropbtn" onClick={handleSignOn}>Sign in</button>
+          </div>
+        }
+      </Navbar.Collapse>
+    </Navbar >
+  )
 }
 
 export default NavigationBar;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
-import Auth from '../auth';
+import Auth from '../context/auth';
 
 const VideoChat = () => {
   const { user, credential } = React.useContext(Auth);
