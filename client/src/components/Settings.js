@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
-import DummyImage from "./dummy_profile_photo.png";
+import SelectOneThing from '../components/SelectOneThing';
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
   console.log({ user })
@@ -11,6 +11,9 @@ const Settings = ({ p }) => {
     title: "Class President",
     email: "kstanzah@ucsd.esdu"
   }
+
+
+
   return (
     <div>
       <hr />
@@ -23,36 +26,9 @@ const Settings = ({ p }) => {
                 <Image src={user.photoURL} rounded />
               </center>
             </Form.Group>
-            <Form.Group controlId="settings.College">
-              <Form.Label>College</Form.Label>
-              <Form.Control size="lg" as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="settings.Major">
-              <Form.Label>Major</Form.Label>
-              <Form.Control size="lg" as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="settings.Year">
-              <Form.Label>Year</Form.Label>
-              <Form.Control size="lg" as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
+            <SelectOneThing controlId="settings.School" Label="School" options={[{ key: "Thursgood Marshall" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
+            <SelectOneThing controlId="settings.Major" Label="Major" options={[{ key: "Computer Science" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
+            <SelectOneThing controlId="settings.Year" Label="Year" options={[{ key: "2019" }, { key: "2" }, { "key": 3 }, { "key": 4 }, { "key": 5 }]} />
           </Col>
 
           <Col xs={12} md={12} lg={12} xl={6}>
@@ -85,7 +61,7 @@ const Settings = ({ p }) => {
         <center>
           <Button size="lg" variant="primary" type="submit">
             Update
-  </Button>
+          </Button>
         </center>
       </Form>
 
