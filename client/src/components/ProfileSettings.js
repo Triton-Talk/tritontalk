@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
@@ -12,7 +14,9 @@ const Settings = ({ p }) => {
     title: "Class President",
     email: "kstanzah@ucsd.esdu"
   }
-  return (
+
+
+  return ( user ? 
     <div>
       <hr />
       <Form style={{ maxWidth: "95%" }}>
@@ -86,7 +90,8 @@ const Settings = ({ p }) => {
         </center>
       </Form>
 
-    </div>
+    </div> : 
+    <Redirect to="/SplashPage" />
   )
 }
 

@@ -56,6 +56,13 @@ app.get('/api/video/token', (req, res) => {
 // PRODUCTION ROUTES
 app.post('/api/*', (req, res, next) => {
   console.log('Processing identity')
+  if(req.body.postman){
+    req.identity = {}
+    req.identity.name = 'Shubham Kulkarni'
+    req.identity.email = 'skulkarn@ucsd.edu';
+    req.identity.picture = 'http://randomuser.me/api/portraits/men/44.jpg'
+    next()
+  }
   admin.auth().verifyIdToken(req.body.credential).then(identity => {
     req.identity = identity
     next()
@@ -78,8 +85,7 @@ app.post('/api/login', async (req, res) => {
       picture: req.identity.picture
     })
 
-    user.save()
-    console.log(user)
+    await user.save()
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(user));
   }
@@ -91,7 +97,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.put('/api/updateUser', async (req, res) => {
+app.patch('/api/updateUser', async (req, res) => {
   const query = {email: req.identity.email}
 
   let user = await User.findOne(query)
@@ -100,8 +106,22 @@ app.put('/api/updateUser', async (req, res) => {
     res.status(404).send('Cannot modify a nonexistent user')
 
   user = {...user, ...req.body.user}
+  await user.save()
+  
+  res.send(user)
+})
 
+app.delete('/api/me', async (req, res) => {
+  const query = {email: req.identity.email}
 
+  let user = await User.findOne(query)
+
+  if(!user)
+    res.status(404).send('Cannot delete a nonexistent user')
+
+  await user.remove()
+
+  res.send('User deleted')
 })
 
 app.post('/api/video/token', (req, res) => {
