@@ -29,7 +29,7 @@ app.get('/greeting', (req, res) => {
 // PREPROCESSOR FOR ALL API ROUTES
 app.use('/api/*', (req, res, next) => {
   console.log('Processing identity')
-  if(req.body.postman){
+  if (req.body.postman) {
     req.identity = {}
     req.identity.name = 'Shubham Kulkarni'
     req.identity.email = 'skulkarn@ucsd.edu';
@@ -47,7 +47,7 @@ app.use('/api/*', (req, res, next) => {
 app.use(userRouter)
 app.use(videoRouter)
 
-server = app.listen(3000, () => console.log('node running on localhost:3000'));
+server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
 const io = require('socket.io')(server);
 
