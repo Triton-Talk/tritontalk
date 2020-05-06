@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../auth'
-import DummyImage from "./dummy_profile_photo.png";
+//import DummyImage from "./dummy_profile_photo.png";
+
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
   console.log({ user })

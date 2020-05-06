@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar';
-import Table from 'react-bootstrap/Table'
-import TableTile from '../components/tableTile';
-import Responsive_Table from "../components/responsive_table";
-import DummyImage from "./dummy_profile_photo.png";
+import ResponsiveTable from "../components/responsive_table";
+
 class Friends extends Component {
 
   constructor(props) {
@@ -25,29 +23,10 @@ class Friends extends Component {
 
   render() {
 
-
-
-
     return (
       <div>
         <Navbar />
-        <Responsive_Table notes={this.state.notes} />
-
-        {/* <Table responsive>
-          <tbody>
-            {elements.map((value, index) => {
-              return (
-                <tr>
-                  <td><TableTile /></td>
-                  <td><TableTile /></td>
-                  <td><TableTile /></td>
-                </tr>
-              )
-            })}
-
-          </tbody>
-
-        </Table> */}
+        <ResponsiveTable notes={this.state.notes} />
       </div >
     )
   }

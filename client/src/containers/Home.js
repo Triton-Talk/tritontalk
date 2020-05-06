@@ -1,16 +1,11 @@
 import React from 'react';
 import '../styles/App.css';
 
-import Auth from '../auth';
-import db, { GoogleSignOn } from '../firebase';
-
 import VideoChat from './VideoChat';
 import Chat from './Chat';
 import Navbar from './Navbar';
 
 const Home = () => {
-
-  const { setUser, setCredential } = React.useContext(Auth);
 
   const homeStyle = {
     backgroundColor: "lightblue",
@@ -21,32 +16,9 @@ const Home = () => {
   }
 
 
-  const handleSignOn = () => {
-    db.auth().signInWithPopup(GoogleSignOn).then(result => {
-      const email = result.user.email
-      if (!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu') {
-        alert("That's not a UCSD email address!")
-        return undefined
-      }
-
-      setUser(result.user);
-
-      return db.auth().currentUser.getIdToken()
-    }).then(token => {
-      if (token)
-        setCredential(token)
-    }).catch(error => {
-      alert(error)
-    })
-  }
-
-  const handleSignOut = () => {
-    setUser(null)
-    setCredential(null)
-  }
   var PAGE = "HOME";
   var body;
-  if (PAGE == "HOME") {
+  if (PAGE === "HOME") {
     body = <VideoChat />;
   } else {
     body = <Chat />;
@@ -55,9 +27,9 @@ const Home = () => {
   return (
     <>
       <main>
-        <Navbar handleSignOn={handleSignOn} handleSignOut={handleSignOut} />
+        <Navbar />
         <div style={homeStyle}>
-          <VideoChat />
+          {body}
         </div>
       </main>
       <footer>

@@ -36,7 +36,6 @@ const sendTokenResponse = (token, res) => {
 app.get('/*', function(req, res, next) {
   console.log(req.url);
   console.log('call has arrived');
-  res.send('hello world')
   next()
 });
 
@@ -77,7 +76,7 @@ app.post('/api/video/token', (req, res) => {
   sendTokenResponse(token, res);
 });
 
-server = app.listen(3000, () => console.log('node running on localhost:3000'));
+server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
 const io = require('socket.io')(server);
 

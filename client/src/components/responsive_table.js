@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap'
 import TableTile from "./tableTile";
-const Responsive_table = (props) => {
+
+const ResponsiveTable = (props) => {
   const notes = props.notes;
 
   const noteRows = notes.map(note => {
 
-    let classes = `small ${!!note.isNew ? 'table-success' : ''}`;
+    //let classes = `small ${!!note.isNew ? 'table-success' : ''}`;
 
     return (
 
@@ -66,11 +67,15 @@ const Responsive_table = (props) => {
           <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Filter Criteria
                     </button>
+          {
+            /*
           <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <a className="dropdown-item" href="#">Alphabetical</a>
             <a className="dropdown-item" href="#">Forms Incompleted</a>
             <a className="dropdown-item" href="#">Time of Creation</a>
           </div>
+            */
+          }
         </div>
 
         <p className="h6" style={{ margin: '10px' }}><small><b>{notes.length}</b>  Friends</small></p>
@@ -78,7 +83,7 @@ const Responsive_table = (props) => {
       </div>
 
       <table className="table table-bordered" >
-        <thead class="thead-dark">
+        <thead className="thead-dark">
           <tr>
 
           </tr>
@@ -95,10 +100,10 @@ const Responsive_table = (props) => {
   );
 };
 
-Responsive_table.propTypes = {
+ResponsiveTable.propTypes = {
   notes: PropTypes.array,
   onDeleteNote: PropTypes.func,
   onOpenEditNoteModal: PropTypes.func
 };
 
-export default Responsive_table;
+export default ResponsiveTable;

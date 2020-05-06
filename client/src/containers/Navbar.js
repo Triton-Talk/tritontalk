@@ -4,16 +4,16 @@ import { Navbar, Button } from 'react-bootstrap'
 import styles from '../styles/NavBar.css';
 import Auth from '../auth'
 
-const NavigationBar = ({ handleSignOn, handleSignOut }) => {
+const NavigationBar = () => {
 
-  const { user } = useContext(Auth);
+  const { user, handleSignOn, handleSignOut } = useContext(Auth);
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar style={styles} bg="dark" variant="dark">
       <Navbar.Toggle />
       <Button style={{ backgroundColor: "#FFDF35", color: "black" }}>Go Chat</Button>
-      <div class="centered">
-        <h1 class="NavBarLogo">TritonTalk</h1>
+      <div className="centered">
+        <h1 className="NavBarLogo">TritonTalk</h1>
       </div>
       <Navbar.Collapse className="justify-content-end">
         {user !== null && user !== undefined ?
