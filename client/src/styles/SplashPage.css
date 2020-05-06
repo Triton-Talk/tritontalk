@@ -1,0 +1,48 @@
+.TritonTalkLogo{
+    position: absolute;
+    width: 788px;
+    height: 237px;
+    left: 326px;
+    top: 285px;
+
+    font-family: Londrina Solid;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 200px;
+    line-height: 237px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #FFFDED;
+
+    border: 10px solid #4B7FE6;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Logo {
+    color: white;
+     font-family: 'Londrina Solid', cursive;
+     font-size:20vw;
+     text-align: center;
+     -webkit-text-stroke-width: 1vw;
+     -webkit-text-stroke-color: #4B7FE6;
+    padding: 100px 0px 0px 0px;
+    margin: 0px;
+
+}
+
+.SubText{
+
+    font-family: 'Londrina Solid', cursive;
+    font-style: normal;
+    font-weight: normal;
+     font-size:7vw;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+
+    color: #FFF9C0;
+}
+
+

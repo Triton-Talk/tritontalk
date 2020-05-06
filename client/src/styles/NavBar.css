@@ -1,0 +1,18 @@
+.NavBarLogo {
+    color: white;
+     font-family: 'Londrina Solid', cursive;
+     font-size:50px;
+     -webkit-text-stroke-width: 1px;
+     -webkit-text-stroke-color: #4B7FE6;
+     padding:0px;
+     margin: 0px;
+
+}
+
+.centered {
+  width:100%;
+  margin:0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
