@@ -22,7 +22,7 @@ const Responsive_table = (props) => {
     <div>
       <Filter props={friends} />
       <table className="table" >
-        <tbody>
+        <tbody >
           <Row gutter={40}>
             {FriendTable}
           </Row>

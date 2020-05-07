@@ -7,7 +7,7 @@ const TableTile = ({ user }) => {
 
   return (
     <div>
-      <Card style={{ margin: "8px" }}>
+      <Card style={{ marginBottom: "8px" }}>
         <Card.Img variant="top" src={user.image} />
         <Card.Body>
           <ListGroup className="list-group-flush">
