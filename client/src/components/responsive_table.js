@@ -19,7 +19,8 @@ const Responsive_table = (props) => {
 
 
   return (
-    <div>
+    <div style={{ marginLeft: "1px" }}>
+      <br></br>
       <Filter props={friends} />
       <table className="table" >
         <tbody >
