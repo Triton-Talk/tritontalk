@@ -137,7 +137,7 @@ class RegisterOrganization extends Component {
               label="Make my Organization Public to Library Walk" />
 
           </Form.Group>'
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Submit
           </Button>
 
