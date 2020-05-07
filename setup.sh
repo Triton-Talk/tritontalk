@@ -1,3 +1,3 @@
 echo "Installing dependencies"
-npm --prefix backend/ install
-npm --prefix client/ install
+npm backend/ install
+npm client/ install
