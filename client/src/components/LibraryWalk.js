@@ -3,21 +3,25 @@ import Phaser from 'phaser'
 import { IonPhaser } from '@ion-phaser/react'
 import PhaserScene from './PhaserScene.js'
 
+
 class LibraryWalk extends Component {
 
-  state = {
-    initialize: true,
-    game: {
-      width: "90%",
-      height: "90%",
-      type: Phaser.AUTO,
-	 physics: {
-            default: 'arcade',
-            arcade: {
-            }
-        },
-      scene: PhaserScene
-    }
+  constructor(props) {
+	super(props);
+	this.state = {
+	    initialize: true,
+	    game: {
+	      width: "90%",
+	      height: "90%",
+	      type: Phaser.AUTO,
+		 physics: {
+		    default: 'arcade',
+		    arcade: {
+		    }
+		},
+	      scene: PhaserScene
+	    }
+	  }
   }
 
   render() {
