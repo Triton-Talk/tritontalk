@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <>
       <main>
-        <div class="shadow-lg p-3  " style={homeStyle}>
+        <div className="shadow-lg p-3  " style={homeStyle}>
           {body}
           <Link to='/registerorganization'>
             <button className="btn-success">Register an Organization</button>

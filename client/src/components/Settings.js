@@ -9,10 +9,12 @@ import SelectOneThing from '../components/SelectOneThing';
 
 const Settings = ({ p }) => {
   const { user } = React.useContext(Auth)
-  p = {
-    name: "Kimba  Stanzah",
-    title: "Class President",
-    email: "kstanzah@ucsd.esdu"
+  p = { ...user }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    console.log(event.target.id)
   }
 
   const colleges = ["Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
@@ -24,7 +26,7 @@ const Settings = ({ p }) => {
   return (user ?
     <div>
       <hr />
-      <Form style={{ maxWidth: "95%" }}>
+      <Form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit}>
         <Form.Row>
           <Col xs={12} md={12} lg={12} xl={6}>
 
