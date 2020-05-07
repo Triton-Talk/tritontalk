@@ -35,6 +35,7 @@ const Settings = ({ p }) => {
       alert('User was successfully updated')
     }).catch(error => {
       alert('There was an error! Please try again.')
+      console.log(error)
     })
   }
 
