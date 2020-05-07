@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap'
 
-const SelectOneThing = (props) => {
-  const friends = props.options;
+const SelectOneThing = ({label, options, value, onChange}) => {
 
   return (
-    <Form.Group controlId={props.controlId}>
-      <Form.Label>{props.Label}</Form.Label>
-      <Form.Control size="lg" as="select">
-        {friends.map((value, index) => {
-          return <option key={index}>{value}</option>
-        })}
+    <Form.Group>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control size="lg" as="select" value={value} onChange={onChange}>
+        { options.map((e, i) => <option key={i}>{e}</option>) }
 
       </Form.Control>
     </Form.Group>

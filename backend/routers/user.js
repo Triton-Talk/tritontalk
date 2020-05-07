@@ -20,27 +20,26 @@ router.post('/api/login', async (req, res) => {
     })
 
     await user.save()
-    res.send(JSON.stringify(user));
+    res.status(200).send(JSON.stringify(user));
   }
 
   else{
     console.log('User successfully found')
-    res.send(JSON.stringify(user));
+    res.status(200).send(JSON.stringify(user));
   }
 });
 
-router.patch('/api/updateUser', async (req, res) => {
+router.put('/api/updateUser', async (req, res) => {
   const query = {email: req.identity.email}
 
-  let user = await User.findOne(query)
+  let user = await User.findOneAndUpdate(query, req.body.user, { new: true})
 
   if(!user)
     res.status(404).send('Cannot modify a nonexistent user')
 
-  user = {...user, ...req.body.user}
-  await user.save()
-  
-  res.send(user)
+  console.log(user)
+
+  res.status(200).send(user)
 })
 
 router.delete('/api/me', async (req, res) => {
@@ -53,7 +52,7 @@ router.delete('/api/me', async (req, res) => {
 
   await user.remove()
 
-  res.send('User deleted')
+  res.status(200).send('User deleted')
 })
 
 module.exports = router

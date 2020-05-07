@@ -86,9 +86,10 @@ export const AuthProvider = (props) => {
   }
 
   const exportObj = {
-    user, // setUser, 
-    credential, //setCredential,
-    handleSignOn, handleSignOut
+    user, setUser, 
+    credential, setCredential,
+    handleSignOn, handleSignOut,
+    URL
   }
 
   return (

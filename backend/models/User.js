@@ -26,21 +26,27 @@ const userSchema = new mongoose.Schema({
   },
   picture: {
     type: String,
+    default: ''
   },
   college: {
-    type: String
+    type: String,
+    default: ''
   },
   year: {
-    type: String
+    type: String,
+    default: ''
   },
   major: {
-    type: String
+    type: String,
+    default: ''
   },
   bio: {
     type: String,
+    default: ''
   },
   hobbies: {
     type: String,
+    default: ''
   },
   friends: [{
     type: ObjectId, 

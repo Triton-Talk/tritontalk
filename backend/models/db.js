@@ -7,6 +7,8 @@ const connectionURL = `mongodb+srv://${user}:${pass}@${host}`;
 const databaseOptions = {useNewUrlParser: true, useUnifiedTopology: true, 
                          useCreateIndex: true};
 
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(connectionURL, databaseOptions).catch(e => console.log(e));
 
 
