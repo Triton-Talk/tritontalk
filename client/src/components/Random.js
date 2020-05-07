@@ -42,7 +42,7 @@ const Random = (props) => {
 
         {/* Address */}
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridState">
+          <Form.Group as={Col} controlId="formCollege">
             <Form.Label>College</Form.Label>
             <Form.Control as="select" value="Choose...">
               <option>Choose...</option>
@@ -50,7 +50,7 @@ const Random = (props) => {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridState">
+          <Form.Group as={Col} controlId="formMajor">
             <Form.Label>Major</Form.Label>
             <Form.Control as="select" value="Choose...">
               <option>Choose...</option>
