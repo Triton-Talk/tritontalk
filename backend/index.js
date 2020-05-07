@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const admin = require('./firebase')
+const admin = require('./firebase/firebase')
 
 const userRouter = require('./routers/user')
 const videoRouter = require('./routers/video')
