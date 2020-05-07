@@ -53,7 +53,7 @@ const Settings = ({ p }) => {
   return (
     <div>
       <hr />
-      <Form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit}>
+      <Form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit} onReset={handleReset}>
         <Form.Row>
           <Col xs={12} md={12} lg={12} xl={6}>
 
@@ -106,13 +106,14 @@ const Settings = ({ p }) => {
         </Form.Row>
         <hr />
         <center>
-          <Button style={{ marginRight: "4px" }} size="lg" variant="dark" type="submit">
+          <Button style={{ margin: "4px", backgroundColor: 'blue' }} size="lg" variant="dark" type="submit">
             Update
           </Button>
 
-          <Button size="lg" variant="dark" type="reset">
+          <Button style={{ margin: "4px", backgroundColor: 'red' }} size="lg" variant="dark" type="reset">
             Reset
           </Button>
+
         </center>
       </Form>
 
