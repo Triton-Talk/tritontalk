@@ -2,15 +2,12 @@ import React from 'react';
 import '../styles/App.css';
 
 import { Link } from 'react-router-dom'
-import Page from '../context/page'
 
 import VideoChat from './VideoChat';
 import Chat from './Chat';
 import Footer from '../components/footer';
 
 const Home = () => {
-
-  const {page, setPage} = React.useContext(Page)
 
   const homeStyle = {
     backgroundColor: "lightblue",
@@ -38,17 +35,28 @@ const Home = () => {
       <main>
         <div class="shadow-lg p-3  " style={homeStyle}>
           {body}
-          <button onClick={() => setPage("/registerorganization")}
-                  className="btn-success">Register an Organization</button>
+
+          <Link to='/registerorganization'>
+            <button className="btn-success">Register an Organization</button>
+          </Link>
+
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/friends')}>Friends</button>
+
+          <Link to='/friends'>
+            <button className="btn-primary">Friends</button>
+          </Link>
+
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/splash')}>Splash Page</button>
+
+          <Link to='/splash'>
+            <button className="btn-primary">Splash Page</button>
+          </Link>
+
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/random')}>Random Call</button>
+
+          <Link to='/random'>
+            <button className="btn-primary">Random Call</button>
+          </Link>
         </div>
       </main>
       <Footer />

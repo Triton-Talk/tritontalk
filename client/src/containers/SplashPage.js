@@ -4,11 +4,10 @@ import BackgroundImage from "./SplashPageBackground.png";
 import SplashPageBackground from './SplashPageBackground.png'
 
 import Auth from '../context/auth';
-import Page from '../context/page';
 
 function SplashPage() {
   const { user, handleSignOn, handleSignOut } = useContext(Auth);
-  const { page, setPage } = useContext(Page)
+
   return (
     <div className="App" style={{backgroundImage: `url(${SplashPageBackground})` }}>
       <h1 className="Logo">TritonTalk</h1>

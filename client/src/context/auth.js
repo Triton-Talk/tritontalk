@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
 
 import db, {GoogleSignOn} from '../firebase'
 import Cookies from 'universal-cookie'
@@ -16,13 +17,15 @@ let initialCredential = cookies.get('credential')
 if(initialCredential === 'null')
   initialCredential = undefined
 
-
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 export const AuthProvider = (props) => {
 
   const [user, _setUser] = React.useState(initialUser)
   const [credential, _setCredential] = React.useState(initialCredential)
+
+  const history = useHistory()
+
 
   React.useEffect(() => { 
     if(initialCredential)
@@ -72,12 +75,14 @@ export const AuthProvider = (props) => {
       return response.json()
     }).then(user => {
       setUser(user)
+      history.push('/')
     })
   }
 
   const handleSignOut = () => {
     setUser(null)
     setCredential(null)
+    history.push('/splash')
   }
 
   const exportObj = {
