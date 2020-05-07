@@ -11,28 +11,28 @@ const Random = (props) => {
       <Form style={{ maxWidth: "95%" }}>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Group as={Col} controlId="year1">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch-year1"
               label="Year 1" />
           </Form.Group>
-          <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Group as={Col} controlId="year2">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch-year2"
               label="Year 2" />
           </Form.Group>
-          <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Group as={Col} controlId="year3">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch-year3"
               label="Year 3" />
           </Form.Group>
-          <Form.Group as={Col} controlId="formGridEmail">
+          <Form.Group as={Col} controlId="year4">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch-year4"
               label="Year 4" />
           </Form.Group>
 
