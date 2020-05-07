@@ -53,15 +53,15 @@ const Settings = ({ p }) => {
   return (
     <div>
       <hr />
-      <form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit} 
-            onReset={handleReset}>
-        <div className='row'>
-          <div className='col'>
+      <Form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit}>
+        <Form.Row>
+          <Col xs={12} md={12} lg={12} xl={6}>
 
-            <center>
-              <Image src={user.picture} />
-            </center>
-
+            <Form.Group controlId="settings.image">
+              <center>
+                <Image src={user.picture} rounded />
+              </center>
+            </Form.Group>
             <SelectOneThing controlId="settings.School" label="School" 
                 options={colleges} value={user.college}
                 onChange={(e) => setUser({...user, college: e.target.value})}/>
@@ -71,40 +71,39 @@ const Settings = ({ p }) => {
             <SelectOneThing controlId="settings.Year" label="Year" 
                 options={years} value={user.year}
                 onChange={(e) => setUser({...user, year: e.target.value})}/>
-          </div>
+          </Col>
 
-          <div className='col'>
-            <div className='form-group'>
-              <label>Email address <b>(Cannot be changed)</b></label>
-              <input className='form-control' placeholder={user.email} disabled />
-            </div>
+          <Col xs={12} md={12} lg={12} xl={6}>
+            <Form.Group controlId="settings.email">
+              <Form.Label>Email address <b>(Cannot be changed)</b></Form.Label>
+              <Form.Control size="sm" type="email" placeholder={user.email} disabled />
+            </Form.Group>
 
-            <div className='form-group'>
-              <label>Name<b></b></label>
-              <input className='form-control' value={user.name} 
-                     onChange={(e) => setUser({...user, name: e.target.value})}/>
-            </div>
+            <Form.Group controlId="settings.Name">
+              <Form.Label>Name<b></b></Form.Label>
+              <Form.Control size="lg" value={user.name}
+                 onChange={(e) => setUser({...user, name: e.target.value})}/>
+            </Form.Group>
 
-            <div className='form-group'>
-              <label>Hobbies<b></b></label>
-              <textarea className='form-control' value={user.hobbies} 
-                        onChange={(e) => setUser({...user, hobbies: e.target.value})}/>
-            </div>
+            <Form.Group controlId="settings.Hobbies">
+              <Form.Label>Hobbies</Form.Label>
+              <Form.Control size="lg" as="textarea" rows="3" value={user.hobbies}
+                  onChange={(e) => setUser({...user, hobbies: e.target.value})}/>
+            </Form.Group>
 
-            <div className='form-group'>
-              <label>Clubs<b></b></label>
-              <textarea className='form-control' value={user.clubs} 
-                        onChange={(e) => setUser({...user, clubs: e.target.value})}/>
-            </div>
+            <Form.Group controlId="settings.Clubs">
+              <Form.Label>Clubs</Form.Label>
+              <Form.Control size="lg" as="textarea" rows="3" value={user.clubs}
+                  onChange={(e) => setUser({...user, clubs: e.target.value})}/>
+            </Form.Group>
 
-            <div className='form-group'>
-              <label>Biography<b></b></label>
-              <textarea className='form-control' value={user.bio} 
-                        onChange={(e) => setUser({...user, bio: e.target.value})}/>
-            </div>
-          </div>
-
-        </div>
+            <Form.Group controlId="settings.Bio">
+              <Form.Label>Mini Biography</Form.Label>
+              <Form.Control size="lg" as="textarea" rows="3" value={user.bio}
+                  onChange={(e) => setUser({...user, bio: e.target.value})}/>
+            </Form.Group>
+          </Col>
+        </Form.Row>
         <hr />
         <center>
           <Button size="lg" variant="primary" type="submit">
@@ -115,7 +114,8 @@ const Settings = ({ p }) => {
             Reset
           </Button>
         </center>
-      </form>
+      </Form>
+
     </div>
   )
 }
