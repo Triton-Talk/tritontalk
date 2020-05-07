@@ -33,7 +33,7 @@ const Settings = ({ p }) => {
                 <Image src={user.picture} rounded />
               </center>
             </Form.Group>
-            <SelectOneThing controlId="settings.School" Label="School" options={colleges}/>
+            <SelectOneThing controlId="settings.School" Label="School" options={colleges} />
             <SelectOneThing controlId="settings.Major" Label="Major" options={majors} />
             <SelectOneThing controlId="settings.Year" Label="Year" options={year} />
           </Col>

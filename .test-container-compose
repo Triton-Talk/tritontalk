@@ -2,19 +2,21 @@ version: '3.1'
 
 services:
   server:
-    build: 
+    build:
       dockerfile: Dockerfile
       context: ./testing/nginx
     ports:
       - 80:80
+      - 3000:3000
+      - 3001:3001
     restart: always
     image: tttvlw-nginx-testing
-    container_name: tttvlw-nginx-testing 
+    container_name: tttvlw-nginx-testing
     depends_on:
       - web
 
   web:
-    build: 
+    build:
       dockerfile: Dockerfile
       context: ./backend
     restart: always

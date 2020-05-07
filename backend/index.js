@@ -47,7 +47,7 @@ app.use('/api/*', (req, res, next) => {
 app.use(userRouter)
 app.use(videoRouter)
 
-server = app.listen(3001, () => console.log('node running on localhost:3001'));
+server = app.listen(3000, () => console.log('node running on localhost:3000'));
 
 const io = require('socket.io')(server);
 
