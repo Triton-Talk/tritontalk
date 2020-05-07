@@ -1,11 +1,16 @@
 import React from 'react';
 import '../styles/App.css';
 
+import { Link } from 'react-router-dom'
+import Page from '../context/page'
+
 import VideoChat from './VideoChat';
 import Chat from './Chat';
 import Footer from '../components/footer';
 
 const Home = () => {
+
+  const {page, setPage} = React.useContext(Page)
 
   const homeStyle = {
     backgroundColor: "lightblue",
@@ -20,7 +25,6 @@ const Home = () => {
 
   }
 
-
   var PAGE = "HOME";
   var body;
   if (PAGE === "HOME") {
@@ -34,20 +38,17 @@ const Home = () => {
       <main>
         <div class="shadow-lg p-3  " style={homeStyle}>
           {body}
-          <form method="get" action="/registerorganization">
-            <button class="btn-success" type="submit">Register an Organization</button>
-          </form>
+          <button onClick={() => setPage("/registerorganization")}
+                  className="btn-success">Register an Organization</button>
           <br></br><br></br>
-
-          <form method="get" action="/friends">
-            <button class="btn-primary" type="submit">Friends</button>
-          </form>
-          <form method="get" action="/splash">
-            <button class="btn-primary" type="submit">Splash Page</button>
-          </form>
-          <form method="get" action="/random">
-            <button class="btn-primary" type="submit">Random Call</button>
-          </form>
+          <button className="btn-primary" 
+                  onClick={() => setPage('/friends')}>Friends</button>
+          <br></br><br></br>
+          <button className="btn-primary" 
+                  onClick={() => setPage('/splash')}>Splash Page</button>
+          <br></br><br></br>
+          <button className="btn-primary" 
+                  onClick={() => setPage('/random')}>Random Call</button>
         </div>
       </main>
       <Footer />
