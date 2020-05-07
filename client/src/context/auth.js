@@ -55,6 +55,7 @@ export const AuthProvider = (props) => {
     })
   }
 
+
   const serverLogin = token => {
     const method = 'POST'
     const body = JSON.stringify({credential: token})

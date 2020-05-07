@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import '../styles/App.css';
@@ -13,8 +13,8 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 
-import { AuthProvider } from '../context/auth'
-import { PageProvider } from '../context/page'
+import { AuthProvider } from '../context/auth';
+import { PageProvider } from '../context/page';
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
       <PageProvider>
         <AuthProvider>
           <div className="app">
-              <Navbar />
+              <Navbar/>
               <Switch>
                 <Route path="/" exact component={() => <Home />} />
                 <Route path="/home" exact component={() => <LibraryWalk />} />

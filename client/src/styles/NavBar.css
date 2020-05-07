@@ -16,8 +16,8 @@
 button {
     background-color: #ffb511;
     color: black;
-    padding: 8px;
     border-radius: 6px;
+    width: 70px;
 }
 
 a:hover{
