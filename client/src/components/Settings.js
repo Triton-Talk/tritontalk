@@ -101,13 +101,11 @@ const Settings = () => {
                   onChange={(e) => updateLocalUser({...user, hobbies: e.target.value})}/>
             </Form.Group>
 
-            {/*
             <Form.Group controlId="settings.Clubs">
               <SelectOneThing controlId="settings.Clubs" label="Clubs"
                 options={clubs} value={user.clubs}
                   onChange={(e) => updateLocalUser({...user, clubs: e.target.value})} disabled/>
             </Form.Group>
-            */}
 
             <Form.Group controlId="settings.Bio">
               <Form.Label>Mini Biography</Form.Label>
