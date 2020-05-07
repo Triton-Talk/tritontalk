@@ -7,8 +7,6 @@ services:
       context: ./testing/nginx
     ports:
       - 80:80
-      - 3000:3000
-      - 3001:3001
     restart: always
     image: tttvlw-nginx-testing
     container_name: tttvlw-nginx-testing
