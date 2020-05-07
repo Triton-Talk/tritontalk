@@ -7,16 +7,15 @@ import Auth from '../context/auth'
 
 import SelectOneThing from '../components/SelectOneThing';
 
-const Settings = ({ p }) => {
+const Settings = () => {
 
   const oldUser = React.useContext(Auth).user
-  const { credential, URL } = React.useContext(Auth)
+  const { setUser, credential, URL } = React.useContext(Auth)
 
-  const [user, _setUser] = React.useState(oldUser)
+  const [user, _updateLocalUser] = React.useState(oldUser)
 
-  const setUser = u => {
-    _setUser(u)
-    console.log(u)
+  const updateLocalUser = u => {
+    _updateLocalUser(u)
   }
 
   const handleSubmit = (event) => {
@@ -70,15 +69,18 @@ const Settings = ({ p }) => {
                 <Image src={user.picture} rounded />
               </center>
             </Form.Group>
-            <SelectOneThing controlId="settings.School" label="School"
-              options={colleges} value={user.college}
-              onChange={(e) => setUser({ ...user, college: e.target.value })} />
-            <SelectOneThing controlId="settings.Major" label="Major"
-              options={majors} value={user.major}
-              onChange={(e) => setUser({ ...user, major: e.target.value })} />
-            <SelectOneThing controlId="settings.Year" label="Year"
-              options={years} value={user.year}
-              onChange={(e) => setUser({ ...user, year: e.target.value })} />
+
+            <SelectOneThing controlId="settings.School" label="School" 
+                options={colleges} value={user.college}
+                onChange={(e) => updateLocalUser({...user, college: e.target.value})}/>
+
+            <SelectOneThing controlId="settings.Major" label="Major" 
+                options={majors} value={user.major}
+                onChange={(e) => updateLocalUser({...user, major: e.target.value})}/>
+
+            <SelectOneThing controlId="settings.Year" label="Year" 
+                options={years} value={user.year}
+                onChange={(e) => updateLocalUser({...user, year: e.target.value})}/>
           </Col>
 
           <Col xs={12} md={12} lg={12} xl={6}>
@@ -90,13 +92,13 @@ const Settings = ({ p }) => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Name<b></b></Form.Label>
               <Form.Control size="lg" value={user.name}
-                onChange={(e) => setUser({ ...user, name: e.target.value })} />
+                 onChange={(e) => updateLocalUser({...user, name: e.target.value})}/>
             </Form.Group>
 
             <Form.Group controlId="settings.Hobbies">
               <Form.Label>Hobbies</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.hobbies}
-                onChange={(e) => setUser({ ...user, hobbies: e.target.value })} />
+                  onChange={(e) => updateLocalUser({...user, hobbies: e.target.value})}/>
             </Form.Group>
 
             <Form.Group controlId="settings.Clubs">
@@ -104,15 +106,15 @@ const Settings = ({ p }) => {
                 options={clubs} value={user.clubs}
                 onChange={(e) => setUser({ ...user, clubs: e.target.value })} />
             </Form.Group>
-            {/* <Form.Label>Clubs</Form.Label>
+            <Form.Label>Clubs</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.clubs}
-                  onChange={(e) => setUser({...user, clubs: e.target.value})}/>
-            </Form.Group> */}
+                  onChange={(e) => updateLocalUser({...user, clubs: e.target.value})} disabled/>
+            </Form.Group>
 
             <Form.Group controlId="settings.Bio">
               <Form.Label>Mini Biography</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.bio}
-                onChange={(e) => setUser({ ...user, bio: e.target.value })} />
+                  onChange={(e) => updateLocalUser({...user, bio: e.target.value})}/>
             </Form.Group>
           </Col>
         </Form.Row>
