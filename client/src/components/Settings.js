@@ -13,20 +13,20 @@ const Settings = ({ p }) => {
   const { credential, URL } = React.useContext(Auth)
 
   const [user, setUser] = React.useState(oldUser)
-  
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
     const method = 'PUT'
-    const body = JSON.stringify({credential, user})
-    const headers = {'Content-Type': 'application/json'}
+    const body = JSON.stringify({ credential, user })
+    const headers = { 'Content-Type': 'application/json' }
 
-    fetch(URL+'/api/updateUser', {
+    fetch(URL + '/api/updateUser', {
       method,
       body,
       headers
     }).then(response => {
-      if(response.status === 200)
+      if (response.status === 200)
         return response.json()
       else
         throw new Error()
@@ -41,7 +41,7 @@ const Settings = ({ p }) => {
   const handleReset = (event) => {
     event.preventDefault()
 
-    setUser({...oldUser})
+    setUser({ ...oldUser })
   }
 
   const colleges = ["Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
@@ -106,11 +106,11 @@ const Settings = ({ p }) => {
         </Form.Row>
         <hr />
         <center>
-          <Button size="lg" variant="primary" type="submit">
+          <Button style={{ marginRight: "4px" }} size="lg" variant="dark" type="submit">
             Update
           </Button>
 
-          <Button size="lg" variant="primary" type="reset">
+          <Button size="lg" variant="dark" type="reset">
             Reset
           </Button>
         </center>

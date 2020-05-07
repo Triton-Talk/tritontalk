@@ -5,9 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Filter = ({ props }) => {
   return (
     <div className="btn-group" role="group" aria-label="Button group with nested dropdown" >
+
       <div className="btn-group" role="group" style={{ textAlign: 'right', marginBottom: '15px' }}>
 
-        <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button id="btnGroupDrop1" type="button" className=" btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Filter Criteria
           </button>
 

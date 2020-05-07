@@ -35,8 +35,8 @@ const Home = () => {
       <main>
         <div className="shadow-lg p-3  " style={homeStyle}>
           {body}
-          <Link to='/registerorganization'>
-            <button className="btn-success">Register an Organization</button>
+          <Link to='/newclub'>
+            <button className="btn-success">Register a Club</button>
           </Link>
 
           <br></br><br></br>
