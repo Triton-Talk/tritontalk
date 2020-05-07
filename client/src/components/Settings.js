@@ -12,7 +12,12 @@ const Settings = ({ p }) => {
   const oldUser = React.useContext(Auth).user
   const { credential, URL } = React.useContext(Auth)
 
-  const [user, setUser] = React.useState(oldUser)
+  const [user, _setUser] = React.useState(oldUser)
+
+  const setUser = u => {
+    _setUser(u)
+    console.log(u)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,11 +50,11 @@ const Settings = ({ p }) => {
     setUser({ ...oldUser })
   }
 
-  const colleges = ["Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
+  const colleges = ["Select One...", "Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
 
-  const majors = ["Computer Science", "Biology", "Electrical Engineering", "Other"]
+  const majors = ["Select One...", "Computer Science", "Biology", "Electrical Engineering", "Other"]
 
-  const years = ["First year", "Second year", "Third year", "Fourth year"]
+  const years = ["Select One...", "First year", "Second year", "Third year", "Fourth year"]
 
   return (
     <div>
@@ -67,7 +72,7 @@ const Settings = ({ p }) => {
                 options={colleges} value={user.college}
                 onChange={(e) => setUser({...user, college: e.target.value})}/>
             <SelectOneThing controlId="settings.Major" label="Major" 
-                options={majors} value={user.year}
+                options={majors} value={user.major}
                 onChange={(e) => setUser({...user, major: e.target.value})}/>
             <SelectOneThing controlId="settings.Year" label="Year" 
                 options={years} value={user.year}
