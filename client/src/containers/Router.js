@@ -23,12 +23,13 @@ const Router = () => {
         <div className="app">
           <Navbar/>
           <Switch>
-            <Route path="/home" exact component={() => <LibraryWalk />} />
-            <Route path="/friends" exact component={() => <Friends />} />
-            <Route path="/" exact component={() => <ProfileSettings />} />
-            <Route path="/random" exact component={() => <RandomCall />} />
-            <Route path="/registerorganization" exact component={() => <RegisterOrganization />} />
-            <Route path="/splash" exact component={() => <SplashPage />} />
+            <Route path="/" exact component={Home} />
+            <Route path="/home" exact component={LibraryWalk} />
+            <Route path="/friends" exact component={Friends} />
+            <Route path="/profile" exact component={ProfileSettings} />
+            <Route path="/random" exact component={RandomCall} />
+            <Route path="/newclub" exact component={RegisterOrganization} />
+            <Route path="/splash" exact component={SplashPage} />
           </Switch>
         </div >
       </AuthProvider>

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
 
-  const { user, handleSignOn, handleSignOut } = useContext(Auth);
+  const { user, handleSignOut } = useContext(Auth);
 
   return (
     <div id='navbar'>
@@ -26,7 +26,7 @@ const NavigationBar = () => {
               <div className="dropdown">
                 <button className="navbtn">Account</button>
                 <div className="dropdown-content">
-                  <Link to='/settings'>
+                  <Link to='/profile'>
                     <button className="dropdown">Settings</button>
                   </Link>
 

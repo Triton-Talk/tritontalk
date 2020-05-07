@@ -4,7 +4,7 @@ import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
 import Auth from '../context/auth';
 
-const URL = '/'
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 class Chat extends Component {
   state = {

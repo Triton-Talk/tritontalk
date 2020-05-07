@@ -29,6 +29,7 @@ app.get('/greeting', (req, res) => {
 // PREPROCESSOR FOR ALL API ROUTES
 app.use('/api/*', (req, res, next) => {
   console.log('Processing identity')
+  console.log(req.body)
   if (req.body.postman) {
     req.identity = {}
     req.identity.name = 'Shubham Kulkarni'
@@ -36,23 +37,35 @@ app.use('/api/*', (req, res, next) => {
     req.identity.picture = 'http://randomuser.me/api/portraits/men/44.jpg'
     next()
   }
-  admin.auth().verifyIdToken(req.body.credential).then(identity => {
-    req.identity = identity
-    next()
-  }).catch(error => {
-    res.status(404).send('Error: failed to parse identity')
-  })
+  else {
+    admin.auth().verifyIdToken(req.body.credential).then(identity => {
+      req.identity = identity
+      next()
+    }).catch(error => {
+      res.status(404).send('Error: failed to parse identity')
+    })
+  }
+
 })
 
-app.use(userRouter)
 app.use(videoRouter)
+app.use(userRouter)
 
 server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
-const io = require('socket.io')(server);
+const socket_server = require('socket.io');
+const chat = socket_server(server)
 
-io.on('connection', (socket) => {
+chat.on('connection', (socket) => {
   socket.on('new_message', (data) => {
-    io.sockets.emit('new_message', data);
+    socket.emit('new_message', data);
+  })
+})
+
+const phaser = socket_server(server, {path: '/phaser'})
+
+phaser.on('connection', (game_client) => {
+  game_client.on('location', (data) => {
+    game_client.broadcast.emit('location', data)
   })
 })

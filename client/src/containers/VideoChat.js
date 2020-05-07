@@ -23,8 +23,6 @@ const VideoChat = () => {
         return
       }
 
-      console.log(user, credential)
-
       const data = await fetch(URL + '/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
@@ -46,7 +44,7 @@ const VideoChat = () => {
   }, []);
 
   let render;
-  if (1) {
+  if (token) {
     render = (
       <Room roomName={roomName} token={token} handleLogout={handleLogout} />
     );
