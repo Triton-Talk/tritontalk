@@ -8,6 +8,8 @@ import Auth from '../context/auth';
 function SplashPage() {
   const { user, handleSignOn, handleSignOut } = useContext(Auth);
 
+  console.log('splash')
+
   return (
     <div className="App" style={{backgroundImage: `url(${SplashPageBackground})` }}>
       <h1 className="Logo">TritonTalk</h1>
