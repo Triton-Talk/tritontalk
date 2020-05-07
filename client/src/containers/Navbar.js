@@ -17,7 +17,7 @@ const NavigationBar = () => {
   return (
     <Navbar style={styles} bg="dark" variant="dark">
       <Navbar.Toggle />
-      <button>Go Chat</button>
+      <button onClick={() => setPage('/random')}>Go Chat</button>
       <div className="centered">
         <Link to="/"><h1 className="NavBarLogo">TritonTalk</h1></Link>
       </div>
