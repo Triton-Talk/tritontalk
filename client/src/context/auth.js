@@ -16,6 +16,9 @@ let initialCredential = cookies.get('credential')
 if(initialCredential === 'null')
   initialCredential = undefined
 
+
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+
 export const AuthProvider = (props) => {
 
   const [user, _setUser] = React.useState(initialUser)
@@ -60,7 +63,7 @@ export const AuthProvider = (props) => {
     const body = JSON.stringify({credential: token})
     const headers = {'Content-Type': 'application/json'}
 
-    return fetch('/api/login', {
+    return fetch(URL+'/api/login', {
       method,
       body,
       headers

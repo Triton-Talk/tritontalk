@@ -9,5 +9,5 @@ echo "press y to copy the new react build to the server"
 read -n1 answer
 
 if [[ $answer == 'y' ]]; then
-    scp -r ./client/build jack@tritontalk.com:~/build_$USER
+    scp -r ./client/build tt:~/build_SHUBHAM
 fi

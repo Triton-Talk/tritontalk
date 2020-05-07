@@ -3,6 +3,8 @@ import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 import Auth from '../context/auth';
 
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+
 const VideoChat = () => {
   const { user, credential } = React.useContext(Auth);
   const [roomName, setRoomName] = useState('');
@@ -23,7 +25,7 @@ const VideoChat = () => {
 
       console.log(user, credential)
 
-      const data = await fetch('/api/video/token', {
+      const data = await fetch(URL+'/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
           credential: credential, 
