@@ -18,17 +18,17 @@ const VideoChat = () => {
     async event => {
       event.preventDefault();
 
-      if(!user || !roomName){ 
+      if (!user || !roomName) {
         alert('You must sign in first!')
         return
       }
 
       console.log(user, credential)
 
-      const data = await fetch(URL+'/api/video/token', {
+      const data = await fetch(URL + '/api/video/token', {
         method: 'POST',
         body: JSON.stringify({
-          credential: credential, 
+          credential: credential,
           room: roomName
         }),
         headers: {
@@ -46,7 +46,7 @@ const VideoChat = () => {
   }, []);
 
   let render;
-  if (token) {
+  if (1) {
     render = (
       <Room roomName={roomName} token={token} handleLogout={handleLogout} />
     );
