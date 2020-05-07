@@ -59,28 +59,22 @@ const Random = (props) => {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control />
-          </Form.Group>
 
         </Form.Row>
 
 
 
-        <Form.Group controlId="settings.Hobbies">
-          <Form.Label>Organization Biography</Form.Label>
-          <Form.Control size="lg" as="textarea" rows="3" />
-        </Form.Group>
-
         <Form.Group id="formGridCheckbox">
           <Form.Check type="switch" id="custom-switch"
             label="Make my Organization Public to Library Walk" />
 
-        </Form.Group>'
-          <Button variant="primary" type="submit">
-          Submit
+        </Form.Group>
+        <center>
+          <hr></hr>
+          <Button variant="dark" type="submit">
+            Continue
           </Button>
+        </center>
 
       </Form>
     </div>
