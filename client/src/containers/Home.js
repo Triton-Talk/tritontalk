@@ -56,6 +56,12 @@ const Home = () => {
           <Link to='/random'>
             <button className="btn-primary">Random Call</button>
           </Link>
+
+          <br></br><br></br>
+
+          <Link to='/home'>
+            <button className="btn-primary">Library Walk</button>
+          </Link>
         </div>
       </main>
       <Footer />
