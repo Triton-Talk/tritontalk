@@ -10,7 +10,7 @@ import Footer from '../components/footer';
 
 const Home = () => {
 
-  const {page, setPage} = React.useContext(Page)
+  const { page, setPage } = React.useContext(Page)
 
   const homeStyle = {
     backgroundColor: "lightblue",
@@ -39,16 +39,16 @@ const Home = () => {
         <div class="shadow-lg p-3  " style={homeStyle}>
           {body}
           <button onClick={() => setPage("/registerorganization")}
-                  className="btn-success">Register an Organization</button>
+            className="btn-success">Register an Organization</button>
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/friends')}>Friends</button>
+          <button className="btn-primary"
+            onClick={() => setPage('/friends')}>Friends</button>
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/splash')}>Splash Page</button>
+          <button className="btn-primary"
+            onClick={() => setPage('/splash')}>Splash Page</button>
           <br></br><br></br>
-          <button className="btn-primary" 
-                  onClick={() => setPage('/random')}>Random Call</button>
+          <button className="btn-primary"
+            onClick={() => setPage('/random')}>Random Call</button>
         </div>
       </main>
       <Footer />

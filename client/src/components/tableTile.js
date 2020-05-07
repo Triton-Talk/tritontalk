@@ -14,8 +14,9 @@ const TableTile = ({ user }) => {
           <Card.Text>
             {user.content}
           </Card.Text>
-          <Button style={{ marginRight: '5px' }} variant="danger">Remove Friend</Button>
-          <Button variant="primary">Message</Button>
+          <Button style={{ marginRight: '5px' }} variant="warning">Message</Button>
+          <Button variant="danger">Remove Friend</Button>
+
         </Card.Body>
       </Card>
     </div>
