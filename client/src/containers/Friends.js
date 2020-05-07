@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ResponsiveTable from "../components/responsive_table";
+import Footer from '../components/footer';
 
 const Friends = (props) => {
 
@@ -25,6 +26,7 @@ const Friends = (props) => {
   return (
     <div>
       <ResponsiveTable friends={friends} />
+      <Footer />
     </div >
   )
 }

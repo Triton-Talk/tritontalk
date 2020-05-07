@@ -23,16 +23,16 @@ const App = () => {
       <PageProvider>
         <AuthProvider>
           <div className="app">
-              <Navbar />
-              <Switch>
-                <Route path="/" exact component={() => <Home />} />
-                <Route path="/home" exact component={() => <LibraryWalk />} />
-                <Route path="/friends" exact component={() => <Friends />} />
-                <Route path="/settings" exact component={() => <ProfileSettings />} />
-                <Route path="/random" exact component={() => <RandomCall />} />
-                <Route path="/registerorganization" exact component={() => <RegisterOrganization />} />
-                <Route path="/splash" exact component={() => <SplashPage />} />
-              </Switch>
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={() => <Home />} />
+              <Route path="/home" exact component={() => <LibraryWalk />} />
+              <Route path="/friends" exact component={() => <Friends />} />
+              <Route path="/settings" exact component={() => <ProfileSettings />} />
+              <Route path="/random" exact component={() => <RandomCall />} />
+              <Route path="/registerorganization" exact component={() => <RegisterOrganization />} />
+              <Route path="/splash" exact component={() => <SplashPage />} />
+            </Switch>
           </div >
         </AuthProvider>
       </PageProvider>

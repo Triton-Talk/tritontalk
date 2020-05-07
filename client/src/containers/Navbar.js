@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Navbar} from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/NavBar.css';
 
@@ -24,19 +24,19 @@ const NavigationBar = () => {
       <Navbar.Collapse className="justify-content-end">
         {
           user !== null && user !== undefined ?
-          <div className="dropdown">
-            <button className="dropbtn">Account</button>
-            <div className="dropdown-content">
-              <button className="dropdown" 
-                      onClick={() => setPage('/settings')}>Settings</button>
-              <button className="dropdown" 
-                      onClick={handleSignOut}>Sign out</button>
+            <div className="dropdown">
+              <button className="dropbtn">Account</button>
+              <div className="dropdown-content">
+                <button className="dropdown"
+                  onClick={() => setPage('/settings')}>Settings</button>
+                <button className="dropdown"
+                  onClick={handleSignOut}>Sign out</button>
+              </div>
             </div>
-          </div>
-          : 
-          <div className="dropdown">
-            <button className="dropbtn" onClick={handleSignOn}>Sign in</button>
-          </div>
+            :
+            <div className="dropdown">
+              <button className="dropbtn" onClick={handleSignOn}>Sign in</button>
+            </div>
         }
       </Navbar.Collapse>
     </Navbar >
