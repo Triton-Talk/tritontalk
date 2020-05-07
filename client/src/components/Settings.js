@@ -55,10 +55,12 @@ const Settings = () => {
 
   const years = ["Select One...", "First year", "Second year", "Third year", "Fourth year"]
 
+  const clubs = ["Select One...", "IEEE", "..."]
+
   return (
     <div>
       <hr />
-      <Form style={{ maxWidth: "95%" }} onSubmit = {handleSubmit} onReset={handleReset}>
+      <Form style={{ maxWidth: "95%" }} onSubmit={handleSubmit} onReset={handleReset}>
         <Form.Row>
           <Col xs={12} md={12} lg={12} xl={6}>
 
@@ -67,12 +69,15 @@ const Settings = () => {
                 <Image src={user.picture} rounded />
               </center>
             </Form.Group>
+
             <SelectOneThing controlId="settings.School" label="School" 
                 options={colleges} value={user.college}
                 onChange={(e) => updateLocalUser({...user, college: e.target.value})}/>
+
             <SelectOneThing controlId="settings.Major" label="Major" 
                 options={majors} value={user.major}
                 onChange={(e) => updateLocalUser({...user, major: e.target.value})}/>
+
             <SelectOneThing controlId="settings.Year" label="Year" 
                 options={years} value={user.year}
                 onChange={(e) => updateLocalUser({...user, year: e.target.value})}/>
@@ -97,7 +102,11 @@ const Settings = () => {
             </Form.Group>
 
             <Form.Group controlId="settings.Clubs">
-              <Form.Label>Clubs</Form.Label>
+              <SelectOneThing controlId="settings.Clubs" label="Clubs"
+                options={clubs} value={user.clubs}
+                onChange={(e) => setUser({ ...user, clubs: e.target.value })} />
+            </Form.Group>
+            <Form.Label>Clubs</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.clubs}
                   onChange={(e) => updateLocalUser({...user, clubs: e.target.value})} disabled/>
             </Form.Group>
