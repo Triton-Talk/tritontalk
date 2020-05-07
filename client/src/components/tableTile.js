@@ -1,22 +1,25 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const TableTile = ({ user }) => {
 
   return (
     <div>
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ margin: "8px" }}>
         <Card.Img variant="top" src={user.image} />
         <Card.Body>
-          <Card.Title>{user.title}</Card.Title>
-          <Card.Text>
-            {user.content}
-          </Card.Text>
-          <Button style={{ marginRight: '5px' }} variant="danger">Remove Friend</Button>
-          <Button variant="primary">Message</Button>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem><Card.Title>{user.title}</Card.Title></ListGroupItem>
+            <ListGroupItem>{user.content}</ListGroupItem>
+            <ListGroupItem>
+              <Button style={{ marginRight: '5px' }} variant="warning">Message</Button>
+              <Button variant="danger">Remove Friend</Button>
+            </ListGroupItem>
+          </ListGroup>
         </Card.Body>
+
       </Card>
     </div>
   )

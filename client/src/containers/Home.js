@@ -35,7 +35,6 @@ const Home = () => {
       <main>
         <div class="shadow-lg p-3  " style={homeStyle}>
           {body}
-
           <Link to='/registerorganization'>
             <button className="btn-success">Register an Organization</button>
           </Link>

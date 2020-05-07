@@ -21,7 +21,7 @@ const Responsive_table = (props) => {
   return (
     <div>
       <Filter props={friends} />
-      <table className="table table-bordered" >
+      <table className="table" >
         <tbody>
           <Row gutter={40}>
             {FriendTable}
