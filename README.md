@@ -17,6 +17,20 @@ Start by cloning or downloading the repo to your machine.
 git clone https://github.com/Triton-Talk/tritontalk.git
 cd tritontalk
 ```
+### Option 1 (With Node)
+You will need two terminal windows open
+```bash
+cd backend
+npm install
+npm run start
+```
+Open another terminal window
+```bash
+cd client
+npm install
+npm run start
+```
+### Option 2 (With Docker)
 
 Install the dependencies:
 
