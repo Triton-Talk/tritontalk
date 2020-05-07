@@ -3,7 +3,7 @@ rm -rf client/build testing/nginx/build
 
 echo "Creating a new production build"
 # create a production react build
-npm run --silent --prefix client/ build > /dev/null
+npm run -prefix client/ build
 
 echo "press y to copy the new react build to the server"
 read -n1 answer
