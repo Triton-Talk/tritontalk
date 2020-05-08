@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 
-import db, {GoogleSignOn} from '../firebase'
+import db, { GoogleSignOn } from '../firebase'
 import Cookies from 'universal-cookie'
 
 const Auth = React.createContext();
@@ -10,11 +10,11 @@ export default Auth;
 const cookies = new Cookies()
 
 let initialUser = cookies.get('user')
-if(initialUser === 'null')
+if (initialUser === 'null')
   initialUser = undefined
 
 let initialCredential = cookies.get('credential')
-if(initialCredential === 'null')
+if (initialCredential === 'null')
   initialCredential = undefined
 
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
@@ -28,11 +28,11 @@ export const AuthProvider = (props) => {
   const location = useLocation()
 
 
-  React.useEffect(() => { 
-    if(initialCredential)
+  React.useEffect(() => {
+    if (initialCredential)
       serverLogin(initialCredential)
   }, [])
-  
+
   const setUser = (newUser) => {
     _setUser(newUser)
     cookies.set('user', newUser)
@@ -53,7 +53,7 @@ export const AuthProvider = (props) => {
 
       return db.auth().currentUser.getIdToken()
     }).then(token => {
-      if (token){
+      if (token) {
         serverLogin(token)
         return setCredential(token)
       }
@@ -65,10 +65,10 @@ export const AuthProvider = (props) => {
 
   const serverLogin = token => {
     const method = 'POST'
-    const body = JSON.stringify({credential: token})
-    const headers = {'Content-Type': 'application/json'}
+    const body = JSON.stringify({ credential: token })
+    const headers = { 'Content-Type': 'application/json' }
 
-    return fetch(URL+'/api/login', {
+    return fetch(URL + '/api/login', {
       method,
       body,
       headers
@@ -76,19 +76,19 @@ export const AuthProvider = (props) => {
       return response.json()
     }).then(user => {
       setUser(user)
-      if(location.pathname === '/splash')
-        history.push('/')
+      if (location.pathname !== '/splash')
+        history.push('/splash')
     })
   }
 
   const handleSignOut = () => {
     setUser(null)
     setCredential(null)
-    history.push('/splash')
+    history.push('/')
   }
 
   const exportObj = {
-    user, setUser, 
+    user, setUser,
     credential, setCredential,
     handleSignOn, handleSignOut,
     URL
