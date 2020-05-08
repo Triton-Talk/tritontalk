@@ -7,7 +7,7 @@ This is an interactive video chat application that lets you explore the UCSD Lib
 ## Online Demo
 [https://tritontalk.com](https://tritontalk.com)
 
-## Preparing the application
+## Preparing the application 
 
 To run the application you will need a [Twilio account](https://www.twilio.com/try-twilio) and Node.js and npm installed. 
 This app uses docker and docker-compose to run.
@@ -20,6 +20,7 @@ cd tritontalk
 
 #### Note: After install, go to localhost and click on the splash page to login and see buttons
 
+## Installation and running the application (For Development i.e. locally)
 ### Option 1 (With Node)
 You will need two terminal windows open
 ```bash
@@ -39,12 +40,6 @@ Install the dependencies:
 
 ```bash
 ./setup.sh
-```
-#### Running the application (For Development i.e. locally)
-
-Once you have completed the above you can build the application with:
-
-```bash
 ./test.sh
 ```
 
