@@ -49,9 +49,9 @@ const Room = ({ roomName, token, handleLogout }) => {
   ));
 
   return (
-    <Card  >
+    <Card style={{ width: "100%", height: "100%" }} >
 
-      <div style={{ textAlign: "left" }}>
+      <div >
 
         <Card.Header>Room: {roomName}</Card.Header>
         <Card.Body>
