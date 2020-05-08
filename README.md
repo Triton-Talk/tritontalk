@@ -7,10 +7,10 @@ This is an interactive video chat application that lets you explore the UCSD Lib
 ## Online Demo
 [https://tritontalk.com](https://tritontalk.com)
 
-## Preparing the application
+## Preparing the application 
 
-To run the application you will need a [Twilio account](https://www.twilio.com/try-twilio) and Node.js and npm installed. 
-This app uses docker and docker-compose to run.
+To run the application you will need Node.js and npm installed. 
+Docker and docker-compose are only required if building for production.
 Start by cloning or downloading the repo to your machine.
 
 ```bash
@@ -18,12 +18,32 @@ git clone https://github.com/Triton-Talk/tritontalk.git
 cd tritontalk
 ```
 
+#### Note: After install, go to localhost and click on the splash page to login and see buttons
+
+## Installation and running the application (For Development i.e. locally)
+### Option 1 (With Node) HOT-RELOADING
+You will need two terminal windows open
+```bash
+cd backend
+npm install
+npm run start
+```
+Open another terminal window
+```bash
+cd client
+npm install
+npm run start
+```
+### Option 2 (With Docker) NO HOT-RELOADING
+
 Install the dependencies:
 
 ```bash
 ./setup.sh
+./test.sh
 ```
 
+## Setting up Twilio (Not required -- .ENV should be done for you)
 ```python
 Create a `.env` file in the `backend/` directory.
 
@@ -35,14 +55,14 @@ You will also need an API key and secret, you can create these under the [Progra
 
 ```
 
-## Running the application
 
-Once you have completed the above you can build the application with:
 
+
+
+## Updating the server (For Production Only)
+Automatically DockerHub builds 'master' from the Triton-Talk / tritontalk GitHub Repo.
+SSH into the server for TritonTalk.com and run:
 ```bash
-./test.sh
+./stopAndPull.sh
 ```
-
-Navigate to [localhost] (localhost). 
-
-To close the app, use <Ctrl-C> to close the docker-compose process in the shell.
+The server should be up to date

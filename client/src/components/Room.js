@@ -60,7 +60,8 @@ const Room = ({ roomName, token, handleLogout }) => {
         <ListGroup className="list-group-flush">
           <ListGroupItem>
             <Card.Body>
-              <Card.Title>Remote Participants</Card.Title>
+              {room ? (<Card.Title>Remote Participants: {room.localParticipant.identity}</Card.Title>) :
+                (<Card.Title>Remote Participants:</Card.Title>)}
 
             </Card.Body>
           </ListGroupItem>
