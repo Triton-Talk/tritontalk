@@ -9,8 +9,8 @@ This is an interactive video chat application that lets you explore the UCSD Lib
 
 ## Preparing the application 
 
-To run the application you will need a [Twilio account](https://www.twilio.com/try-twilio) and Node.js and npm installed. 
-This app uses docker and docker-compose to run.
+To run the application you will need Node.js and npm installed. 
+This app uses docker and docker-compose to run for production.
 Start by cloning or downloading the repo to your machine.
 
 ```bash
