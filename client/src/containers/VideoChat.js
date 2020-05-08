@@ -52,7 +52,7 @@ const VideoChat = () => {
     );
   } else {
     render = (
-      <div>
+      <div style={{ position: "relative", maxHeight: "100%" }}>
         <Lobby
           roomName={roomName}
           handleRoomNameChange={handleRoomNameChange}
