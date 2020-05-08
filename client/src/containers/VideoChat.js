@@ -52,37 +52,12 @@ const VideoChat = () => {
     );
   } else {
     render = (
-      <div style={{ position: "relative", maxHeight: "100%" }}>
+      <div style={{ maxHeight: "100%", maxWidth: "100%" }}>
         <Lobby
           roomName={roomName}
           handleRoomNameChange={handleRoomNameChange}
           handleSubmit={handleSubmit}
         />
-        <center>
-          <Card style={{ width: "20%", marginBottom: "10px", paddingBottom: "10px" }}>
-            <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
-
-
-            <br></br>
-
-            <Link to='/friends'>
-              <button className="btn-danger">Friends</button>
-            </Link>
-
-            <br></br>
-
-            <Link to='/splash'>
-              <button className="btn-danger">Splash Page</button>
-            </Link>
-
-            <br></br>
-
-
-            <Link to='/home'>
-              <button className="btn-danger">Library Walk</button>
-            </Link>
-          </Card>
-        </center>
       </div>
     );
   }
