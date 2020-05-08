@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Col } from 'react-bootstrap';
+import { Form, Button, Col, Jumbotron } from 'react-bootstrap';
 
 const Random = (props) => {
   return (
@@ -7,6 +7,7 @@ const Random = (props) => {
       <br></br>
       <div style={{ textAlign: "center" }}>
         <h1>Who would you like to meet today?</h1>
+        <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://ucsdnews.ucsd.edu/news_uploads/Back-to-School-150110.jpg', backgroundPosition: "0px -170px", height: "200px", backgroundRepeat: 'no-repeat' }}></Jumbotron>
       </div>
       <Form style={{ maxWidth: "95%" }}>
 
@@ -66,7 +67,7 @@ const Random = (props) => {
         </center>
 
       </Form>
-    </div>
+    </div >
   )
 }
 export default Random;
