@@ -9,11 +9,13 @@ const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 class Chat extends Component {
   state = {
     messages: [],
-    socket: io(URL)
+    socket: io(URL+'/')
   }
+
 
   componentDidMount() {
     this.state.socket.on('new_message', data => {
+      console.log(data)
       this.setState(state => ({ messages: [data, ...state.messages] }))
     })
   }
@@ -25,8 +27,9 @@ class Chat extends Component {
       return
     }
 
-    const message = { name: this.context.user, message: messageString }
-    this.state.socket.emit('new_message', message)
+    const data = { name: this.context.user.name, message: messageString }
+    console.log(data)
+    this.state.socket.emit('new_message', data)
   }
 
   render() {

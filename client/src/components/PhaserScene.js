@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 import io from 'socket.io-client';
 
-const URL = '/'
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
@@ -24,13 +24,19 @@ class PhaserScene extends Phaser.Scene {
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.player.setCollideWorldBounds(true);
     this.upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
-    this.socket = io('/');
+    console.log('testing from phaser')
+    this.socket = io(URL);
+    console.log(this.socket)
 
-    this.socket.on('connect', function () {
-	 console.log('Connected!');
-    });
+    this.socket.on('connection', () => {
+      console.log('Connected!');
 
-
+      this.socket.emit('new-player', {
+	x: this.player.sprite.body.x,
+	y: this.player.sprite.body.y,
+	playerName: String(this.socket.id),
+      })
+    })
   }
 
 update () {

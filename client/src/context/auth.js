@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import db, {GoogleSignOn} from '../firebase'
 import Cookies from 'universal-cookie'
@@ -25,6 +25,7 @@ export const AuthProvider = (props) => {
   const [credential, _setCredential] = React.useState(initialCredential)
 
   const history = useHistory()
+  const location = useLocation()
 
 
   React.useEffect(() => { 
@@ -75,7 +76,8 @@ export const AuthProvider = (props) => {
       return response.json()
     }).then(user => {
       setUser(user)
-      history.push('/')
+      if(location.pathname === '/splash')
+        history.push('/')
     })
   }
 
