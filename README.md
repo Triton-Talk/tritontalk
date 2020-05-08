@@ -40,7 +40,15 @@ Install the dependencies:
 ```bash
 ./setup.sh
 ```
+#### Running the application
 
+Once you have completed the above you can build the application with:
+
+```bash
+./test.sh
+```
+
+## Setting up Twilio (Not required -- .ENV should be done for you)
 ```python
 Create a `.env` file in the `backend/` directory.
 
@@ -52,14 +60,20 @@ You will also need an API key and secret, you can create these under the [Progra
 
 ```
 
-## Running the application
 
-Once you have completed the above you can build the application with:
-
-```bash
-./test.sh
-```
 
 Navigate to [localhost] (localhost). 
 
 To close the app, use <Ctrl-C> to close the docker-compose process in the shell.
+
+
+### Updating the server
+Run the command:
+```bash
+./build_react.sh
+```
+Wait a few minutes and then ssh into the server for TritonTalk.com and run:
+```bash
+./stopAndPull.sh
+```
+The server should be up to date
