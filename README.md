@@ -10,7 +10,7 @@ This is an interactive video chat application that lets you explore the UCSD Lib
 ## Preparing the application 
 
 To run the application you will need Node.js and npm installed. 
-This app uses docker and docker-compose to run for production.
+Docker and docker-compose are only required if building for production.
 Start by cloning or downloading the repo to your machine.
 
 ```bash
