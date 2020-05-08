@@ -6,11 +6,14 @@ import styles from '../styles/NavBar.css';
 import Auth from '../context/auth';
 
 import { Link } from 'react-router-dom';
+import { NONE } from 'phaser';
 
 const NavigationBar = () => {
 
   const { user, handleSignOut } = useContext(Auth);
-  const lengthOfButton = user.name.length * 10;
+  const lengthOfButton = user ? user.name.length * 10 : NONE;
+
+
   const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
@@ -26,7 +29,7 @@ const NavigationBar = () => {
                 <div className="dropdown">
                   <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
                   <div className="dropdown-content">
-                    <Link to='/'>
+                    <Link to='/lobby'>
                       <button className="dropdown">Lobby</button>
                     </Link>
                     <Link to='/random'>
