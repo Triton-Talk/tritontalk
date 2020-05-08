@@ -27,10 +27,16 @@ export const AuthProvider = (props) => {
   const history = useHistory()
   const location = useLocation()
 
-
   React.useEffect(() => { 
-    if(initialCredential)
+    if(initialCredential){
+      /*
+      const refreshKey = process.env.firebase_refresh_api_key
+      fetch('https://securetoken.googleapis.com/v1/token?key='+process.env.firebase_refresh_api_key, {
+        
+      }
+      */
       serverLogin(initialCredential)
+    }
   }, [])
   
   const setUser = (newUser) => {
