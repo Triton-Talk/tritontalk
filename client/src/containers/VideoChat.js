@@ -61,9 +61,7 @@ const VideoChat = () => {
         <center>
           <Card style={{ width: "20%", marginBottom: "10px", paddingBottom: "10px" }}>
             <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
-            <Link to='/newclub'>
-              <button className="btn-success">Register a Club</button>
-            </Link>
+
 
             <br></br><br></br>
 
