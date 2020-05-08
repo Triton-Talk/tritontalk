@@ -10,13 +10,13 @@ import Footer from '../components/footer';
 const Home = () => {
 
   const homeStyle = {
-    backgroundColor: "lightblue",
+    backgroundColor: "lightyellow",
     width: "100%",
     height: "100%",
     maxHeight: "100%",
     position: "fixed",
     zIndex: "0",
-    top: 80,
+    top: 55,
 
   }
 
