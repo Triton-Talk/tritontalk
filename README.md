@@ -17,6 +17,9 @@ Start by cloning or downloading the repo to your machine.
 git clone https://github.com/Triton-Talk/tritontalk.git
 cd tritontalk
 ```
+
+#### Note: After install, go to localhost and click on the splash page to login and see buttons
+
 ### Option 1 (With Node)
 You will need two terminal windows open
 ```bash
