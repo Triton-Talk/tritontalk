@@ -6,7 +6,7 @@ const Random = (props) => {
     <div>
       <br></br>
       <div style={{ textAlign: "center" }}>
-        <h1>How would you like to meet today?</h1>
+        <h1>Who would you like to meet today?</h1>
       </div>
       <Form style={{ maxWidth: "95%" }}>
 
