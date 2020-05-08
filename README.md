@@ -40,7 +40,7 @@ Install the dependencies:
 ```bash
 ./setup.sh
 ```
-#### Running the application
+#### Running the application (For Development i.e. locally)
 
 Once you have completed the above you can build the application with:
 
@@ -67,7 +67,7 @@ Navigate to [localhost] (localhost).
 To close the app, use <Ctrl-C> to close the docker-compose process in the shell.
 
 
-## Updating the server
+## Updating the server (For Production Only)
 Run the command:
 ```bash
 ./build_react.sh
