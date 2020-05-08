@@ -7,7 +7,7 @@ const Random = (props) => {
       <br></br>
       <div style={{ textAlign: "center" }}>
         <h1>Who would you like to meet today?</h1>
-        <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn5.vectorstock.com/i/1000x1000/89/79/kids-drawing-funny-seamless-pattern-cute-vector-9228979.jpg', backgroundPosition: "0px -170px", height: "200px", backgroundRepeat: 'repeat' }}></Jumbotron>
+        <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn5.vectorstock.com/i/1000x1000/89/79/kids-drawing-funny-seamless-pattern-cute-vector-9228979.jpg', backgroundPosition: "0px 0px", height: "200px", backgroundRepeat: 'repeat' }}></Jumbotron>
       </div>
       <Form style={{ maxWidth: "95%" }}>
 
