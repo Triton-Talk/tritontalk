@@ -8,6 +8,16 @@
     top: 10px;
 }
 
+.OnlineText {
+  color: white;
+    font-family: 'Londrina Solid', cursive;
+    font-size:50px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #4B7FE6;
+    padding:0px;
+    top: 10px;
+}
+
 .NavBarLogo:hover{
     color: #1295d8;
     border-bottom: 7px solid #ffb511;
