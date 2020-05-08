@@ -13,7 +13,6 @@ const NavigationBar = () => {
   const { user, handleSignOut } = useContext(Auth);
   const lengthOfButton = user ? user.name.length * 10 : NONE;
 
-
   const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
