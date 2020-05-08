@@ -13,8 +13,8 @@ const Lobby = ({
   return (
     <div>
       <Jumbotron fluid style={{ backgroundImage: 'url(https://ucsdnews.ucsd.edu/news_uploads/Back-to-School-150110.jpg', backgroundPosition: "0px -100px", height: "400px", backgroundRepeat: 'repeat', width: "100%", borderBottomStyle: "solid", borderBottomWidth: ".02px", top: "-5px", position: "absolute" }}>
-        <div style={{ marginLeft: "100px" }}>
-          <ul style={{ textAlign: "justify", width: "100%", display: "flex", verticalAlign: "top" }}>
+        <div style={{ margin: "auto", width: "50%" }}>
+          <ul style={{ textAlign: "justify", width: "100%", display: "flex", verticalAlign: "top", textAlign: "center" }}>
             <li style={{ position: "relative" }}>
               <Card style={{ width: "350px", backgroundColor: "dark", marginRight: "100px" }}>
                 <Card.Header style={{ marginBottom: "10px", backgroundColor: "#535864", color: "white" }}><h2>Enter a room</h2></Card.Header>
