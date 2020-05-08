@@ -70,17 +70,17 @@ const Settings = () => {
               </center>
             </Form.Group>
 
-            <SelectOneThing controlId="settings.School" label="School" 
-                options={colleges} value={user.college}
-                onChange={(e) => updateLocalUser({...user, college: e.target.value})}/>
+            <SelectOneThing controlId="settings.School" label="School"
+              options={colleges} value={user.college}
+              onChange={(e) => updateLocalUser({ ...user, college: e.target.value })} />
 
-            <SelectOneThing controlId="settings.Major" label="Major" 
-                options={majors} value={user.major}
-                onChange={(e) => updateLocalUser({...user, major: e.target.value})}/>
+            <SelectOneThing controlId="settings.Major" label="Major"
+              options={majors} value={user.major}
+              onChange={(e) => updateLocalUser({ ...user, major: e.target.value })} />
 
-            <SelectOneThing controlId="settings.Year" label="Year" 
-                options={years} value={user.year}
-                onChange={(e) => updateLocalUser({...user, year: e.target.value})}/>
+            <SelectOneThing controlId="settings.Year" label="Year"
+              options={years} value={user.year}
+              onChange={(e) => updateLocalUser({ ...user, year: e.target.value })} />
           </Col>
 
           <Col xs={12} md={12} lg={12} xl={6}>
@@ -92,26 +92,26 @@ const Settings = () => {
             <Form.Group controlId="settings.Name">
               <Form.Label>Name<b></b></Form.Label>
               <Form.Control size="lg" value={user.name}
-                 onChange={(e) => updateLocalUser({...user, name: e.target.value})}/>
+                onChange={(e) => updateLocalUser({ ...user, name: e.target.value })} />
             </Form.Group>
 
             <Form.Group controlId="settings.Hobbies">
               <Form.Label>Hobbies</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.hobbies}
-                  onChange={(e) => updateLocalUser({...user, hobbies: e.target.value})}/>
+                onChange={(e) => updateLocalUser({ ...user, hobbies: e.target.value })} />
             </Form.Group>
 
             <Form.Group controlId="settings.Clubs">
-              <SelectOneThing controlId="settings.Clubs" 
-                  label={<><span>Clubs</span><Button className="btn-warning">Add More Clubs</Button></>}
+              <SelectOneThing controlId="settings.Clubs"
+                label={<><span>Clubs</span><Button style={{ margin: "10px" }} className="btn-warning">Add More Clubs</Button></>}
                 options={clubs} value={user.clubs}
-                  onChange={(e) => updateLocalUser({...user, clubs: e.target.value})} disabled/>
+                onChange={(e) => updateLocalUser({ ...user, clubs: e.target.value })} disabled />
             </Form.Group>
 
             <Form.Group controlId="settings.Bio">
               <Form.Label>Mini Biography</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={user.bio}
-                  onChange={(e) => updateLocalUser({...user, bio: e.target.value})}/>
+                onChange={(e) => updateLocalUser({ ...user, bio: e.target.value })} />
             </Form.Group>
           </Col>
         </Form.Row>

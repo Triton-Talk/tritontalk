@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer style={{ bottom: 0 }}>
+    <footer class="footer">
       <p>
         Made with{' '}
         <span role="img" aria-label="React">

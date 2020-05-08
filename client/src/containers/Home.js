@@ -29,12 +29,10 @@ const Home = () => {
   }
 
   return (
-    <main>
-      <div style={homeStyle}>
-        {body}
+    <div style={homeStyle}>
+      {body}
 
-      </div>
-    </main>
+    </div>
 
   )
 }
