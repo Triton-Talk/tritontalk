@@ -18,7 +18,6 @@ const NavigationBar = () => {
         {
           user !== null && user !== undefined ?
             <>
-              <Link to='/random'><button className='navbtn'>Go Chat</button></Link>
               <div className="centered" style={{ textAlign: "center", height: "10px" }}>
                 <Link to="/"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
@@ -26,6 +25,18 @@ const NavigationBar = () => {
                 <div className="dropdown">
                   <button className="navbtn">Account</button>
                   <div className="dropdown-content">
+                    <Link to='/'>
+                      <button className="dropdown">Lobby</button>
+                    </Link>
+                    <Link to='/random'>
+                      <button className="dropdown">Meet a Student</button>
+                    </Link>
+                    <Link to='/home'>
+                      <button className="dropdown">Library Walk</button>
+                    </Link>
+                    <Link to='/friends'>
+                      <button className="dropdown">Friends</button>
+                    </Link>
                     <Link to='/profile'>
                       <button className="dropdown">Settings</button>
                     </Link>

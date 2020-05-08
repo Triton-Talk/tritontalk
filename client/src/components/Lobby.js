@@ -12,7 +12,7 @@ const Lobby = ({
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', backgroundPosition: "0px 0px", height: "600px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "100px" }} >
+      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px" }} >
         <div style={{ margin: "auto" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
@@ -43,37 +43,8 @@ const Lobby = ({
           </center>
 
 
-          <center>
-            <Card style={{ width: "180px", marginBottom: "10px", paddingBottom: "10px" }}>
-              <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
 
 
-              <br></br>
-
-              <center>
-                <Link to='/friends'>
-                  <button className="btn-danger">Friends</button>
-                </Link>
-              </center>
-
-              <br></br>
-
-              <center>
-                <Link to='/splash'>
-                  <button className="btn-danger">Splash Page</button>
-                </Link>
-              </center>
-
-              <br></br>
-
-
-              <center>
-                <Link to='/home'>
-                  <button className="btn-danger">Library Walk</button>
-                </Link>
-              </center>
-            </Card>
-          </center>
 
         </div>
       </Jumbotron>
