@@ -102,7 +102,8 @@ const Settings = () => {
             </Form.Group>
 
             <Form.Group controlId="settings.Clubs">
-              <SelectOneThing controlId="settings.Clubs" label="Clubs"
+              <SelectOneThing controlId="settings.Clubs" 
+                  label={<><span>Clubs</span><Button className="btn-warning">Add More Clubs</Button></>}
                 options={clubs} value={user.clubs}
                   onChange={(e) => updateLocalUser({...user, clubs: e.target.value})} disabled/>
             </Form.Group>
