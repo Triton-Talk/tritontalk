@@ -63,28 +63,23 @@ const VideoChat = () => {
             <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
 
 
-            <br></br><br></br>
+            <br></br>
 
             <Link to='/friends'>
-              <button className="btn-primary">Friends</button>
+              <button className="btn-danger">Friends</button>
             </Link>
 
-            <br></br><br></br>
+            <br></br>
 
             <Link to='/splash'>
-              <button className="btn-primary">Splash Page</button>
+              <button className="btn-danger">Splash Page</button>
             </Link>
 
-            <br></br><br></br>
+            <br></br>
 
-            <Link to='/random'>
-              <button className="btn-primary">Random Call</button>
-            </Link>
-
-            <br></br><br></br>
 
             <Link to='/home'>
-              <button className="btn-primary">Library Walk</button>
+              <button className="btn-danger">Library Walk</button>
             </Link>
           </Card>
         </center>
