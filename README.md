@@ -21,7 +21,7 @@ cd tritontalk
 #### Note: After install, go to localhost and click on the splash page to login and see buttons
 
 ## Installation and running the application (For Development i.e. locally)
-### Option 1 (With Node) WITH HOT-RELOADING
+### Option 1 (With Node) HOT-RELOADING
 You will need two terminal windows open
 ```bash
 cd backend
