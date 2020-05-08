@@ -13,9 +13,7 @@ const Lobby = ({
   return (
     <div style={{ marginTop: "20px" }}>
       <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', backgroundPosition: "0px 0px", height: "600px", backgroundRepeat: 'repeat', top: "600px" }} >
-        <div style={{
-          margin: "auto"
-        }}>
+        <div style={{ margin: "auto" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
               <Card.Header style={{ marginBottom: "10px", backgroundColor: "#535864", color: "white" }}><h2>Enter a room</h2></Card.Header>
