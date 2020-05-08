@@ -4,12 +4,11 @@ WORKDIR /usr/src/app
 
 COPY ./client/package*.json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY ./client .
 
 RUN npm run build 
-
 
 
 FROM nginx:alpine
