@@ -24,4 +24,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD /bin/ash
+CMD npm start
