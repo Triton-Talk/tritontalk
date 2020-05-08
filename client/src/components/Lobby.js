@@ -12,10 +12,9 @@ const Lobby = ({
   return (
     <div>
       <center>
-        <Card style={{ width: "20%", marginBottom: "10px", paddingBottom: "10px", margin: "50px" }}>
-          <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
+        <Card style={{ marginBottom: "10px", paddingBottom: "10px", margin: "50px", width: "300px", backgroundColor: "dark" }}>
+          <Card.Header style={{ marginBottom: "10px", backgroundColor: "#535864", color: "white" }}><h2>Enter a room</h2></Card.Header>
           <form onSubmit={handleSubmit}>
-            <h2>Enter a room</h2>
             <div>
               {user ?
                 <label htmlFor="name">Name: {user.name} </label> :
