@@ -67,7 +67,7 @@ Navigate to [localhost] (localhost).
 To close the app, use <Ctrl-C> to close the docker-compose process in the shell.
 
 
-### Updating the server
+## Updating the server
 Run the command:
 ```bash
 ./build_react.sh
