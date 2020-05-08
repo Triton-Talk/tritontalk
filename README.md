@@ -60,11 +60,8 @@ You will also need an API key and secret, you can create these under the [Progra
 
 
 ## Updating the server (For Production Only)
-Run the command:
-```bash
-./build_react.sh
-```
-Wait a few minutes and then ssh into the server for TritonTalk.com and run:
+Automatically DockerHub builds 'master' from the Triton-Talk / tritontalk GitHub Repo.
+SSH into the server for TritonTalk.com and run:
 ```bash
 ./stopAndPull.sh
 ```
