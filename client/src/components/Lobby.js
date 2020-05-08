@@ -11,12 +11,12 @@ const Lobby = ({
   const { user } = React.useContext(Auth)
 
   return (
-    <div>
-      <Jumbotron fluid style={{ backgroundImage: 'url(https://ucsdnews.ucsd.edu/news_uploads/Back-to-School-150110.jpg', backgroundPosition: "0px -100px", height: "400px", backgroundRepeat: 'repeat', width: "100%", borderBottomStyle: "solid", borderBottomWidth: ".02px", top: "-5px", position: "absolute" }}>
+    <div style={{ marginTop: "20px" }}>
+      <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', backgroundPosition: "0px 0px", height: "600px", backgroundRepeat: 'repeat', top: "600px" }} >
         <div style={{ margin: "auto", width: "50%" }}>
-          <ul style={{ textAlign: "justify", width: "100%", display: "flex", verticalAlign: "top", textAlign: "center" }}>
-            <li style={{ position: "relative" }}>
-              <Card style={{ width: "350px", backgroundColor: "dark", marginRight: "100px" }}>
+          <ul style={{ textAlign: "justify", width: "100%", display: "inline", verticalAlign: "top", textAlign: "center" }}>
+            <center>
+              <Card style={{ width: "350px", backgroundColor: "dark", marginRight: "100px", marginBottom: "4px" }}>
                 <Card.Header style={{ marginBottom: "10px", backgroundColor: "#535864", color: "white" }}><h2>Enter a room</h2></Card.Header>
                 <form onSubmit={handleSubmit}>
                   <div>
@@ -41,9 +41,10 @@ const Lobby = ({
                   </div>
                 </form>
               </Card>
+            </center>
 
-            </li>
-            <li>
+
+            <center>
               <Card style={{ width: "180px", marginBottom: "10px", paddingBottom: "10px" }}>
                 <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
 
@@ -73,7 +74,8 @@ const Lobby = ({
                   </Link>
                 </center>
               </Card>
-            </li>
+            </center>
+
           </ul>
         </div>
       </Jumbotron>
