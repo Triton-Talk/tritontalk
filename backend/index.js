@@ -29,7 +29,6 @@ app.get('/greeting', (req, res) => {
 // PREPROCESSOR FOR ALL API ROUTES
 app.use('/api/*', (req, res, next) => {
   console.log('Processing identity')
-  console.log(req.body)
   if (req.body.postman) {
     req.identity = {}
     req.identity.name = 'Shubham Kulkarni'
@@ -40,8 +39,10 @@ app.use('/api/*', (req, res, next) => {
   else {
     admin.auth().verifyIdToken(req.body.credential).then(identity => {
       req.identity = identity
+      console.log('Identity processed, continuing.')
       next()
     }).catch(error => {
+      console.log(`Failed to parse identity: ${req.body}`);
       res.status(404).send('Error: failed to parse identity')
     })
   }
