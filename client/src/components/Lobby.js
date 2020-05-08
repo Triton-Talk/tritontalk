@@ -16,7 +16,7 @@ const Lobby = ({
         <div style={{ margin: "auto" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
-              <Card.Header style={{ marginBottom: "10px", backgroundColor: "#535864", color: "white" }}><h2>Enter a room</h2></Card.Header>
+              <Card.Header style={{ marginBottom: "10px", backgroundColor: "#024b30", color: "white" }}><h2>Enter a room</h2></Card.Header>
               <form onSubmit={handleSubmit}>
                 <div>
                   {user ?

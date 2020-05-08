@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 const NavigationBar = () => {
 
   const { user, handleSignOut } = useContext(Auth);
-
+  const lengthOfButton = user.name.length * 10;
+  const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
       <Navbar style={styles} bg="dark" variant="dark">
@@ -23,7 +24,7 @@ const NavigationBar = () => {
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
-                  <button className="navbtn">Account</button>
+                  <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
                   <div className="dropdown-content">
                     <Link to='/'>
                       <button className="dropdown">Lobby</button>
