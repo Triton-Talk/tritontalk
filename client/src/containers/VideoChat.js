@@ -88,7 +88,6 @@ const VideoChat = () => {
             </Link>
           </Card>
         </center>
-        <Footer />
       </div>
     );
   }
