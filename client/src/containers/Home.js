@@ -16,7 +16,7 @@ const Home = () => {
     maxHeight: "100%",
     position: "fixed",
     zIndex: "0",
-    top: 80,
+    top: 50,
 
   }
 
