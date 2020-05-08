@@ -57,9 +57,6 @@ You will also need an API key and secret, you can create these under the [Progra
 
 
 
-Navigate to [localhost] (localhost). 
-
-To close the app, use <Ctrl-C> to close the docker-compose process in the shell.
 
 
 ## Updating the server (For Production Only)
