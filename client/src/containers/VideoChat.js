@@ -2,7 +2,9 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 import Auth from '../context/auth';
-
+import { Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap';
+import Footer from '../components/footer';
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 const VideoChat = () => {
@@ -46,15 +48,50 @@ const VideoChat = () => {
   let render;
   if (token) {
     render = (
-      <Room roomName={roomName} token={token} handleLogout={handleLogout} />
+      <Room style={{ padding: "10px" }} roomName={roomName} token={token} handleLogout={handleLogout} />
     );
   } else {
     render = (
-      <Lobby
-        roomName={roomName}
-        handleRoomNameChange={handleRoomNameChange}
-        handleSubmit={handleSubmit}
-      />
+      <div>
+        <Lobby
+          roomName={roomName}
+          handleRoomNameChange={handleRoomNameChange}
+          handleSubmit={handleSubmit}
+        />
+        <center>
+          <Card style={{ width: "20%", marginBottom: "10px", paddingBottom: "10px" }}>
+            <Card.Header style={{ marginBottom: "10px" }}>For Dev Purposes</Card.Header>
+            <Link to='/newclub'>
+              <button className="btn-success">Register a Club</button>
+            </Link>
+
+            <br></br><br></br>
+
+            <Link to='/friends'>
+              <button className="btn-primary">Friends</button>
+            </Link>
+
+            <br></br><br></br>
+
+            <Link to='/splash'>
+              <button className="btn-primary">Splash Page</button>
+            </Link>
+
+            <br></br><br></br>
+
+            <Link to='/random'>
+              <button className="btn-primary">Random Call</button>
+            </Link>
+
+            <br></br><br></br>
+
+            <Link to='/home'>
+              <button className="btn-primary">Library Walk</button>
+            </Link>
+          </Card>
+        </center>
+        <Footer />
+      </div>
     );
   }
   return render;
