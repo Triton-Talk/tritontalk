@@ -14,6 +14,8 @@ class Chat extends Component {
 
 
   componentDidMount() {
+    console.log(this.state.socket)
+
     this.state.socket.on('new_message', data => {
       console.log(data)
       this.setState(state => ({ messages: [data, ...state.messages] }))
