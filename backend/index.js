@@ -67,6 +67,7 @@ chat.on('connection', (socket) => {
 const phaser = require('socket.io')(server);
 
 const players = {}
+const oldPlayers = {}
 //const phaser = socket_server(server)
 
 phaser.on('connection', socket => {
@@ -80,6 +81,8 @@ phaser.on('connection', socket => {
 
     // Emit the update-players method in the client side
     socket.emit('update-players', players)
+
+    //updatePlayers()
   })
 
   socket.on('disconnect', state => {
@@ -99,8 +102,15 @@ phaser.on('connection', socket => {
     // Update the player's data if he moved
     players[socket.id].x = x
     players[socket.id].y = y
+
     players[socket.id].playerName = playerName
+
     // Send the data back to the client
     phaser.emit('update-players', players)
   })
+  
+  const updatePlayers = () => {
+    phaser.emit('update-players', players)
+    setTimeout(() => updatePlayers(), 17)
+  }
 })
