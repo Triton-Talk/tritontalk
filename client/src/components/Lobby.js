@@ -17,7 +17,7 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
     backgroundRepeat: 'repeat',
     borderRadius: "30px",
     background: "url(50%-transparent-white.png)",
-    background: "rgba(000,000,000,0.5)"
+
   }
 
   return (
