@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, Jumbotron, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import Footer from '../components/footer';
+import Photo from './istockphoto-1157983544-170667a.jpg'
 const Lobby = ({
   roomName,
   handleRoomNameChange,
@@ -12,11 +13,11 @@ const Lobby = ({
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px" }} >
+      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)', backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px" }} >
         <div style={{ margin: "auto" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
-              <Card.Header style={{ marginBottom: "10px", backgroundColor: "#024b30", color: "white" }}><h2>Enter a room</h2></Card.Header>
+              <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
               <form onSubmit={handleSubmit}>
                 <div>
                   {user ?
