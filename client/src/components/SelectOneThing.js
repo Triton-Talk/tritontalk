@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const SelectOneThing = ({ label, options, value, onChange }) => {
   return (

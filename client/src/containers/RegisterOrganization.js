@@ -144,7 +144,9 @@ class RegisterOrganization extends Component {
         </Form>
 
         <div style={{ bottom: 0, position: "absolute", width: "100%" }}>
+          <Footer />
         </div>
+
       </div >
     )
   }

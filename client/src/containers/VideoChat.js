@@ -2,9 +2,9 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 import Auth from '../context/auth';
-import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap';
-import Footer from '../components/footer';
+//import { Link } from 'react-router-dom'
+//import { Card } from 'react-bootstrap';
+//import Footer from '../components/footer';
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 const VideoChat = () => {

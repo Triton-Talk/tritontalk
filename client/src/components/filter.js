@@ -13,9 +13,9 @@ const Filter = ({ props }) => {
           </button>
 
         <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-          <a className="dropdown-item" href="#">Alphabetical</a>
-          <a className="dropdown-item" href="#">Forms Incompleted</a>
-          <a className="dropdown-item" href="#">Time of Creation</a>
+          <button className="dropdown-item" href="#">Alphabetical</button>
+          <button className="dropdown-item" href="#">Forms Incompleted</button>
+          <button className="dropdown-item" href="#">Time of Creation</button>
         </div>
       </div>
       <p className="h6" style={{ margin: '10px' }}>

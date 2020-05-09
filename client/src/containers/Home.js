@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styles/App.css';
 
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 import VideoChat from './VideoChat';
 import Chat from './Chat';
-import Footer from '../components/footer';
+//import Footer from '../components/footer';
 
 const Home = () => {
 

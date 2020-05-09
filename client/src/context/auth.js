@@ -76,7 +76,7 @@ export const AuthProvider = (props) => {
       return response.json()
     }).then(user => {
       setUser(user)
-      if (location.pathname !== '/splash')
+      if (location.pathname === '/')
         history.push('/splash')
     })
   }
