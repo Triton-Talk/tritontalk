@@ -36,6 +36,12 @@ const Random = (props) => {
               id="custom-switch-year4"
               label="Year 4" />
           </Form.Group>
+          <Form.Group as={Col} controlId="year4plus">
+            <Form.Check
+              type="switch"
+              id="custom-switch-year4plus"
+              label="Year 4+" />
+          </Form.Group>
 
         </Form.Row>
 
