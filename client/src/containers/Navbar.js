@@ -21,7 +21,7 @@ const NavigationBar = () => {
         {
           user !== null && user !== undefined ?
             <>
-              <div className="centered" style={{ textAlign: "center"}}>
+              <div className="centered" style={{ textAlign: "center", height:'54px'}}>
                 <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
               <Navbar.Collapse className="justify-content-end">
