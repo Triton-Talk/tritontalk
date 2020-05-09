@@ -1,9 +1,0 @@
-**
-
-!client/package-lock.json
-!client/package.json
-!client/src
-!client/public
-!client/README.md
-
-!testing/nginx/conf/default.conf
