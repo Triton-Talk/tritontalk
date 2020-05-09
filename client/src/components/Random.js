@@ -1,12 +1,13 @@
 import React from 'react';
-import { Form, Button, Col } from 'react-bootstrap';
+import { Form, Button, Col, Jumbotron } from 'react-bootstrap';
 
 const Random = (props) => {
   return (
     <div>
       <br></br>
       <div style={{ textAlign: "center" }}>
-        <h1>How would you like to meet today?</h1>
+        <h1>Who would you like to meet today?</h1>
+        <Jumbotron fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://cdn5.vectorstock.com/i/1000x1000/89/79/kids-drawing-funny-seamless-pattern-cute-vector-9228979.jpg', backgroundPosition: "0px 0px", height: "200px", backgroundRepeat: 'repeat' }}></Jumbotron>
       </div>
       <Form style={{ maxWidth: "95%" }}>
 
@@ -34,6 +35,12 @@ const Random = (props) => {
               type="switch"
               id="custom-switch-year4"
               label="Year 4" />
+          </Form.Group>
+          <Form.Group as={Col} controlId="year4plus">
+            <Form.Check
+              type="switch"
+              id="custom-switch-year4plus"
+              label="Year 4+" />
           </Form.Group>
 
         </Form.Row>
@@ -66,7 +73,7 @@ const Random = (props) => {
         </center>
 
       </Form>
-    </div>
+    </div >
   )
 }
 export default Random;

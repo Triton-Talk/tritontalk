@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import '../styles/App.css';
@@ -21,15 +21,16 @@ const Router = () => {
     <BrowserRouter>
       <AuthProvider>
         <div className="app">
-          <Navbar/>
+          <Navbar />
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/splash" exact component={Home} />
             <Route path="/home" exact component={LibraryWalk} />
             <Route path="/friends" exact component={Friends} />
             <Route path="/profile" exact component={ProfileSettings} />
             <Route path="/random" exact component={RandomCall} />
             <Route path="/newclub" exact component={RegisterOrganization} />
-            <Route path="/splash" exact component={SplashPage} />
+            <Route path="/lobby" exact component={Home} />
+            <Route path="/" exact component={SplashPage} />
           </Switch>
         </div >
       </AuthProvider>

@@ -6,11 +6,14 @@ import styles from '../styles/NavBar.css';
 import Auth from '../context/auth';
 
 import { Link } from 'react-router-dom';
+import { NONE } from 'phaser';
 
 const NavigationBar = () => {
 
   const { user, handleSignOut } = useContext(Auth);
+  const lengthOfButton = user ? user.name.length * 10 : NONE;
 
+  const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
       <Navbar style={styles} bg="dark" variant="dark">
@@ -18,16 +21,23 @@ const NavigationBar = () => {
         {
           user !== null && user !== undefined ?
             <>
-              <Link to='/random'><button className='navbtn'>Go Chat</button></Link>
               <div className="centered" style={{ textAlign: "center", height: "10px" }}>
-                <Link to="/"><h1 className="NavBarLogo">TritonTalk</h1></Link>
+                <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
-                  <button className="navbtn">Account</button>
+                  <Link to='/profile'>
+                    <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
+                  </Link>
                   <div className="dropdown-content">
-                    <Link to='/profile'>
-                      <button className="dropdown">Settings</button>
+                    <Link to='/random'>
+                      <button className="dropdown">Meet a Student</button>
+                    </Link>
+                    <Link to='/home'>
+                      <button className="dropdown">Library Walk</button>
+                    </Link>
+                    <Link to='/friends'>
+                      <button className="dropdown">Friends</button>
                     </Link>
 
                     <button className="dropdown"

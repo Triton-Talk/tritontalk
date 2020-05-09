@@ -1,37 +1,59 @@
 import Auth from '../context/auth'
 import React from 'react';
+import { Card, Jumbotron } from 'react-bootstrap';
+// import { Card, Jumbotron, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
-const Lobby = ({
-  roomName,
-  handleRoomNameChange,
-  handleSubmit
-}) => {
+import Footer from '../components/footer';
+import Photo from './istockphoto-1157983544-170667a.jpg'
+
+const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
+
   const { user } = React.useContext(Auth)
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h2>Enter a room</h2>
-      <div>
-        {user ?
-          <label htmlFor="name">Name: {user.name} </label> :
-          <label htmlFor="name">Name: Please sign in first!</label>}
-      </div>
+  const jumbotronStyle = {
+    backgroundPosition: "0px 0px",
+    height: "400px",
+    width: "370px",
+    backgroundRepeat: 'repeat',
+    borderRadius: "30px",
+    background: "url(50%-transparent-white.png)",
 
-      <div>
-        <label htmlFor="room">Room name:</label>
-        <input
-          type="text"
-          id="room"
-          value={roomName}
-          onChange={handleRoomNameChange}
-          required
-        /><br></br>
-        <button style={{ marginRight: "10px" }} type="submit">Submit</button>
-        <Link to='/newclub'>
-          <button className="btn-success">Register a Club</button>
-        </Link>
+  }
+
+  return (
+    <div style={{ alignItems: "center", justifyContent: "center", verticalAlign: "center", top: "100px" }}>
+      <div style={{ top: "50px", width: "100%" }}>
+        <div style={{ top: "100px" }}>
+          < center >
+            <Card style={{ width: "350px", marginBottom: "4px" }}>
+              <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
+              <form onSubmit={handleSubmit}>
+                <div>
+                  {user ?
+                    <label htmlFor="name">Name: {user.name} </label> :
+                    <label htmlFor="name">Name: Please sign in first!</label>}
+                </div>
+
+                <div>
+                  <label htmlFor="room">Room name:</label>
+                  <input
+                    type="text"
+                    id="room"
+                    value={roomName}
+                    onChange={handleRoomNameChange}
+                    required
+                  /><br></br>
+                  <button style={{ marginRight: "10px" }} type="submit">Submit</button>
+                  <Link to='/newclub'>
+                    <button className="btn-success">Register a Club</button>
+                  </Link>
+                </div>
+              </form>
+            </Card>
+          </center>
+        </div>
       </div>
-    </form>
+    </div >
   );
 };
 

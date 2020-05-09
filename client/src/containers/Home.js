@@ -1,23 +1,21 @@
 import React from 'react';
 import '../styles/App.css';
 
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 import VideoChat from './VideoChat';
 import Chat from './Chat';
-import Footer from '../components/footer';
+//import Footer from '../components/footer';
 
 const Home = () => {
 
   const homeStyle = {
-    backgroundColor: "lightblue",
+    backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)',
     width: "100%",
     height: "100%",
-    maxHeight: "100%",
     position: "fixed",
     zIndex: "0",
-    top: 80,
-
+    top: 55
   }
 
   var PAGE = "HOME";
@@ -30,9 +28,11 @@ const Home = () => {
 
   return (
     <div style={homeStyle}>
-      {body}
+      <div style={{ background: "rgba(255,255,255,0.45)", height: "100%", width: "100%", top: "-900px" }}>
+        {body}
+      </div>
 
-    </div>
+    </div >
 
   )
 }

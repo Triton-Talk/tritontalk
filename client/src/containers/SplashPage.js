@@ -1,14 +1,11 @@
 import React,{useContext} from 'react';
-import styles from '../styles/SplashPage.css';
-import BackgroundImage from "./SplashPageBackground.png";
+import '../styles/SplashPage.css';
 import SplashPageBackground from './SplashPageBackground.png'
 
 import Auth from '../context/auth';
 
 function SplashPage() {
-  const { user, handleSignOn, handleSignOut } = useContext(Auth);
-
-  console.log('splash')
+  const { handleSignOn } = useContext(Auth);
 
   return (
     <div className="App" style={{backgroundImage: `url(${SplashPageBackground})` }}>

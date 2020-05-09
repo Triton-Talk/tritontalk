@@ -11,7 +11,7 @@ const Responsive_table = (props) => {
     return (
       <Col
         xs={{ span: 12 }} sm={{ span: 6 }} md={{ span: 4 }}
-        lg={{ span: 4 }} xl={{ span: 3 }}>
+        lg={{ span: 4 }} xl={{ span: 3 }} key={note.id}>
         <center><TableTile user={note} /></center>
       </Col>
     );
