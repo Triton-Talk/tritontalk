@@ -3,29 +3,30 @@ import React from 'react';
 import { Card, Jumbotron } from 'react-bootstrap';
 // import { Card, Jumbotron, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
-// import Footer from '../components/footer';
+import Footer from '../components/footer';
+import Photo from './istockphoto-1157983544-170667a.jpg'
 
 const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
+
   const { user } = React.useContext(Auth)
 
   const jumbotronStyle = { 
-    marginRight: "5%", 
-    marginLeft: "5%", 
-    backgroundImage: 'url(https://cdn.dribbble.com/users/203/screenshots/7061588/media/e1ac677468cb6c05c02070bb06a7b5e9.png', 
     backgroundPosition: "0px 0px", 
     height: "400px", 
+    width: "370px", 
     backgroundRepeat: 'repeat', 
-    top: "600px", 
-    borderRadius: "80px" 
+    borderRadius: "30px", 
+    background: "url(50%-transparent-white.png)", 
+    background: "rgba(000,000,000,0.5)" 
   }
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", verticalAlign: "center", marginTop: "70px" }}>
       <Jumbotron fluid style={jumbotronStyle} >
-        <div style={{ margin: "auto" }}>
+        <div style={{ margin: "auto", position: "relative" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
-              <Card.Header style={{ marginBottom: "10px", backgroundColor: "#024b30", color: "white" }}><h2>Enter a room</h2></Card.Header>
+              <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
               <form onSubmit={handleSubmit}>
                 <div>
                   {user ?
@@ -57,8 +58,6 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
 
         </div>
       </Jumbotron>
-
-      <div><center><h1 className="OnlineText">Currently: 3 people are online.</h1></center></div>
     </div >
   );
 };

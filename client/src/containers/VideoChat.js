@@ -58,6 +58,8 @@ const VideoChat = () => {
           handleRoomNameChange={handleRoomNameChange}
           handleSubmit={handleSubmit}
         />
+        <br></br>
+        <div><center><h1 className="OnlineText">Currently: 3 people are online.</h1></center></div>
       </div>
     );
   }
