@@ -26,7 +26,9 @@ const NavigationBar = () => {
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
-                  <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
+                  <Link to='/profile'>
+                    <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
+                  </Link>
                   <div className="dropdown-content">
                     <Link to='/lobby'>
                       <button className="dropdown">Lobby</button>
@@ -39,9 +41,6 @@ const NavigationBar = () => {
                     </Link>
                     <Link to='/friends'>
                       <button className="dropdown">Friends</button>
-                    </Link>
-                    <Link to='/profile'>
-                      <button className="dropdown">Settings</button>
                     </Link>
 
                     <button className="dropdown"
