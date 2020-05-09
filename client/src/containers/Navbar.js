@@ -16,20 +16,23 @@ const NavigationBar = () => {
   const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
-      <Navbar style={styles} style={{ backgroundColor: "rgb(23,40,74)" }}>
+      <Navbar style={{ ...styles, backgroundColor: "rgb(23,40,74)"}}>
         <Navbar.Toggle />
         {
           user !== null && user !== undefined ?
             <>
-              <div className="centered" style={{ textAlign: "center", height: "10px" }}>
+              <div className="centered" style={{ textAlign: "center"}}>
                 <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
-                  <Link to='/profile'>
-                    <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
-                  </Link>
+                  <button style={{ 
+                            width: lengthOfButtonString, 
+                            cursor: 'default' }}> {user.name}</button>
                   <div className="dropdown-content">
+                    <Link to='/profile'>
+                      <button className="dropdown">Account Settings</button>
+                    </Link>
                     <Link to='/random'>
                       <button className="dropdown">Meet a Student</button>
                     </Link>

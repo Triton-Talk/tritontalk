@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/App.css';
 
+import background_image from '../assets/background_image.png'
+
 //import { Link } from 'react-router-dom'
 
 import VideoChat from './VideoChat';
@@ -10,12 +12,12 @@ import Chat from './Chat';
 const Home = () => {
 
   const homeStyle = {
-    backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)',
+    background:`linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(${background_image})`,
     width: "100%",
     height: "100%",
-    position: "fixed",
+    position: "relative",
     zIndex: "0",
-    top: 55
+    flexGrow: "1"
   }
 
   var PAGE = "HOME";
@@ -28,12 +30,9 @@ const Home = () => {
 
   return (
     <div style={homeStyle}>
-      <div style={{ background: "rgba(255,255,255,0.79)", height: "100%", width: "100%" }}>
-        <div style={{ paddingTop: "100px" }}>
-          {body}
-        </div>
+      <div style={{ paddingTop: "100px" }}>
+        {body}
       </div>
-
     </div >
 
   )
