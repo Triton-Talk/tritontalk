@@ -16,7 +16,7 @@ const NavigationBar = () => {
   const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
-      <Navbar style={styles} bg="dark" variant="dark">
+      <Navbar style={styles} style={{ backgroundColor: "rgb(23,40,74)" }}>
         <Navbar.Toggle />
         {
           user !== null && user !== undefined ?
