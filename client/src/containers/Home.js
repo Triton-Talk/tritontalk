@@ -10,7 +10,7 @@ import Footer from '../components/footer';
 const Home = () => {
 
   const homeStyle = {
-    backgroundColor: "lightyellow",
+    backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)',
     width: "100%",
     height: "100%",
     maxHeight: "100%",

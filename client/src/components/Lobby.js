@@ -13,8 +13,8 @@ const Lobby = ({
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)', backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px" }} >
-        <div style={{ margin: "auto" }}>
+      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px", background: "url(50%-transparent-white.png)", background: "rgba(000,000,000,0.5)" }} >
+        <div style={{ margin: "auto", position: "relative" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
               <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
