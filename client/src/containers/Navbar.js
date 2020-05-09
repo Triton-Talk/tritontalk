@@ -30,9 +30,6 @@ const NavigationBar = () => {
                     <button style={{ width: lengthOfButtonString }} className="navbtn">{user.name}</button>
                   </Link>
                   <div className="dropdown-content">
-                    <Link to='/lobby'>
-                      <button className="dropdown">Lobby</button>
-                    </Link>
                     <Link to='/random'>
                       <button className="dropdown">Meet a Student</button>
                     </Link>
