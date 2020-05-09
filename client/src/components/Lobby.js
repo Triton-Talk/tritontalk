@@ -26,7 +26,7 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
         <div style={{ top: "100px" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
-              <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
+              <Card.Header style={{ marginBottom: "10px", backgroundColor: "rgb(39,96,152)", color: "white" }}><h2>Enter a room</h2></Card.Header>
               <form onSubmit={handleSubmit}>
                 <div>
                   {user ?
@@ -43,9 +43,9 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
                     onChange={handleRoomNameChange}
                     required
                   /><br></br>
-                  <button style={{ marginRight: "10px" }} type="submit">Submit</button>
+                  <button style={{ marginRight: "10px", backgroundColor: "rgb(201,226,243)" }} type="submit">Submit</button>
                   <Link to='/newclub'>
-                    <button className="btn-success">Register a Club</button>
+                    <button style={{ backgroundColor: "rgb(248,206,70)" }} >Register a Club</button>
                   </Link>
                 </div>
               </form>

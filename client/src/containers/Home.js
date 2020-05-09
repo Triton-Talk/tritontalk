@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <div style={homeStyle}>
-      <div style={{ background: "rgba(255,255,255,0.45)", height: "100%", width: "100%" }}>
+      <div style={{ background: "rgba(255,255,255,0.79)", height: "100%", width: "100%" }}>
         <div style={{ paddingTop: "100px" }}>
           {body}
         </div>
