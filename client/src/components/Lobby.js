@@ -12,8 +12,8 @@ const Lobby = ({
   const { user } = React.useContext(Auth)
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <Jumbotron class="rounded" fluid style={{ marginRight: "5%", marginLeft: "5%", backgroundPosition: "0px 0px", height: "400px", backgroundRepeat: 'repeat', top: "600px", borderRadius: "80px", background: "url(50%-transparent-white.png)", background: "rgba(000,000,000,0.5)" }} >
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", verticalAlign: "center", marginTop: "70px" }}>
+      <Jumbotron class="rounded" fluid style={{ backgroundPosition: "0px 0px", height: "400px", width: "370px", backgroundRepeat: 'repeat', borderRadius: "30px", background: "url(50%-transparent-white.png)", background: "rgba(000,000,000,0.5)" }} >
         <div style={{ margin: "auto", position: "relative" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
@@ -49,8 +49,6 @@ const Lobby = ({
 
         </div>
       </Jumbotron>
-
-      <div><center><h1 className="OnlineText">Currently: 3 people are online.</h1></center></div>
     </div >
   );
 };
