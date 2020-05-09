@@ -6,6 +6,7 @@
     -webkit-text-stroke-color: #4B7FE6;
     padding:0px;
     top: 10px;
+    margin: 0px
 }
 
 .OnlineText {
@@ -27,7 +28,7 @@
 button {
     background-color: #ffb511;
     color: black;
-    border-radius: 6px;
+/*    border-radius: 6px; */
 }
 
 a:hover{
@@ -46,7 +47,7 @@ a:hover{
     margin:0px;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 200px;
 
 }
 
@@ -68,6 +69,19 @@ a:hover{
 
 /* Buttons inside the dropdown */
 .dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    background-color: #ffb511;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(1,1,1,0.2);
+    z-index: 1;
+    border-radius: 0px
+}
+
+.dropdown-content span {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
