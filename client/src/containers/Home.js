@@ -13,11 +13,9 @@ const Home = () => {
     backgroundImage: 'url(https://i.imgur.com/a0XP0R0.png)',
     width: "100%",
     height: "100%",
-    maxHeight: "100%",
     position: "fixed",
     zIndex: "0",
-    top: 55,
-
+    top: 55
   }
 
   var PAGE = "HOME";
@@ -30,9 +28,11 @@ const Home = () => {
 
   return (
     <div style={homeStyle}>
-      {body}
+      <div style={{ background: "rgba(000,000,000,0.7)", height: "100%", width: "100%", top: "-900px" }}>
+        {body}
+      </div>
 
-    </div>
+    </div >
 
   )
 }

@@ -10,20 +10,20 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
 
   const { user } = React.useContext(Auth)
 
-  const jumbotronStyle = { 
-    backgroundPosition: "0px 0px", 
-    height: "400px", 
-    width: "370px", 
-    backgroundRepeat: 'repeat', 
-    borderRadius: "30px", 
-    background: "url(50%-transparent-white.png)", 
-    background: "rgba(000,000,000,0.5)" 
+  const jumbotronStyle = {
+    backgroundPosition: "0px 0px",
+    height: "400px",
+    width: "370px",
+    backgroundRepeat: 'repeat',
+    borderRadius: "30px",
+    background: "url(50%-transparent-white.png)",
+    background: "rgba(000,000,000,0.5)"
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", verticalAlign: "center", marginTop: "70px" }}>
-      <Jumbotron fluid style={jumbotronStyle} >
-        <div style={{ margin: "auto", position: "relative" }}>
+    <div style={{ alignItems: "center", justifyContent: "center", verticalAlign: "center", top: "100px" }}>
+      <div style={{ top: "50px", width: "100%" }}>
+        <div style={{ top: "100px" }}>
           < center >
             <Card style={{ width: "350px", marginBottom: "4px" }}>
               <Card.Header style={{ marginBottom: "10px" }}><h2>Enter a room</h2></Card.Header>
@@ -51,13 +51,8 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
               </form>
             </Card>
           </center>
-
-
-
-
-
         </div>
-      </Jumbotron>
+      </div>
     </div >
   );
 };
