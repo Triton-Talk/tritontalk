@@ -3,13 +3,14 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 
+
 import Auth from '../context/auth';
 import request from '../context/request';
 import Chart from '../components/Chart/Chart';
 
+
 //import { Link } from 'react-router-dom'
 //import { Card } from 'react-bootstrap';
-import AlertDismissible from '../components/AlertDismissible';
 
 const VideoChat = () => {
   const { user } = React.useContext(Auth);

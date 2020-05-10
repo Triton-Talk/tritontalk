@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 
-import db, { GoogleSignOn } from '../firebase'
+import db, { GoogleSignOn } from './firebase'
 import Cookies from 'universal-cookie'
 
 import request from './request'

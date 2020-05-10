@@ -1,17 +1,24 @@
 import React, { useContext } from 'react';
 import { Navbar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '../styles/NavBar.css';
-import AlertDismissible from '../components/AlertDismissible';
-import Auth from '../context/auth';
+import { Link, useLocation } from 'react-router-dom';
+import Cookies from 'universal-cookie'
 
-import { Link } from 'react-router-dom';
-import { NONE } from 'phaser';
+import AlertDismissible from '../components/AlertDismissible';
+import Auth from '../utils/auth';
+
+import styles from '../styles/NavBar.css';
+
+const cookies = new Cookies()
+let killAlert = cookies.get('killAlert');
+console.log(killAlert)
 
 const NavigationBar = () => {
 
   const { user, handleSignOut } = useContext(Auth);
-  const lengthOfButton = user ? user.name.length * 10 : NONE;
+  const lengthOfButton = user ? user.name.length * 10 : null;
+  
+  const location = useLocation()
   
   const navStyle = {
     ...styles, 
@@ -62,7 +69,10 @@ const NavigationBar = () => {
           }
         </Navbar >
       </div>
-      <div ><AlertDismissible /></div>
+      { killAlert ? null : 
+      <div style={location.pathname === '/' ? {display: 'none'} : null} >
+        <AlertDismissible killAlert={e => cookies.set('killAlert', true)}/>
+      </div> }
     </div >
   )
 }
