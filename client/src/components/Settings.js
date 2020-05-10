@@ -117,9 +117,14 @@ const Settings = () => {
 
             <Form.Group controlId="settings.Clubs">
               <SelectManyThings controlId="settings.Clubs"
-                label={<><span>Clubs</span><Button style={{ margin: "10px" }} className="btn-warning">Add More Clubs</Button></>}
+                label={
+                  <>
+                    <span>Clubs</span>
+                    <Button style={{ margin: "10px" }} className="btn-warning">Add More Clubs</Button>
+                  </>
+                }
                 options={clubs} value={localUser.clubs}
-                onChange={(e) => updateLocalUser({ ...localUser, clubs: [...localUser.clubs, e.target.value] })} disabled />
+                onChange={(e) => updateLocalUser({ ...localUser, clubs: [...localUser.clubs, e.target.value] })}/>
             </Form.Group>
 
             <Form.Group controlId="settings.Bio">

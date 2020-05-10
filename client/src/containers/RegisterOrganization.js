@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, Button, Col } from 'react-bootstrap';
-import Footer from '../components/footer.js';
 import Autocomplete from '../components/Autocomplete'
 
 const states = [
@@ -55,101 +54,70 @@ const states = [
   "Wisconsin",
   "Wyoming"
 ];
-class RegisterOrganization extends Component {
+const RegisterOrganization  = () =>  {
+  
+  const [club, setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
 
+  return (
+    <div>
+      <br></br>
+      <Form style={{ maxWidth: "95%" }}>
+        <Form.Row>
+          <Form.Group as={Col} controlId="name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control size="lg" type="name" placeholder="Organization Name" 
+                          value={club.name} onChange={e => setClub({...club, name:e.target.value})}/>
+          </Form.Group>
+        </Form.Row>
 
-  render() {
-    return (
-      <div>
-        <br></br>
-        <Form style={{ maxWidth: "95%" }}>
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="name" placeholder="Organization Name" />
-            </Form.Group>
-          </Form.Row>
-
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.File id="formcheck-api-custom" custom>
-                <Form.File.Input isValid />
-                <Form.File.Label data-browse="Booth">
-                  Booth Image
-      </Form.File.Label>
-                <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
-              </Form.File>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.File id="formcheck-api-custom" custom>
-                <Form.File.Input isValid />
-                <Form.File.Label data-browse="Flyer">
-                  Flyer Image
-                </Form.File.Label>
-                <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
-              </Form.File>
-            </Form.Group>
-          </Form.Row>
-
-          <Form.Group controlId="formGridAddress1">
-            <Form.Label>Address</Form.Label>
-            <Form.Control placeholder="1234 Main St" />
+        <Form.Row>
+          <Form.Group as={Col} controlId="booth_file">
+            <Form.File id="formcheck-api-custom" custom>
+              <Form.File.Input onChange={e => console.log(e.target.files)}/>
+              <Form.File.Label> 
+                Booth Image
+              </Form.File.Label>
+            </Form.File>
           </Form.Group>
 
-
-          {/* Address */}
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridCity">
-              <Form.Label>City</Form.Label>
-              <Form.Control />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>State</Form.Label>
-              <Form.Control as="select" value="Choose...">
-                <option>Choose...</option>
-                <option>...</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control />
-            </Form.Group>
-
-          </Form.Row>
-
-
-
-          <Form.Group controlId="settings.Hobbies">
-            <Form.Label>Organization Biography</Form.Label>
-            <Form.Control size="lg" as="textarea" rows="3" />
+          <Form.Group as={Col} controlId="flyer_file">
+            <Form.File id="formcheck-api-custom" custom>
+              <Form.File.Input isValid />
+              <Form.File.Label>
+                Flyer Image
+              </Form.File.Label>
+              <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
+            </Form.File>
           </Form.Group>
+        </Form.Row>
 
-          <Form.Label>Add Members</Form.Label>
-          <Button style={{ marginLeft: "8px", marginBottom: "8px" }} variant="warning" type="submit">
-            Add more Members
-          </Button>
-          <Form.Group><Autocomplete suggestions={states} /></Form.Group>
-          <Form.Group id="formGridCheckbox">
-            <Form.Check type="switch" id="custom-switch"
-              label="Make my Organization Public to Library Walk" />
+        <Form.Group controlId="description">
+          <Form.Label>Organization Description</Form.Label>
+          <Form.Control size="lg" as="textarea" rows="3" placeholder="What does your organization do" 
+          value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} />
+        </Form.Group>
 
-          </Form.Group>'
-          <Button variant="dark" type="submit">
+        <Form.Label>Add Members</Form.Label>
+        <Button style={{ marginLeft: "8px", marginBottom: "8px" }} variant="warning">
+          Add more Members
+        </Button>
+        <Form.Group><Autocomplete suggestions={states} /></Form.Group>
+
+        <Form.Group id="formGridCheckbox">
+          <Form.Check type="switch" id="custom-switch"
+            label="Make my Organization Public to Library Walk" />
+        </Form.Group>
+
+        <div style={{display:'flex', justifyContent: 'space-evenly'}}>
+          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit">
             Submit
           </Button>
-
-        </Form>
-
-        <div style={{ bottom: 0, position: "absolute", width: "100%" }}>
-          <Footer />
         </div>
 
-      </div >
-    )
-  }
+      </Form>
+
+    </div >
+  )
 }
 
 export default RegisterOrganization;
