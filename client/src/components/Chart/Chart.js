@@ -13,7 +13,7 @@ class Chart extends React.Component {
         <ResponsiveBar
           data={data}
           keys={config.keys}
-          indexBy="country"
+          indexBy="year"
           margin={config.margin}
           padding={0.3}
           colorBy="id"
