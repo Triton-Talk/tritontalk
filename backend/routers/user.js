@@ -11,8 +11,6 @@ router.post('/api/login', async (req, res) => {
   let user = await User.findOne(query)
 
   if(!user){
-    console.log('User not found')
-
     user = new User({
       name: req.identity.name,
       email: req.identity.email,
@@ -20,6 +18,8 @@ router.post('/api/login', async (req, res) => {
     })
 
     await user.save()
+    console.log('New user created')
+
     res.status(200).send(JSON.stringify(user));
   }
 
@@ -35,24 +35,26 @@ router.put('/api/updateUser', async (req, res) => {
   let user = await User.findOneAndUpdate(query, req.body.user, { new: true})
 
   if(!user)
-    res.status(404).send('Cannot modify a nonexistent user')
+    return res.status(404).send('Cannot modify a nonexistent user')
 
-  console.log(user)
+  console.log('User updated')
 
   res.status(200).send(user)
 })
 
-router.delete('/api/me', async (req, res) => {
+router.delete('/api/deleteUser', async (req, res) => {
   const query = {email: req.identity.email}
 
   let user = await User.findOne(query)
 
   if(!user)
-    res.status(404).send('Cannot delete a nonexistent user')
+    return res.status(404).send('Cannot delete a nonexistent user')
 
   await user.remove()
 
-  res.status(200).send('User deleted')
+  console.log('User deleted')
+
+  res.status(200).send({result: 'user deleted'})
 })
 
 module.exports = router

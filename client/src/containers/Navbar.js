@@ -12,11 +12,16 @@ const NavigationBar = () => {
 
   const { user, handleSignOut } = useContext(Auth);
   const lengthOfButton = user ? user.name.length * 10 : NONE;
+  
+  const navStyle = {
+    ...styles, 
+    background: "rgb(23,40,74)",
+  }
 
   const lengthOfButtonString = lengthOfButton + "px";
   return (
     <div id='navbar'>
-      <Navbar style={{ ...styles, backgroundColor: "rgb(23,40,74)"}}>
+      <Navbar style={navStyle}>
         <Navbar.Toggle />
         {
           user !== null && user !== undefined ?

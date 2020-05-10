@@ -1,15 +1,17 @@
 import Auth from '../context/auth'
 import React from 'react';
-import { Card, Jumbotron } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // import { Card, Jumbotron, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
-import Footer from '../components/footer';
-import Photo from './istockphoto-1157983544-170667a.jpg'
+// import Footer from '../components/footer';
+// import Photo from './istockphoto-1157983544-170667a.jpg'
 
 const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
 
   const { user } = React.useContext(Auth)
 
+
+  /* 
   const jumbotronStyle = {
     backgroundPosition: "0px 0px",
     height: "400px",
@@ -19,6 +21,8 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
     background: "url(50%-transparent-white.png)",
 
   }
+
+  */
 
 
 
