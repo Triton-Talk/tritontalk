@@ -49,7 +49,6 @@ const NavigationBar = () => {
                       <Link to='/friends'>
                         <button className="dropdown">Friends</button>
                       </Link>
-
                       <button className="dropdown"
                         onClick={handleSignOut}>Sign out</button>
                     </div>
