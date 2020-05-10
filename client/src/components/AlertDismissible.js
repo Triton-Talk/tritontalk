@@ -5,7 +5,7 @@ export default function AlertDismissible() {
   const [show, setShow] = useState(true);
 
   return (
-    <div style={{ height: "200px", textAlign: "center" }}>
+    <div style={{ textAlign: "center" }}>
       <Alert show={show} style={{ backgroundColor: "rgb(190,147,54)" }}>
         <Alert.Heading><Info style={{ marginRight: "7px", marginBottom: "4px" }}></Info>COVID-19 Updates</Alert.Heading>
         <p>
