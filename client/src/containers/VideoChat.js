@@ -4,8 +4,8 @@ import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 
 
-import Auth from '../context/auth';
-import request from '../context/request';
+import Auth from '../utils/auth';
+import request from '../utils/request';
 import Chart from '../components/Chart/Chart';
 
 

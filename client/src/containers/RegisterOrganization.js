@@ -56,7 +56,11 @@ const states = [
 ];
 const RegisterOrganization  = () =>  {
   
-  const [club, setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
+  const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
+  const setClub = (c) => {
+    console.log(c)
+    _setClub(c)
+  }
 
   return (
     <div>
@@ -73,7 +77,7 @@ const RegisterOrganization  = () =>  {
         <Form.Row>
           <Form.Group as={Col} controlId="booth_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input onChange={e => console.log(e.target.files)}/>
+              <Form.File.Input onChange={e => setClub({...club, booth: e.target.value})}/>
               <Form.File.Label> 
                 Booth Image
               </Form.File.Label>
