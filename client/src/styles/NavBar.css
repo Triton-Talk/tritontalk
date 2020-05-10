@@ -5,7 +5,6 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #4B7FE6;
     padding:0px;
-    top: 10px;
     margin: 0px
 }
 
@@ -16,7 +15,6 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #4B7FE6;
     padding:0px;
-    top: 10px;
 }
 
 .NavBarLogo:hover{
@@ -47,7 +45,6 @@ a:hover{
     margin:0px;
     justify-content: center;
     align-items: center;
-    height: 200px;
 
 }
 

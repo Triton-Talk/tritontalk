@@ -40,7 +40,6 @@ const VideoChat = () => {
   } else {
     render = (
       <div style={{ maxHeight: "100%", maxWidth: "100%" }}>
-        <AlertDismissible />
         <Lobby
           roomName={roomName}
           handleRoomNameChange={handleRoomNameChange}

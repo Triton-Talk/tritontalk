@@ -27,7 +27,7 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
 
 
   return (
-    <div style={{}}>
+    <div style={{ marginTop: "30px" }}>
       <div style={{ width: "100%" }}>
         <div style={{}}>
           < center >
