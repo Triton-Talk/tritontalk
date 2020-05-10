@@ -2,16 +2,16 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 import Auth from '../context/auth';
+
 //import { Link } from 'react-router-dom'
 //import { Card } from 'react-bootstrap';
-//import Footer from '../components/footer';
+import AlertDismissible from '../components/AlertDismissible';
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 const VideoChat = () => {
   const { user, credential } = React.useContext(Auth);
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
-
   const handleRoomNameChange = useCallback(event => {
     setRoomName(event.target.value);
   }, []);
@@ -53,6 +53,7 @@ const VideoChat = () => {
   } else {
     render = (
       <div style={{ maxHeight: "100%", maxWidth: "100%" }}>
+        <AlertDismissible />
         <Lobby
           roomName={roomName}
           handleRoomNameChange={handleRoomNameChange}

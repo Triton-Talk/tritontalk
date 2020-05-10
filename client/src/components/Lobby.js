@@ -20,13 +20,15 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
 
   }
 
+
+
   return (
-    <div style={{ alignItems: "center", justifyContent: "center", verticalAlign: "center", top: "100px" }}>
-      <div style={{ top: "50px", width: "100%" }}>
-        <div style={{ top: "100px" }}>
+    <div style={{}}>
+      <div style={{ width: "100%" }}>
+        <div style={{}}>
           < center >
-            <Card style={{ width: "350px", marginBottom: "4px" }}>
-              <Card.Header style={{ marginBottom: "10px", backgroundColor: "rgb(39,96,152)", color: "white" }}><h2>Enter a room</h2></Card.Header>
+            <Card style={{ width: "350px", borderColor: "rgb(23,40,74)" }}>
+              <Card.Header style={{ backgroundColor: "rgb(39,96,152)", color: "white" }}><h2>Enter a room</h2></Card.Header>
               <form onSubmit={handleSubmit}>
                 <div>
                   {user ?
