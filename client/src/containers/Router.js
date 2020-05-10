@@ -13,7 +13,7 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 
-import { AuthProvider } from '../context/auth';
+import { AuthProvider } from '../utils/auth';
 
 const Router = () => {
   return (

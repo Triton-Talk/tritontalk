@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import io from 'socket.io-client';
 import ChatInput from '../components/ChatInput'
 import ChatMessage from '../components/ChatMessage'
-import Auth from '../context/auth';
+import Auth from '../utils/auth';
 
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 

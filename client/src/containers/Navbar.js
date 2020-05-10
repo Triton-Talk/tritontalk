@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/NavBar.css';
 import AlertDismissible from '../components/AlertDismissible';
-import Auth from '../context/auth';
+import Auth from '../utils/auth';
 
 import { Link } from 'react-router-dom';
 import { NONE } from 'phaser';

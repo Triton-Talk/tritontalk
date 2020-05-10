@@ -3,12 +3,10 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image, Modal} from 'react-bootstrap'
 
-import Auth from '../context/auth'
-import request from '../context/request'
+import Auth from '../utils/auth'
+import request from '../utils/request'
 
 import {SelectOneThing, SelectManyThings} from '../components/SelectOneThing';
-
-import { Redirect } from 'react-router-dom'
 
 const Settings = () => {
 
@@ -18,6 +16,7 @@ const Settings = () => {
   const [modal, setModal] = React.useState(false)
 
   const updateLocalUser = u => {
+    console.log(u.clubs)
     _updateLocalUser(u)
   }
 
@@ -120,7 +119,7 @@ const Settings = () => {
               <SelectManyThings controlId="settings.Clubs"
                 label={<><span>Clubs</span><Button style={{ margin: "10px" }} className="btn-warning">Add More Clubs</Button></>}
                 options={clubs} value={localUser.clubs}
-                onChange={(e) => updateLocalUser({ ...localUser, clubs: e.target.value })} disabled />
+                onChange={(e) => updateLocalUser({ ...localUser, clubs: [...localUser.clubs, e.target.value] })} disabled />
             </Form.Group>
 
             <Form.Group controlId="settings.Bio">
