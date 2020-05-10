@@ -3,8 +3,11 @@ import React, { useState, useCallback } from 'react';
 import Lobby from '../components/Lobby';
 import Room from '../components/Room';
 
-import Auth from '../utils/auth';
-import request from '../utils/request';
+
+import Auth from '../context/auth';
+import request from '../context/request';
+import Chart from '../components/Chart/Chart';
+
 
 //import { Link } from 'react-router-dom'
 //import { Card } from 'react-bootstrap';
@@ -25,7 +28,7 @@ const VideoChat = () => {
       return
     }
 
-    const options = {body: {room: roomName}}
+    const options = { body: { room: roomName } }
     request('/api/video/token', options).then(res => setToken(res.token))
   }
 
@@ -46,6 +49,9 @@ const VideoChat = () => {
         />
         <br></br>
         <div><center><h1 className="OnlineText">Currently: 3 people are online.</h1></center></div>
+        <div style={{ paddingBottom: "100px" }}>
+          <center><Chart /></center>
+        </div>
       </div>
     );
   }
