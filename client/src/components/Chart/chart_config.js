@@ -1,5 +1,5 @@
 export default {
-  keys: ["hot dog", "burger", "sandwich", "kebab", "fries", "donut"],
+  keys: ["IEEE", "EngineersForExploration", "sandwich", "kebab", "fries", "donut"],
   margin: {
     top: 50,
     right: 130,
