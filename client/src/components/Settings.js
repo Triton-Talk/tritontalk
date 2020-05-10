@@ -5,7 +5,7 @@ import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../context/auth'
 
 import SelectOneThing from '../components/SelectOneThing';
-
+import AlertDismissible from '../components/AlertDismissible';
 const Settings = () => {
 
   const oldUser = React.useContext(Auth).user
@@ -16,6 +16,7 @@ const Settings = () => {
   const updateLocalUser = u => {
     _updateLocalUser(u)
   }
+  var GO = 0;
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -38,7 +39,7 @@ const Settings = () => {
       alert('User was successfully updated')
     }).catch(error => {
       alert('There was an error! Please try again.')
-      console.log(error)
+      GO = 1;
     })
   }
 
@@ -58,6 +59,7 @@ const Settings = () => {
 
   return (
     <div>
+      {GO === 1 ? <AlertDismissible /> : <div></div>}
       <hr />
       <Form style={{ maxWidth: "95%" }} onSubmit={handleSubmit} onReset={handleReset}>
         <Form.Row>
