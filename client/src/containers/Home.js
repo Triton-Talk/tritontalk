@@ -8,7 +8,7 @@ import Chat from './Chat';
 const Home = () => {
 
   const homeStyle = {
-    background: 'linear-gradient(180deg, rgba(23,40,74, 1) 0%, rgba(90, 90, 90, 0.1) 30%,rgba(0,0,0, .6) 50%), url(https://i.imgur.com/a0XP0R0.png)',
+    background: 'linear-gradient(180deg, rgba(23,40,74, 1) 5%, rgba(23,40,74, .8) 30%,rgba(0,0,0, .9) 60%), url(https://i.imgur.com/a0XP0R0.png)',
     width: "100%",
     height: "100%",
     position: "relative",

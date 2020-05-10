@@ -10,7 +10,6 @@ import {SelectOneThing, SelectManyThings} from '../components/SelectOneThing';
 
 import { Redirect } from 'react-router-dom'
 
-
 const Settings = () => {
 
   const { user, setUser, handleSignOut } = React.useContext(Auth)
