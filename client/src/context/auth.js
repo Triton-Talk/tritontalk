@@ -27,6 +27,7 @@ export const AuthProvider = (props) => {
   }, [])
 
   const setUser = (newUser) => {
+    console.log('user object has been updated in AuthProvider')
     _setUser(newUser)
   }
 

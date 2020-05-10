@@ -4,30 +4,48 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Col, Image } from 'react-bootstrap'
 import Auth from '../context/auth'
 
+import { Redirect } from 'react-router-dom';
+
 import SelectOneThing from '../components/SelectOneThing';
 
 const Settings = () => {
 
   const oldUser = React.useContext(Auth).user
-  const { setUser, credential, URL } = React.useContext(Auth)
+  
+  console.log('rendering Settings component with user: ', oldUser)
+
+  const { setUser, URL } = React.useContext(Auth)
 
   const [user, _updateLocalUser] = React.useState(oldUser)
 
   const updateLocalUser = u => {
+    console.log('local user updated in Settings.js')
+    console.log('\told localuser: ', user)
+    console.log('\tnew localuser: ', u)
     _updateLocalUser(u)
   }
+
+  if(user === null && oldUser !== null) 
+    updateLocalUser(oldUser)
+
+  if(user === null)
+    return (
+      <h1 align="center" className="loadertext"> Loading... </h1>
+    )
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
     const method = 'PUT'
-    const body = JSON.stringify({ credential, user })
+    const body = JSON.stringify({ user })
     const headers = { 'Content-Type': 'application/json' }
+    const credentials = 'include'
 
     fetch(URL + '/api/updateUser', {
       method,
       body,
-      headers
+      headers,
+      credentials
     }).then(response => {
       if (response.status === 200)
         return response.json()
