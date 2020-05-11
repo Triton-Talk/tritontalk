@@ -16,7 +16,6 @@ before(function(done){
 describe('Testing basic HTTP server functionality', function(){
 
   it('requests /greeting', function(done){
-
     chai.request(app).get('/greeting').then(function(res){
       chai.expect(res).to.have.status(200);
       chai.expect(res.body).to.have.property('greeting')
@@ -27,6 +26,7 @@ describe('Testing basic HTTP server functionality', function(){
       throw error; 
     });
   })
+
 })
 
 describe('Testing auth.js', function(){
@@ -37,11 +37,27 @@ describe('Testing auth.js', function(){
     this.credential = (await axios.post(url, body)).data.idToken
   })
 
+  beforeEach(function(done){
+    this.timeout(1000)
+
+    this.log = console.log
+    console.log = output => {
+      this.log('\t\t', output)
+    }
+
+    done()
+  })
+
+  afterEach(function(done){
+    this.timeout(1000)
+
+    console.log = this.log
+    done()
+  })
+
   it('requests with valid token', function(done){
-    const temp = console.log
-    console.log = () => {}
     chai.request(app).post('/api/verifyIdentity').send({credential: this.credential}).then(function(res){
-      console.log = temp
+      console.log = this.log
       chai.expect(res).to.have.status(200);
 
       done()
@@ -51,16 +67,14 @@ describe('Testing auth.js', function(){
   })
 
   it('requests with invalid token', function(done){
-
-    const temp = console.log
-    console.log = () => {}
     chai.request(app).post('/api/verifyIdentity').then(function(res){
-      console.log = temp
+      console.log = this.log
       chai.expect(res).to.have.status(404);
       chai.expect(res.text).to.equal('Error: failed to parse identity')
 
       done()
     }).catch(function(error){
+      console.log(error)
       throw error; 
     });
   })
