@@ -1,11 +1,13 @@
 require('dotenv').config()
+require('./models/db')
 
 const express = require('express');
+const http = require('http')
+
 const path = require('path');
 const cors = require('cors');
-const admin = require('./firebase/firebase')
 
-require('./models/db')
+const authMiddleware = require('./routers/auth')
 
 const userRouter = require('./routers/user')
 const videoRouter = require('./routers/video')
@@ -14,14 +16,12 @@ const { videoToken } = require('./video/tokens');
 const config = require('./video/config');
 
 const app = express();
-app.use(express.urlencoded({ extended: false }));
+
 app.use(express.json());
 
 app.use(require('cookie-parser')())
 
 app.use(cors({origin: 'http://localhost:3000', credentials: true}));
-
-app.use(express.static('build'));
 
 // DEFAULT TESTING ROUTE
 app.get('/greeting', (req, res) => {
@@ -30,54 +30,7 @@ app.get('/greeting', (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-// PREPROCESSOR FOR ALL API ROUTES
-app.use('/api/*', (req, res, next) => {
-  console.log('Processing identity')
-  if(req.cookies.sessionCookie){
-    const sessionCookie = req.cookies.sessionCookie || '';
-
-    admin.auth().verifySessionCookie(sessionCookie).then(identity => {
-      req.identity = identity
-
-      console.log('Identity processed via cookie, continuing.')
-      next()
-    }).catch(error => {
-      console.log(`Failed to verify identity by cookie: ${req.cookies}`);
-      res.clearCookie('session')
-      res.status(404).send('Error: failed to parse identity')
-    });
-  }
-  else {
-    //verify identity
-    admin.auth().verifyIdToken(req.body.credential).then(identity => {
-      req.identity = identity
-      //verify ucsd email address
-      if(identity.email.substr(identity.email.lastIndexOf('@')) !== '@ucsd.edu')
-        throw new Error();
-
-      console.log('Identity processed via request body')
-
-      const expiresIn = 60 * 60 * 24 * 1000;
-
-      return admin.auth().createSessionCookie(req.body.credential, {expiresIn})
-      
-    }).then(cookie => {
-      //set a session cookie
-      //const options = {maxAge: expiresIn, httpOnly: true, secure: true};
-      const options = {}
-      res.cookie('sessionCookie', cookie, options)
-
-      console.log('Setting session cookie')
-
-      next()
-    }).catch(error => {
-      console.log(error)
-      console.log(`Failed to parse identity: ${req.body}`);
-      res.status(404).send('Error: failed to parse identity')
-    })
-  }
-
-})
+app.use(authMiddleware)
 
 app.use(videoRouter)
 app.use(userRouter)
