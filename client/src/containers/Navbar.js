@@ -11,7 +11,6 @@ import styles from '../styles/NavBar.css';
 
 const cookies = new Cookies()
 let killAlert = cookies.get('killAlert');
-console.log(killAlert)
 
 const NavigationBar = () => {
 

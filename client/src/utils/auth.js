@@ -40,7 +40,7 @@ export const AuthProvider = (props) => {
         return serverLogin(token)
       }
     }).catch(error => {
-      alert(error)
+      console.log(error)
     })
   }
 
