@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 
 import db, { GoogleSignOn } from './firebase'
@@ -16,6 +16,7 @@ const sessionCookie = cookies.get('sessionCookie')
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 export const AuthProvider = (props) => {
+  const [token, setToken] = useState(null);
 
   const [user, _setUser] = React.useState(null)
 
@@ -44,10 +45,17 @@ export const AuthProvider = (props) => {
     })
   }
 
-  const serverLogin = React.useCallback( credential => {
-    request('/api/login', {body: {credential}}).then(res => {
+  const handleSignOut = () => {
+
+    setToken(null);
+    cookies.remove('sessionCookie')
+    history.push('/')
+  }
+
+  const serverLogin = React.useCallback(credential => {
+    request('/api/login', { body: { credential } }).then(res => {
       setUser(res)
-      if(location.pathname === '/')
+      if (location.pathname === '/')
         history.push('/splash')
     })
   }, [history, location])
@@ -57,11 +65,7 @@ export const AuthProvider = (props) => {
       serverLogin(null)
   }, [serverLogin])
 
-  const handleSignOut = () => {
-    setUser(null)
-    cookies.remove('sessionCookie')
-    history.push('/')
-  }
+
 
   const exportObj = {
     user, setUser,

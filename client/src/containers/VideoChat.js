@@ -35,7 +35,7 @@ const VideoChat = () => {
   const handleLogout = event => setToken(null);
 
   let render;
-  if (token) {
+  if (token && user) {
     render = (
       <Room style={{ padding: "10px" }} roomName={roomName} token={token} handleLogout={handleLogout} />
     );
