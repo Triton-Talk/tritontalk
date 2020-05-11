@@ -9,7 +9,6 @@ const databaseOptions = {useNewUrlParser: true, useUnifiedTopology: true,
 
 mongoose.set('useFindAndModify', false);
 
-mongoose.connect(connectionURL, databaseOptions).catch(e => console.log(e));
-
+module.exports.testing = mongoose.connect(connectionURL, databaseOptions).catch(e => console.log(e));
 
 mongoose.connection.on('connected', () => console.log('Connected to MongoDB'));

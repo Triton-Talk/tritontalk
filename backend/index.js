@@ -5,6 +5,8 @@ const path = require('path');
 const cors = require('cors');
 const admin = require('./firebase/firebase')
 
+require('./models/db')
+
 const userRouter = require('./routers/user')
 const videoRouter = require('./routers/video')
 
@@ -140,3 +142,5 @@ phaser.on('connection', socket => {
     setTimeout(() => updatePlayers(), 17)
   }
 })
+
+module.exports = app
