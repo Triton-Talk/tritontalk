@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha test",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "docker": "./node_modules/nodemon/bin/nodemon.js index.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.5",
