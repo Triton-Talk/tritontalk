@@ -16,8 +16,6 @@ const sessionCookie = cookies.get('sessionCookie')
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 export const AuthProvider = (props) => {
-  const [token, setToken] = useState(null);
-
   const [user, _setUser] = React.useState(null)
 
   const history = useHistory()
@@ -46,8 +44,7 @@ export const AuthProvider = (props) => {
   }
 
   const handleSignOut = () => {
-
-    setToken(null);
+    setUser(null);
     cookies.remove('sessionCookie')
     history.push('/')
   }
@@ -64,8 +61,6 @@ export const AuthProvider = (props) => {
     if (sessionCookie)
       serverLogin(null)
   }, [serverLogin])
-
-
 
   const exportObj = {
     user, setUser,
