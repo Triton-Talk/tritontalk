@@ -42,8 +42,6 @@ router.use('/api/*', (req, res, next) => {
 
         console.log('Setting session cookie')
 
-        console.log(req.identity)
-
         next()
       })
     }
