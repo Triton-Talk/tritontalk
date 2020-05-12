@@ -9,7 +9,7 @@ import "./chart.css";
 class Chart extends React.Component {
   render() {
     return (
-      <div class="chart">
+      <div class="chart" style={{ width: "450px", height: "400px" }}>
         <ResponsiveBar
           data={data}
           keys={config.keys}
