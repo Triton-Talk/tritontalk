@@ -1,4 +1,4 @@
-require('dotenv').config({path:'../.env'})
+require('dotenv').config({path: require('path').resolve(__dirname, '../.env')})
 
 //Require the dev-dependencies
 const chai = require('chai');
