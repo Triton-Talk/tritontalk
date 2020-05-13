@@ -13,7 +13,8 @@ const clubSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true, 
+    unique: true
   },
   description: {
     type: String,
@@ -25,6 +26,10 @@ const clubSchema = new mongoose.Schema({
     type: Buffer,
   },
   meeting_times: [ meetingTimeSchema ], 
+  created_by: {
+    type: ObjectId, 
+    ref: 'User'
+  }
 }, {collection: 'Clubs'})
 
 const Club = mongoose.model('Club', clubSchema)

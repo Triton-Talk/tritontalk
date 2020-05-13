@@ -29,7 +29,6 @@ describe('Testing basic HTTP server functionality', function(){
 
 })
 
-/*
 describe('Testing auth.js', function(){
 
   before(async function(){
@@ -81,7 +80,6 @@ describe('Testing auth.js', function(){
   })
 
 })
-*/
 
 describe('Database testing', function(done){
 
@@ -128,9 +126,7 @@ describe('Database testing', function(done){
       
       const query = {email: 'example@ucsd.edu'}
 
-      const exampleuser = await User.findOne(query)
-      
-      exampleuser.remove()
+      await User.deleteOne(query)      
 
       const e = await User.findOne(query) 
       chai.expect(e).to.be.null
@@ -180,9 +176,7 @@ describe('Database testing', function(done){
 
       const query = { name: 'Example club' }
 
-      const exampleclub = await Club.findOne(query)
-
-      exampleclub.remove()
+      await Club.deleteOne(query)
 
       const c = await Club.findOne(query)
       chai.expect(c).to.be.null
