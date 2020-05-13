@@ -41,7 +41,6 @@ describe('Testing auth.js', function(){
     this.timeout(1000)
 
     this.log = console.log
-    const log = this.log
     console.log = output => {
       this.log('\t\t', output)
     }

@@ -23,7 +23,6 @@ const Router = () => {
         <div className="app">
           <Navbar />
           <Switch>
-            <Route path="/splash" exact component={Home} />
             <Route path="/home" exact component={LibraryWalk} />
             <Route path="/friends" exact component={Friends} />
             <Route path="/profile" exact component={ProfileSettings} />

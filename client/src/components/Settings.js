@@ -45,7 +45,7 @@ const Settings = () => {
   const handleReset = event => {
     event.preventDefault()
 
-    setUser({ ...user })
+    updateLocalUser({ ...user })
   }
 
   const handleDelete = event => {

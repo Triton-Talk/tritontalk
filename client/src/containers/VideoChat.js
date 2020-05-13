@@ -8,10 +8,6 @@ import Auth from '../utils/auth';
 import request from '../utils/request';
 import Chart from '../components/Chart/Chart';
 
-
-//import { Link } from 'react-router-dom'
-//import { Card } from 'react-bootstrap';
-
 const VideoChat = () => {
   const { user } = React.useContext(Auth);
   const [roomName, setRoomName] = useState('');
@@ -35,7 +31,7 @@ const VideoChat = () => {
   const handleLogout = event => setToken(null);
 
   let render;
-  if (token) {
+  if (token && user) {
     render = (
       <Room style={{ padding: "10px" }} roomName={roomName} token={token} handleLogout={handleLogout} />
     );

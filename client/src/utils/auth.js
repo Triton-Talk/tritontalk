@@ -11,11 +11,11 @@ export default Auth;
 
 const cookies = new Cookies()
 
-const sessionCookie = cookies.get('sessionCookie')
-
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 
 export const AuthProvider = (props) => {
+
+  const sessionCookie = cookies.get('sessionCookie')
 
   const [user, _setUser] = React.useState(null)
 
@@ -27,6 +27,8 @@ export const AuthProvider = (props) => {
   }
 
   const handleSignOn = () => {
+    console.log('handleSignOn was called')
+
     db.auth().signInWithPopup(GoogleSignOn).then(result => {
       const email = result.user.email
       if (!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu') {
@@ -44,24 +46,28 @@ export const AuthProvider = (props) => {
     })
   }
 
-  const serverLogin = React.useCallback( credential => {
-    request('/api/login', {body: {credential}}).then(res => {
+  const handleSignOut = () => {
+    console.log('handleSignOut was called')
+    setUser(null);
+    cookies.remove('sessionCookie')
+    history.push('/')
+  }
+
+  const serverLogin = React.useCallback(credential => {
+    console.log('serverLogin was called')
+    request('/api/login', { body: { credential } }).then(res => {
       setUser(res)
-      if(location.pathname === '/')
-        history.push('/splash')
+      if (location.pathname === '/')
+        history.push('/lobby')
     })
   }, [history, location])
 
   React.useEffect(() => {
+    console.log('react effect hook was called')
     if (sessionCookie)
       serverLogin(null)
-  }, [serverLogin])
-
-  const handleSignOut = () => {
-    setUser(null)
-    cookies.remove('sessionCookie')
-    history.push('/')
-  }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const exportObj = {
     user, setUser,
