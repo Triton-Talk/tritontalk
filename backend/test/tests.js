@@ -80,7 +80,7 @@ describe('Testing auth.js', function(){
 
 })
 
-describe('Database testing', function(done){
+describe('Basic database testing - CRUD functionality', function(done){
 
   describe('User tests', function(done){
 
@@ -230,13 +230,112 @@ describe('Database testing', function(done){
 
   })
 
+  describe('Linked object tests', function(done){
+
+    it('creates linked objects', async function(){
+      const User = require('../models/User')
+      const Club = require('../models/Club')
+      const Room = require('../models/Room')
+      
+      const exampleuser = new User({
+        name: 'Example user',
+        email: 'example@ucsd.edu', 
+      })
+
+
+      const exampleclub = new Club({
+        name: 'Example club',
+        description: 'example club'
+      })
+
+      const exampleroom = new Room({ name: 'Example room' })
+
+      exampleuser.hosted_rooms.push(exampleroom)
+      exampleuser.clubs.push(exampleclub)
+
+      exampleclub.created_by = exampleuser
+
+      exampleroom.authorized_users.push(exampleuser)
+
+      await exampleuser.save()
+      await exampleclub.save()
+      await exampleroom.save()
+    })
+
+    it('reads linked objects', async function(){
+      const User = require('../models/User')
+      const Club = require('../models/Club')
+      const Room = require('../models/Room')
+      
+      const exampleuser = await User.findOne({ name: 'Example user' }).populate(['clubs', 'hosted_rooms'])
+
+      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['created_by'])
+
+      const exampleroom = await Room.findOne({ name: 'Example room' }).populate('authorized_users')
+
+      chai.expect(exampleuser.hosted_rooms[0].name).to.equal(exampleroom.name)
+      chai.expect(exampleuser.clubs[0].name).to.equal(exampleclub.name)
+
+      chai.expect(exampleclub.created_by.name).to.equal(exampleuser.name)
+
+      chai.expect(exampleroom.authorized_users[0].name).to.equal(exampleuser.name)
+
+    })
+
+    it('updates linked objects', async function(){ 
+      const User = require('../models/User')
+      const Club = require('../models/Club')
+      const Room = require('../models/Room')
+      
+      const exampleuser = await User.findOneAndUpdate({ name: 'Example user' }, {name: 'New example user'}, {new: true})
+                                    .populate(['clubs', 'hosted_rooms'])
+
+      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['created_by'])
+
+      const exampleroom = await Room.findOne({ name: 'Example room' }).populate('authorized_users')
+
+      chai.expect(exampleuser.hosted_rooms[0].name).to.equal(exampleroom.name)
+      chai.expect(exampleuser.clubs[0].name).to.equal(exampleclub.name)
+
+      chai.expect(exampleclub.created_by.name).to.equal(exampleuser.name)
+
+      chai.expect(exampleroom.authorized_users[0].name).to.equal(exampleuser.name)
+    })
+
+    it('deletes linked objects', async function(){ 
+      const User = require('../models/User')
+      const Club = require('../models/Club')
+      const Room = require('../models/Room')
+      
+      const exampleuser = await User.findOne({ name: 'New example user' })
+                                    .populate([{path: 'clubs', model: Club}, {path: 'hosted_rooms', model: Room}])
+
+      exampleuser.clubs.forEach(club => club.remove())
+
+      exampleuser.hosted_rooms.forEach(room => room.remove())
+
+      exampleuser.remove()
+
+      const newuser = await User.findOne({ name: 'Example user' })
+
+      const newclub = await Club.findOne({ name: 'Example club' })
+
+      const newroom = await Room.findOne({ name: 'Example room' })
+
+      chai.expect(newuser).to.be.null
+      chai.expect(newclub).to.be.null
+      chai.expect(newroom).to.be.null
+    })
+
+  })
+
 /*
 
   const shubham = new User({
-    name: 'Shubham', 
+    name: 'Shubham',
     email: 'skulkarn@ucsd.edu',
     bio: 'I am a second year computer science major',
-    hobbies: 'coding' 
+    hobbies: 'coding'
   })
 
 
