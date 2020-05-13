@@ -13,6 +13,9 @@ before(function(){
   return require('../models/db')
 })
 
-dependencies = { chai, chaiHttp, axios, app }
+dependencies = { chai, axios, app }
 
+require('./index')(dependencies)
 require('./auth')(dependencies)
+require('./db_basic_crud.js')(dependencies)
+require('./db_linked_crud.js')(dependencies)
