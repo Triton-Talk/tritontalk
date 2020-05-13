@@ -29,6 +29,7 @@ describe('Testing basic HTTP server functionality', function(){
 
 })
 
+
 describe('Testing auth.js', function(){
 
   before(async function(){
@@ -41,9 +42,7 @@ describe('Testing auth.js', function(){
     this.timeout(1000)
 
     this.log = console.log
-    console.log = output => {
-      this.log('\t\t', output)
-    }
+    console.log = () => {}
 
     done()
   })
@@ -179,6 +178,53 @@ describe('Database testing', function(done){
       await Club.deleteOne(query)
 
       const c = await Club.findOne(query)
+      chai.expect(c).to.be.null
+    })
+
+  })
+
+  describe('Room tests', function(done){
+
+    it('creates a new Room', function(){
+      const Room = require('../models/Room')
+
+      const exampleroom = new Room({ name: 'Example room' })
+
+      return exampleroom.save()
+    })
+
+    it('reads a Room', function(done){
+      const Room = require('../models/Room')
+
+      const query = { name: 'Example room' }
+
+      Room.findOne(query).then(exampleroom => {
+        chai.expect(exampleroom).to.not.be.null
+        
+        done()
+      })
+    })
+
+    it('updates a Room', function(done){
+      const Room = require('../models/Room')
+
+      const query = { name: 'Example room' }
+
+      Room.findOneAndUpdate(query, {name: 'new name'}, {new: true}).then(exampleroom => {
+        chai.expect(exampleroom.name).to.equal('new name')
+        
+        done()
+      })
+    })
+
+    it('deletes a Room', async function(){
+      const Room = require('../models/Room')
+
+      const query = { name: 'new name' }
+
+      await Room.deleteOne(query)
+
+      const c = await Room.findOne(query)
       chai.expect(c).to.be.null
     })
 
