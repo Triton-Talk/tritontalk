@@ -23,7 +23,8 @@ const roomSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    unique: true
   },
   chat_logs: [ chatSchema ],
   authorized_users: [
