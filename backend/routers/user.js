@@ -67,7 +67,7 @@ router.delete('/api/deleteUser', async (req, res) => {
   if(result.deletedCount !== 1)
     return res.status(404).send('Failed to delete user')
 
-  return res.status(200).send('User deleted')
+  return res.status(200).send({summary: 'User deleted'})
 })
 
 module.exports = router
