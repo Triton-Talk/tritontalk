@@ -3,7 +3,6 @@ import Phaser from 'phaser';
 import io from 'socket.io-client';
 
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
-
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
@@ -13,19 +12,84 @@ class PhaserScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.setBaseURL('https://labs.phaser.io');
-    this.load.image('player', 'assets/sprites/ghost.png');
-    this.load.image('bunny', 'assets/sprites/bunny.png');
+    this.load.image('background', 'assets/Starfall-Town.png');
+    
+    this.load.spritesheet('player', 'assets/Char_Sprite_Sheet.png',{
+      frameWidth: 64,
+      frameHeight: 64,
+    endFrame: 15
+    });
   }
-
+	
   create() {
-    this.player = this.physics.add.sprite(400, 300, 'player');
-    this.player.setCollideWorldBounds(true);
-
+    this.physics.world.setBounds(0, 0, 2056, 2056, true, true, true, true);
+    this.background = this.physics.add.sprite(0, 0, 'background');
+    this.background.setOrigin(0, 0);
+    this.background.setScale(2, 2);
+	
+    var titleStyle = { font: '32px Arial',
+                       fill: 'WHITE',
+                       wordWrap: true,
+                       align: 'center'};
+    this.title = this.add.text(500, 0, 'The Virtual Library Walk', titleStyle);
+    this.title.setScrollFactor(0);
+    
+    this.player = this.physics.add.sprite(0, 0, 'player');
+    //this.player.setCollideWorldBounds(true);
+    this.player.setOrigin(0.5, 0.5);
+    
+    var playerStyle = { font: '12px Arial',
+                        fill: 'BLUE',
+                        wordWrap: true,
+                        wordWrapWidth: this.player.width,
+                        align: 'center'};
+    this.playerText = this.add.text(0, -50, 'Johnny Nguyen \nRevelle', playerStyle);
+    this.playerText.setOrigin(0.5, 0.5);
+	
+	//Player's walk cycles for each direction
+    this.anims.create({
+        key: 'walkDown',
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2, first: 3 }),
+        frameRate: 8,
+        repeat: 0
+    });
+	
+    this.anims.create({
+        key: 'walkLeft',
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 6, first: 7 }),
+        frameRate: 8,
+        repeat: 0
+    });
+    
+    this.anims.create({
+        key: 'walkRight',
+        frames: this.anims.generateFrameNumbers('player', { start: 8, end: 10, first: 11 }),
+        frameRate: 8,
+        repeat: 0
+    });
+    
+    this.anims.create({
+        key: 'walkUp',
+        frames: this.anims.generateFrameNumbers('player', { start: 12, end: 14, first: 15 }),
+        frameRate: 8,
+        repeat: 0
+    });
+    
+    this.container = this.add.container(1000, 500, [this.player, this.playerText]);
+    this.container.setSize(64, 64);
+    this.physics.world.enable(this.container);
+    this.container.body.setCollideWorldBounds(true);
+    
+    var camera = this.cameras.main;
+    camera.startFollow(this.container);
+    //camera.setPosition(500, 500);
+    //this.physics.world.enable(camera);
+    //camera.body.setCollideWorldBounds(true);
+    
     this.player.setInteractive()
     this.clickCount = 0
     this.input.on('gameobjectdown', console.log) 
-
+    
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -49,7 +113,7 @@ class PhaserScene extends Phaser.Scene {
           (this.keyA.isDown ? 'Left ' : '') + 
           (this.keyS.isDown ? 'Down ' : '') + 
           (this.keyD.isDown ? 'Right ' : ''),
-          'position: ' + this.player.x + ',' + this.player.y,
+          'position: ' + this.background.x + ',' + this.background.y,
           'position from socket.io: ' + data[this.socket.id].x + ',' + data[this.socket.id].y, 
           'click count: ' + this.clickCount
       ]);
@@ -68,63 +132,73 @@ class PhaserScene extends Phaser.Scene {
       playerName: this.socket.id
     });
   }
-
+  
   update () {
-      this.player.setVelocity(0);
-      this.isMoving = false;
+    this.container.body.velocity.set(0, 0);
+    this.isMoving = false;
+    var velocity = 250;
+	
+    if (this.keyA.isDown)
+    {
+      this.container.body.velocity.set(-velocity, 0);
+      this.isMoving = true;
+      this.player.anims.play('walkLeft', true);
+      /*
+      this.player.once('animationcomplete', ()=>{
+        this.player.anims.play();
+      }*/
+    }
+    else if (this.keyD.isDown)
+    {
+      this.container.body.velocity.set(velocity, 0);
+      this.isMoving = true;
+      this.player.anims.play('walkRight', true);
+    }
+    else if (this.keyW.isDown)
+    {
+      this.container.body.velocity.set(0, -velocity);
+      this.isMoving = true;
+	  this.player.anims.play('walkUp', true);
+    }
+    else if (this.keyS.isDown)
+    {
+      this.container.body.velocity.set(0, velocity);
+      this.isMoving = true;
+      this.player.anims.play('walkDown', true);
+    }
+    else
+    {
+      this.player.anims.stop();
+    }
 
-      if (this.keyA.isDown)
-      {
-          this.player.setVelocityX(-300);
-          this.isMoving = true;
+    if(this.isMoving){
+      this.socket.emit('move-player', {
+        x: this.player.x,
+        y: this.player.y,
+        playerName: this.socket.id
+      });
+    }
+
+    if(this.key1.isDown)
+      this.player.setTexture('player')
+    if(this.key2.isDown)
+     this.player.setTexture('bunny')
+
+    for(let player in this.playerData){
+      if(player === this.socket.id)
+        continue
+
+      if(this.players[player]){
+        this.players[player].setX(this.playerData[player].x);
+        this.players[player].setY(this.playerData[player].y);
       }
-      else if (this.keyD.isDown)
-      {
-          this.player.setVelocityX(300);
-          this.isMoving = true;
-      }
 
-      if (this.keyW.isDown)
-      {
-          this.player.setVelocityY(-300);
-          this.isMoving = true;
-      }
-      else if (this.keyS.isDown)
-      {
-          this.player.setVelocityY(300);
-          this.isMoving = true;
-      }
-
-      if(this.isMoving){
-        this.socket.emit('move-player', {
-          x: this.player.x,
-          y: this.player.y,
-          playerName: this.socket.id
-        });
-      }
-
-      if(this.key1.isDown)
-        this.player.setTexture('player')
-
-      if(this.key2.isDown)
-        this.player.setTexture('bunny')
-
-      for(let player in this.playerData){
-        if(player === this.socket.id)
-          continue
-
-        if(this.players[player]){
-          this.players[player].setX(this.playerData[player].x);
-          this.players[player].setY(this.playerData[player].y);
-        }
-
-        else
-          this.players[player] = this.physics.add.image(
-                  this.playerData[player].x, 
-                  this.playerData[player].y, 
-                  'player')
-      }
-/*
+      else
+        this.players[player] = this.physics.add.image(
+                this.playerData[player].x, 
+                this.playerData[player].y, 
+                'player')
+      }/*
       this.upKeyDebug.setText([
           (this.keyW.isDown ? 'Up ' : '') + 
           (this.keyA.isDown ? 'Left ' : '') + 
@@ -136,6 +210,4 @@ class PhaserScene extends Phaser.Scene {
 
   }
 }
-
-
 export default PhaserScene;
