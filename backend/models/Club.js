@@ -26,10 +26,10 @@ const clubSchema = new mongoose.Schema({
     type: Buffer,
   },
   meeting_times: [ meetingTimeSchema ], 
-  created_by: {
+  authorized_users: [{
     type: ObjectId, 
     ref: 'User'
-  }
+  }]
 }, {collection: 'Clubs'})
 
 const Club = mongoose.model('Club', clubSchema)
