@@ -1,20 +1,21 @@
 const express = require('express');
 
 const User = require('../models/User')
-const Club = require('../models/Club')
+const Room = require('../models/Room')
 
 const router = new express.Router();
 
-router.get('/get', async (req, res, next) => {
+router.get('/get', async (req, res) => {
   const query = {name: req.body.name}
 
-  const club = await Club.findOne(query)
+  const room = await Room.findOne(query)
 
-  if(!club)
-    return res.status(404).send('Failed to find a club with that name')
+  if(!room)
+    return res.status(404).send('Failed to find a room with that name')
 
-  res.status(200).send(club)
+  res.status(200).send(room)
 })
+
 
 // all other routes in this file require a valid, authenticated user 
 router.use(async (req, res, next) => {
@@ -31,11 +32,13 @@ router.use(async (req, res, next) => {
 
 router.post('/create', async (req, res) => {
 
-  const club = new Club( req.body.club )
+  const room = new Room(req.body.room)
 
-  await club.save()
+  room.authorized_users.push(req.user)
 
-  res.status(200).send(club)
+  await room.save()
+
+  res.status(200).send(room)
 
 });
 
@@ -43,25 +46,25 @@ router.put('/update', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
-  const club = Club.findOneAndUpdate(query, req.body.club, {new: true})
+  const room = Room.findOneAndUpdate(query, req.body.room, {new: true})
 
-  if(!club){
+  if(!room){
     return res.status(404).send('Failed to update')
   }
 
-  res.status(200).send(club)
+  res.status(200).send(room)
 })
 
 router.delete('/delete', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
-  const result = await Club.deleteOne(query)
+  const result = await Room.deleteOne(query)
 
   if(result.deletedCount !== 1)
-    return res.status(404).send('Failed to delete club')
+    return res.status(404).send('Failed to delete room')
 
-  return res.status(200).send({summary: 'Club deleted'})
+  return res.status(200).send({summary: 'Room deleted'})
 })
 
 module.exports = router

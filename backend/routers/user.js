@@ -5,7 +5,7 @@ const User = require('../models/User')
 const router = new express.Router();
 
 // CREATE / READ
-router.post('/api/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const query = {email: req.identity.email}
 
   let user = await User.findOne(query)
@@ -33,7 +33,7 @@ router.post('/api/login', async (req, res) => {
 });
 
 // READ
-router.get('/api/getUser', async (req, res) => {
+router.get('/get', async (req, res) => {
   const query = {email: req.identity.email}
 
   const user = await User.findOne(query) 
@@ -44,8 +44,18 @@ router.get('/api/getUser', async (req, res) => {
   res.status(200).send(user)
 })
 
+// READ
+router.getAll('/getAll', async (req, res) => {
+  const users = await User.find({})
+
+  if(!users)
+    return res.status(404).send('There are no users!')
+
+  res.status(200).send(users)
+})
+
 // UPDATE
-router.put('/api/updateUser', async (req, res) => {
+router.put('/update', async (req, res) => {
   const query = {email: req.identity.email}
 
   const user = await User.findOneAndUpdate(query, req.body.user, { new: true })
@@ -53,13 +63,11 @@ router.put('/api/updateUser', async (req, res) => {
   if(!user)
     return res.status(404).send('Cannot modify a nonexistent user')
 
-  console.log('User updated')
-
   res.status(200).send(user)
 })
 
 // DELETE
-router.delete('/api/deleteUser', async (req, res) => {
+router.delete('/delete', async (req, res) => {
   const query = {email: req.identity.email}
 
   const result = await User.deleteOne(query)

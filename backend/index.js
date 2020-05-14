@@ -9,7 +9,10 @@ const cors = require('cors');
 
 const authMiddleware = require('./routers/auth')
 
-const userRouter = require('./routers/user')
+const user = require('./routers/user')
+const club = require('./routers/club')
+const room = require('./routers/room')
+
 const videoRouter = require('./routers/video')
 
 const gameserver = require('./gameserver')
@@ -35,7 +38,10 @@ app.get('/greeting', (req, res) => {
 app.use(authMiddleware)
 
 app.use(videoRouter)
-app.use(userRouter)
+
+app.use('/api/user', user)
+app.use('/api/club', club)
+app.use('/api/room', room)
 
 server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
