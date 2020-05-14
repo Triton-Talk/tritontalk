@@ -16,6 +16,17 @@ router.get('/get', async (req, res, next) => {
   res.status(200).send(club)
 })
 
+// READ
+router.getAll('/getAll', async (req, res) => {
+  const clubs = await Club.find({})
+
+  if(!clubs)
+    return res.status(404).send('There are no clubs!')
+
+  res.status(200).send(clubs)
+})
+
+
 // all other routes in this file require a valid, authenticated user 
 router.use(async (req, res, next) => {
   const query = {email: req.identity.email}

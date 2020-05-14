@@ -16,6 +16,15 @@ router.get('/get', async (req, res) => {
   res.status(200).send(room)
 })
 
+// READ
+router.getAll('/getAll', async (req, res) => {
+  const rooms = await Room.find({})
+
+  if(!rooms)
+    return res.status(404).send('There are no rooms!')
+
+  res.status(200).send(rooms)
+})
 
 // all other routes in this file require a valid, authenticated user 
 router.use(async (req, res, next) => {
