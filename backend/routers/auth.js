@@ -39,7 +39,7 @@ router.use('/api/*', async (req, res, next) => {
       const cookie = await admin.auth().createSessionCookie(req.body.credential, {expiresIn})
 
       //set a session cookie
-      const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+      const options = {maxAge: expiresIn, httpOnly: true, secure: false};
       res.cookie('sessionCookie', cookie, options)
 
       console.log('Setting session cookie')
