@@ -12,32 +12,57 @@ class PhaserScene extends Phaser.Scene {
   }
 
   preload() {
+    //This is the background image used for the map/environment
     this.load.image('background', 'assets/Starfall-Town.png');
     
+    //This is the player sprite with animation frames
     this.load.spritesheet('player', 'assets/Char_Sprite_Sheet.png',{
       frameWidth: 64,
       frameHeight: 64,
-    endFrame: 15
+      endFrame: 15
     });
+
+    //TODO: Add more images for buildings, trees, etc for interaction
+    //this.load.image('building', 'building.png');
+
+    //TODO: Add other "players" to interact with
+    /*this.load.spritesheet('npc', 'assets/NPC_Sprite_Sheet.png',{
+      frameWidth: 64,
+      frameHeight: 64,
+      endFrame: 15
+    });*/
+
+    //TODO: Add a menu that pops up when interacting with another player
+    //Display a "request call" button, profile picture, and basic user info?
+    //this.load.image('building', 'building.png');
   }
 	
   create() {
+    //TODO: Fix game object positionings. I'm using literal unflexible pixel values
+    //When images are created, they stack over each other
+
+    //Set world boundaries to match background image size
     this.physics.world.setBounds(0, 0, 2056, 2056, true, true, true, true);
+
+    //Set background image. If it doesn't move, it doesn't need to be a sprite anymore
     this.background = this.physics.add.sprite(0, 0, 'background');
     this.background.setOrigin(0, 0);
     this.background.setScale(2, 2);
-	
+    
+    //Set player position
+    this.player = this.physics.add.sprite(0, 0, 'player');
+    //this.player.setCollideWorldBounds(true);
+    this.player.setOrigin(0.5, 0.5);
+
+    //Title at the top of game screen
     var titleStyle = { font: '32px Arial',
                        fill: 'WHITE',
                        wordWrap: true,
                        align: 'center'};
     this.title = this.add.text(500, 0, 'The Virtual Library Walk', titleStyle);
-    this.title.setScrollFactor(0);
+    this.title.setScrollFactor(0); //Follows camera
     
-    this.player = this.physics.add.sprite(0, 0, 'player');
-    //this.player.setCollideWorldBounds(true);
-    this.player.setOrigin(0.5, 0.5);
-    
+    //Player text shows name and college, follows player
     var playerStyle = { font: '12px Arial',
                         fill: 'BLUE',
                         wordWrap: true,
@@ -46,7 +71,7 @@ class PhaserScene extends Phaser.Scene {
     this.playerText = this.add.text(0, -50, 'Johnny Nguyen \nRevelle', playerStyle);
     this.playerText.setOrigin(0.5, 0.5);
 	
-	//Player's walk cycles for each direction
+	  //Player sprite's animated walk cycles for each direction
     this.anims.create({
         key: 'walkDown',
         frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2, first: 3 }),
@@ -75,16 +100,27 @@ class PhaserScene extends Phaser.Scene {
         repeat: 0
     });
     
+    //User controls a container which contains the player sprite and player text
     this.container = this.add.container(1000, 500, [this.player, this.playerText]);
     this.container.setSize(64, 64);
     this.physics.world.enable(this.container);
     this.container.body.setCollideWorldBounds(true);
     
+    //TODO: Make this a container?
+    //Menu that appears when player interacts
+    this.menu = this.add.rectangle(1200, 600, 500, 1250, 0x5e32a8, 70);
+    this.menu.visible = false; //Appears when prompted
+    this.menu.setScrollFactor(0); //Follows camera
+
+    //Camera follows the container as it moves until the map's edge
     var camera = this.cameras.main;
     camera.startFollow(this.container);
+
+    //Camera just goes black when I try to apply physics to have it collide with bounds
     //camera.setPosition(500, 500);
     //this.physics.world.enable(camera);
     //camera.body.setCollideWorldBounds(true);
+    
     
     this.player.setInteractive()
     this.clickCount = 0
@@ -137,9 +173,11 @@ class PhaserScene extends Phaser.Scene {
     this.container.body.velocity.set(0, 0);
     this.isMoving = false;
     var velocity = 250;
-	
+    
+    //TODO: Fix animations so that sprite always stops at standing frame
     if (this.keyA.isDown)
     {
+      this.menu.visible = true;
       this.container.body.velocity.set(-velocity, 0);
       this.isMoving = true;
       this.player.anims.play('walkLeft', true);
@@ -150,6 +188,7 @@ class PhaserScene extends Phaser.Scene {
     }
     else if (this.keyD.isDown)
     {
+      this.menu.visible = false;
       this.container.body.velocity.set(velocity, 0);
       this.isMoving = true;
       this.player.anims.play('walkRight', true);
