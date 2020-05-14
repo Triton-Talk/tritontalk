@@ -192,13 +192,51 @@ class PhaserScene extends Phaser.Scene {
 
       console.log('new player data received', data)
       this.playerData = data
+      console.log(this.playerData)
+
+      for(let player in this.playerData){
+        if(player === this.socket.id) {
+          console.log("its me: " + this.playerData[player].x)
+          continue
+        }
+  
+        if(this.players[player]){
+          console.log("setting position for " + player)
+          this.players[player].setX(this.playerData[player].x);
+          this.players[player].setY(this.playerData[player].y);
+        } else {
+          console.log("creating new " + player)
+
+          //Set player position
+          console.log(player);
+          var newplayer = this.physics.add.sprite(0, 0, 'player');
+          //this.player.setCollideWorldBounds(true);
+          newplayer.setOrigin(0.5, 0.5);
+          newplayer.depth = 1000;
+  
+          //Player text shows name and college, follows player
+          var playerStyle = { font: '12px Arial',
+          fill: 'BLUE',
+          wordWrap: true,
+          wordWrapWidth: newplayer.width,
+          align: 'center'};
+          var newPlayerText = this.add.text(0, -50, this.playerData[player].playerName + '\nRevelle', playerStyle);
+          newPlayerText.setOrigin(0.5, 0.5);
+  
+          //User controls a container which contains the player sprite and player text
+          this.players[player] = this.add.container(this.playerData[player].x, this.playerData[player].y, [newplayer, newPlayerText]);
+          this.players[player].setSize(64, 64);
+          this.physics.world.enable(this.players[player]);
+          this.players[player].body.setCollideWorldBounds(true);
+      }
+    }
 
     })
 
     //communicate our current state on instantiation
     this.socket.emit('new-player', {
-      x: this.player.x,
-      y: this.player.y,
+      x: this.container.x,
+      y: this.container.y,
       vx: 0,
       vy: 0,
       playerName: this.socket.id
@@ -248,8 +286,8 @@ class PhaserScene extends Phaser.Scene {
 
     if(this.isMoving){
       this.socket.emit('move-player', {
-        x: this.player.x,
-        y: this.player.y,
+        x: this.container.x,
+        y: this.container.y,
         playerName: this.socket.id
       });
     }
@@ -258,47 +296,6 @@ class PhaserScene extends Phaser.Scene {
       this.player.setTexture('player')
     if(this.key2.isDown)
      this.player.setTexture('bunny')
-
-    for(let player in this.playerData){
-      if(player === this.socket.id)
-        continue
-
-      if(this.players[player]){
-        this.players[player].setX(this.playerData[player].x);
-        this.players[player].setY(this.playerData[player].y);
-      } else
-
-        //Set player position
-        var newplayer = this.physics.add.sprite(0, 0, 'player');
-        //this.player.setCollideWorldBounds(true);
-        newplayer.setOrigin(0.5, 0.5);
-
-        //Player text shows name and college, follows player
-        var playerStyle = { font: '12px Arial',
-        fill: 'BLUE',
-        wordWrap: true,
-        wordWrapWidth: newplayer.width,
-        align: 'center'};
-        var newPlayerText = this.add.text(0, -50, this.playerData[player].name + '\nRevelle', playerStyle);
-        newPlayerText.setOrigin(0.5, 0.5);
-
-        //User controls a container which contains the player sprite and player text
-        this.players[player] = this.add.container(this.playerData[player].x, this.playerData[player].y, [this.player, this.playerText]);
-        this.players[player].setSize(64, 64);
-        this.physics.world.enable(this.players[player]);
-        this.players[player].body.setCollideWorldBounds(true);
-      }
-      
-      /*
-      this.upKeyDebug.setText([
-          (this.keyW.isDown ? 'Up ' : '') + 
-          (this.keyA.isDown ? 'Left ' : '') + 
-          (this.keyS.isDown ? 'Down ' : '') + 
-          (this.keyD.isDown ? 'Right ' : ''),
-          'position: ' + this.player.x + ',' + this.player.y
-      ]);
-      */
-
   }
 }
 export default PhaserScene;
