@@ -23,7 +23,7 @@ module.exports = dependencies => {
       exampleuser.hosted_rooms.push(exampleroom)
       exampleuser.clubs.push(exampleclub)
 
-      exampleclub.created_by = exampleuser
+      exampleclub.authorized_users.push(exampleuser)
 
       exampleroom.authorized_users.push(exampleuser)
 
@@ -46,7 +46,7 @@ module.exports = dependencies => {
       chai.expect(exampleuser.hosted_rooms[0].name).to.equal(exampleroom.name)
       chai.expect(exampleuser.clubs[0].name).to.equal(exampleclub.name)
 
-      chai.expect(exampleclub.created_by.name).to.equal(exampleuser.name)
+      chai.expect(exampleclub.authorized_users[0].name).to.equal(exampleuser.name)
 
       chai.expect(exampleroom.authorized_users[0].name).to.equal(exampleuser.name)
 
@@ -60,14 +60,14 @@ module.exports = dependencies => {
       const exampleuser = await User.findOneAndUpdate({ name: 'Example user' }, {name: 'New example user'}, {new: true})
                                     .populate(['clubs', 'hosted_rooms'])
 
-      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['created_by'])
+      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['authorized_users'])
 
       const exampleroom = await Room.findOne({ name: 'Example room' }).populate('authorized_users')
 
       chai.expect(exampleuser.hosted_rooms[0].name).to.equal(exampleroom.name)
       chai.expect(exampleuser.clubs[0].name).to.equal(exampleclub.name)
 
-      chai.expect(exampleclub.created_by.name).to.equal(exampleuser.name)
+      chai.expect(exampleclub.authorized_users[0].name).to.equal(exampleuser.name)
 
       chai.expect(exampleroom.authorized_users[0].name).to.equal(exampleuser.name)
     })
