@@ -179,7 +179,7 @@ class PhaserScene extends Phaser.Scene {
 
     //set up a callback that logs new data (for now)
     this.socket.on('update-players', (data) => {
-
+      if (data[this.socket.id]) {
       this.upKeyDebug.setText([
           (this.keyW.isDown ? 'Up ' : '') + 
           (this.keyA.isDown ? 'Left ' : '') + 
@@ -189,7 +189,7 @@ class PhaserScene extends Phaser.Scene {
           'position from socket.io: ' + data[this.socket.id].x + ',' + data[this.socket.id].y, 
           'click count: ' + this.clickCount
       ]);
-
+    }
       console.log('new player data received', data)
       this.playerData = data
       console.log(this.playerData)
@@ -210,51 +210,56 @@ class PhaserScene extends Phaser.Scene {
   update () {
     this.container.body.velocity.set(0, 0);
     this.isMoving = false;
+    this.isMovingX = false;
     var velocity = 250;
     
     //TODO: Fix animations so that sprite always stops at standing frame
-    if (this.keyA.isDown)
-    {
+   
+
+    if (this.keyA.isDown) {
       //this.menu.visible = true;
-      this.container.body.velocity.set(-velocity, 0);
+      this.container.body.setVelocityX(-velocity);
       this.isMoving = true;
+      this.isMovingX = true;
       this.player.anims.play('walkLeft', true);
       /*
       this.player.once('animationcomplete', ()=>{
         this.player.anims.play();
       }*/
-    }
-    else if (this.keyD.isDown)
-    {
+    } else if (this.keyD.isDown) {
       //this.menu.visible = false;
-      this.container.body.velocity.set(velocity, 0);
+      this.container.body.setVelocityX(velocity);
+      this.isMovingX = true;
       this.isMoving = true;
       this.player.anims.play('walkRight', true);
     }
-    else if (this.keyW.isDown)
-    {
-      this.container.body.velocity.set(0, -velocity);
+
+
+    if (this.keyW.isDown) {
+      this.container.body.setVelocityY(-velocity);
       this.isMoving = true;
-	  this.player.anims.play('walkUp', true);
-    }
-    else if (this.keyS.isDown)
-    {
-      this.container.body.velocity.set(0, velocity);
+      if (!this.isMovingX) {
+        this.player.anims.play('walkUp', true);
+      }
+    } else if (this.keyS.isDown) {
+      this.container.body.setVelocityY(velocity);
       this.isMoving = true;
-      this.player.anims.play('walkDown', true);
-    }
-    else
-    {
-      this.player.anims.stop();
+      if (!this.isMovingX) {
+        this.player.anims.play('walkDown', true);
+      }
     }
 
-    if(this.isMoving){
+    if(!this.isMoving){
+      this.player.anims.stop();
+    }
+      console.log("MY VELOCITYX: " + this.container.body.velocity.x);
       this.socket.emit('move-player', {
         x: this.container.x,
         y: this.container.y,
+        vx: this.container.body.velocity.x,
+        vy: this.container.body.velocity.y,
         playerName: this.socket.id
       });
-    }
 
 
     
@@ -268,6 +273,27 @@ class PhaserScene extends Phaser.Scene {
         console.log("setting position for " + player)
         this.players[player].setX(this.playerData[player].x);
         this.players[player].setY(this.playerData[player].y);
+        this.players[player].body.setVelocityX(this.playerData[player].vx);
+        this.players[player].body.setVelocityY(this.playerData[player].vy);
+        console.log("received VELOCITY: " + this.players[player].body.velocity.x);
+        var tempMovingX = false
+        if (this.players[player].body.velocity.x < 0) {
+          tempMovingX = true;
+          this.players[player].first.anims.play('walkLeft', true);
+        } else if (this.players[player].body.velocity.x > 0) {
+          tempMovingX = true;
+          this.players[player].first.anims.play('walkRight', true);
+        }
+
+        if (!tempMovingX) {
+          if (this.players[player].body.velocity.y < 0) {
+            this.players[player].first.anims.play('walkUp', true);
+          } else if (this.players[player].body.velocity.y > 0) {
+            this.players[player].first.anims.play('walkDown', true);
+          } else {
+            this.players[player].first.anims.stop();
+          }
+        }
       } else {
         console.log("creating new " + player)
 
@@ -291,7 +317,8 @@ class PhaserScene extends Phaser.Scene {
         this.players[player] = this.add.container(this.playerData[player].x, this.playerData[player].y, [newplayer, newPlayerText]);
         this.players[player].setSize(64, 64);
         this.physics.world.enable(this.players[player]);
-        this.players[player].body.setCollideWorldBounds(true);
+        this.players[player].body.setCollideWorldBounds(false);
+        this.container.body.velocity.set(0, 0);
     }
   }
 

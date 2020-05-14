@@ -25,7 +25,7 @@ const startGameServer = httpServer => {
 
     // When a player moves
     socket.on('move-player', data => {
-      const {x, y, playerName} = data
+      const {x, y, vx, vy, playerName} = data
 
       // If the player is invalid, return
       if (players[socket.id] === undefined) {
@@ -35,6 +35,8 @@ const startGameServer = httpServer => {
       // Update the player's data if he moved
       players[socket.id].x = x
       players[socket.id].y = y
+      players[socket.id].vx = vx
+      players[socket.id].vy = vy
 
       players[socket.id].playerName = playerName
 
