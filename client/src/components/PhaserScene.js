@@ -194,42 +194,6 @@ class PhaserScene extends Phaser.Scene {
       this.playerData = data
       console.log(this.playerData)
 
-      for(let player in this.playerData){
-        if(player === this.socket.id) {
-          console.log("its me: " + this.playerData[player].x)
-          continue
-        }
-  
-        if(this.players[player]){
-          console.log("setting position for " + player)
-          this.players[player].setX(this.playerData[player].x);
-          this.players[player].setY(this.playerData[player].y);
-        } else {
-          console.log("creating new " + player)
-
-          //Set player position
-          console.log(player);
-          var newplayer = this.physics.add.sprite(0, 0, 'player');
-          //this.player.setCollideWorldBounds(true);
-          newplayer.setOrigin(0.5, 0.5);
-          newplayer.depth = 1000;
-  
-          //Player text shows name and college, follows player
-          var playerStyle = { font: '12px Arial',
-          fill: 'BLUE',
-          wordWrap: true,
-          wordWrapWidth: newplayer.width,
-          align: 'center'};
-          var newPlayerText = this.add.text(0, -50, this.playerData[player].playerName + '\nRevelle', playerStyle);
-          newPlayerText.setOrigin(0.5, 0.5);
-  
-          //User controls a container which contains the player sprite and player text
-          this.players[player] = this.add.container(this.playerData[player].x, this.playerData[player].y, [newplayer, newPlayerText]);
-          this.players[player].setSize(64, 64);
-          this.physics.world.enable(this.players[player]);
-          this.players[player].body.setCollideWorldBounds(true);
-      }
-    }
 
     })
 
@@ -291,6 +255,45 @@ class PhaserScene extends Phaser.Scene {
         playerName: this.socket.id
       });
     }
+
+
+    
+    for(let player in this.playerData){
+      if(player === this.socket.id) {
+        console.log("its me: " + this.playerData[player].x)
+        continue
+      }
+
+      if(this.players[player]){
+        console.log("setting position for " + player)
+        this.players[player].setX(this.playerData[player].x);
+        this.players[player].setY(this.playerData[player].y);
+      } else {
+        console.log("creating new " + player)
+
+        //Set player position
+        console.log(player);
+        var newplayer = this.physics.add.sprite(0, 0, 'player');
+        //this.player.setCollideWorldBounds(true);
+        newplayer.setOrigin(0.5, 0.5);
+        newplayer.depth = 1000;
+
+        //Player text shows name and college, follows player
+        var playerStyle = { font: '12px Arial',
+        fill: 'BLUE',
+        wordWrap: true,
+        wordWrapWidth: newplayer.width,
+        align: 'center'};
+        var newPlayerText = this.add.text(0, -50, this.playerData[player].playerName + '\nRevelle', playerStyle);
+        newPlayerText.setOrigin(0.5, 0.5);
+
+        //User controls a container which contains the player sprite and player text
+        this.players[player] = this.add.container(this.playerData[player].x, this.playerData[player].y, [newplayer, newPlayerText]);
+        this.players[player].setSize(64, 64);
+        this.physics.world.enable(this.players[player]);
+        this.players[player].body.setCollideWorldBounds(true);
+    }
+  }
 
     if(this.key1.isDown)
       this.player.setTexture('player')
