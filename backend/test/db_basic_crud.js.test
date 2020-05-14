@@ -3,20 +3,10 @@ module.exports = dependencies => {
   const {app, chai} = dependencies
 
   describe('Basic CRUD functionality', function(done){
-    describe('User tests', function(done){
-      require('./user.js.test')
-    })
+    require('./user.js.test')(dependencies)
 
-    /*
-    describe('Club tests', function(done){
-      require('./club.js')
-    })
+    require('./club.js.test')(dependencies)
 
-    describe('Room tests', function(done){
-      require('./room.js')
-    })
-    */
-
+    require('./room.js.test')(dependencies)
   })
-
 }
