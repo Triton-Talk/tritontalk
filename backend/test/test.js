@@ -15,7 +15,19 @@ before(function(){
 
 dependencies = { chai, axios, app }
 
-require('./index')(dependencies)
-require('./auth')(dependencies)
-require('./db_basic_crud.js')(dependencies)
-require('./db_linked_crud.js')(dependencies)
+/*
+describe('Sanity check', function(){
+  require('./index.test')(dependencies)
+})
+
+describe('Ensuring credentials can be properly set', function(){
+  require('./auth.js.test')(dependencies)
+})
+*/
+
+
+describe('Database testing', function(){
+
+  require('./db_basic_crud.js.test')(dependencies)
+  require('./db_linked_crud.js.test')(dependencies)
+})

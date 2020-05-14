@@ -17,7 +17,7 @@ router.get('/get', async (req, res) => {
 })
 
 // READ
-router.getAll('/getAll', async (req, res) => {
+router.get('/getAll', async (req, res) => {
   const rooms = await Room.find({})
 
   if(!rooms)

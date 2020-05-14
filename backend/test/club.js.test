@@ -1,0 +1,56 @@
+
+module.exports = dependencies => {
+
+  const {chai} = dependencies
+
+  describe('Club tests', function(done){
+
+    it('creates a new Club', function(done){
+      const Club = require('../models/Club')
+
+      const exampleclub = new Club({
+        name: 'Example club',
+        description: 'example club'
+      })
+
+      exampleclub.save().then(() => done())
+    })
+
+    it('reads a Club', function(done){
+      const Club = require('../models/Club')
+
+      const query = { name: 'Example club' }
+
+      Club.findOne(query).then(exampleclub => {
+        chai.expect(exampleclub.description).to.equal('example club')
+        
+        done()
+      })
+    })
+
+    it('updates a Club', function(done){
+      const Club = require('../models/Club')
+
+      const query = { name: 'Example club' }
+
+      Club.findOneAndUpdate(query, {description: 'new description'}, {new: true}).then(exampleclub => {
+        chai.expect(exampleclub.description).to.equal('new description')
+        
+        done()
+      })
+    })
+
+    it('deletes a Club', async function(){
+      const Club = require('../models/Club')
+
+      const query = { name: 'Example club' }
+
+      await Club.deleteOne(query)
+
+      const c = await Club.findOne(query)
+      chai.expect(c).to.be.null
+    })
+
+  })
+
+}

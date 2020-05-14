@@ -2,11 +2,6 @@ module.exports = dependencies => {
 
   const {chai, app} = dependencies
 
-  before(function(){
-    console.log('Waiting for MongoDB connection...')
-    return require('../models/db')
-  })
-
   describe('Testing basic HTTP server functionality', function(done){
 
     it('requests /greeting', function(done){

@@ -1,6 +1,7 @@
 module.exports = dependencies => {
   const {app, chai} = dependencies
-  describe('Linked object tests', function(done){
+  
+  describe('Linked object CRUD functionality', function(done){
 
     it('creates linked objects', async function(){
       const User = require('../models/User')
@@ -39,7 +40,7 @@ module.exports = dependencies => {
       
       const exampleuser = await User.findOne({ name: 'Example user' }).populate(['clubs', 'hosted_rooms'])
 
-      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['created_by'])
+      const exampleclub = await Club.findOne({ name: 'Example club' }).populate(['authorized_users'])
 
       const exampleroom = await Room.findOne({ name: 'Example room' }).populate('authorized_users')
 

@@ -45,7 +45,7 @@ router.get('/get', async (req, res) => {
 })
 
 // READ
-router.getAll('/getAll', async (req, res) => {
+router.get('/getAll', async (req, res) => {
   const users = await User.find({})
 
   if(!users)

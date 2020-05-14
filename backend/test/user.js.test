@@ -1,0 +1,56 @@
+module.exports = dependencies => {
+
+  const {chai} = dependencies
+
+  describe('User tests', function(done){
+
+    it('creates a new User', function(done){
+      const User = require('../models/User')
+      
+      const exampleuser = new User({
+        name: 'Example user',
+        email: 'example@ucsd.edu', 
+      })
+
+      exampleuser.save().then(() => done())
+    })
+
+    it('reads a User', function(done){
+      const User = require('../models/User')
+      
+      const query = {email: 'example@ucsd.edu'}
+
+      User.findOne(query).then(exampleuser => {
+        chai.expect(exampleuser.name).to.equal('Example user')
+
+        done()
+      })
+    })
+
+    it('updates a User', function(done){
+      const User = require('../models/User')
+      
+      const query = {email: 'example@ucsd.edu'}
+
+      User.findOneAndUpdate(query, {bio: 'example update'}, {new: true}).then(exampleuser => {
+        chai.expect(exampleuser.name).to.equal('Example user')
+        chai.expect(exampleuser.bio).to.equal('example update')
+
+        done()
+      })
+    })
+
+    it('deletes a User', async function(){
+      const User = require('../models/User')
+      
+      const query = {email: 'example@ucsd.edu'}
+
+      await User.deleteOne(query)      
+
+      const e = await User.findOne(query) 
+      chai.expect(e).to.be.null
+    })
+
+  })
+
+}
