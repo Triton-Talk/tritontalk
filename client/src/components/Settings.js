@@ -33,7 +33,7 @@ const Settings = () => {
     
     const options = {body: {user: localUser}, method: 'PUT'}
     
-    request('/api/updateUser', options).then(res => {
+    request('/api/user/update', options).then(res => {
       setUser(res)
       setModal('updated')
     }).catch(error => {
@@ -52,7 +52,7 @@ const Settings = () => {
     
     const options = {body: {user: localUser}, method: 'DELETE'}
     
-    request('/api/deleteUser', options).then(res => {
+    request('/api/user/delete', options).then(res => {
       console.log(res)
       handleSignOut()
     }).catch(error => {
