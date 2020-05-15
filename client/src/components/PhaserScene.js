@@ -400,10 +400,15 @@ class PhaserScene extends Phaser.Scene {
       const {x, y, vx, vy, playerName} = this.player_updates.shift()
 
       if(this.players[playerName]){
-        this.players[playerName].setX(x);
-        this.players[playerName].setY(y);
-        this.players[playerName].body.setVelocityX(vx);
-        this.players[playerName].body.setVelocityY(vy);
+
+        this.tweens.add({
+          targets: this.players[playerName],
+          x: x,
+          y: y,
+          duration: 50,
+          ease: 'Linear',
+          delay: 0
+      });
 
         var tempMovingX = false
 
