@@ -174,7 +174,7 @@ class PhaserScene extends Phaser.Scene {
 
     this.upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
 
-    this.socket = io(URL, {transport: ['websocket'], secure: false})
+    this.socket = io(URL, {transport: ['websocket']})
     this.playerData = null
     this.player_updates = []
     this.players = {}
