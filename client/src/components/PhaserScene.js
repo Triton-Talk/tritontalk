@@ -15,9 +15,9 @@ class PhaserScene extends Phaser.Scene {
   preload() {
     //This is the background image used for the map/environment
     this.load.image('background', 'assets/Starfall-Town.png');
-    this.load.image('geisel', 'android-chrome-512x512.png');
+    this.load.image('geisel', 'assets/geisel.png');
     this.load.image('walk', 'assets/walk.png');
-    this.load.image('landing', 'assets/landing.png');
+    this.load.image('table', 'assets/table.png');
 
 
     //This is the player sprite with animation frames
@@ -50,17 +50,17 @@ class PhaserScene extends Phaser.Scene {
     this.boothCount = 10
 
     //Set world boundaries to match background image size
-    this.physics.world.setBounds(0, 0, 500*this.boothCount, 600, true, true, true, true);
+    this.physics.world.setBounds(0, 0, 500*this.boothCount, 400, true, true, true, true);
 
     //Set background image. If it doesn't move, it doesn't need to be a sprite anymore
     //this.background = this.physics.add.sprite(0, 0, 'background');
-    this.geisel = this.physics.add.sprite(500*this.boothCount, 44, 'geisel');
+    this.geisel = this.physics.add.sprite(500*this.boothCount, -50, 'geisel');
 
     //Generate the library walk path
     for (let i = 0; i < this.boothCount; i++) {
-      var tempWalk = this.physics.add.sprite(500*i, 100, 'walk');
-      var landingtop = this.physics.add.sprite(500*i, 0, 'landing');
-      var landingBot = this.physics.add.sprite(500*i, 500, 'landing');
+      var tempWalk = this.physics.add.sprite(500*i, -45, 'walk');
+      var landingtop = this.physics.add.sprite(500*i, -100, 'table');
+      var landingBot = this.physics.add.sprite(500*i, 400, 'table');
       tempWalk.setOrigin(0, 0);
       landingtop.setOrigin(0, 0);
       landingBot.setOrigin(0, 0);
@@ -117,7 +117,7 @@ class PhaserScene extends Phaser.Scene {
     this.playerText.setOrigin(0.5, 0.5);
 
     //User controls a container which contains the player sprite and player text
-    this.container = this.add.container((1000*this.boothCount) - 128, 268, [this.player, this.playerText]);
+    this.container = this.add.container((1000*this.boothCount) - 128, 200, [this.player, this.playerText]);
     this.container.setSize(30, 30);
     this.physics.world.enable(this.container);
     this.container.body.setCollideWorldBounds(true);
@@ -127,7 +127,7 @@ class PhaserScene extends Phaser.Scene {
       var walls = this.physics.add.staticGroup();
       
       var wallTop = this.add.rectangle((500*i)+150, 0, 350, 100, 0x5e32a8, 0);
-      var wallBottom = this.add.rectangle((500*i)+150, 500, 350, 100, 0x5e32a8, 0);
+      var wallBottom = this.add.rectangle((500*i)+150, 300, 350, 100, 0x5e32a8, 0);
       wallTop.setOrigin(0,0);
       wallBottom.setOrigin(0,0);
       walls.add(wallTop);
