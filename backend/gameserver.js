@@ -29,20 +29,19 @@ const startGameServer = httpServer => {
     // When a player moves
     socket.on('move-player', data => {
       
-      const {x, y, vx, vy, sprite, playerName} = data
+      const {x, y, sprite, playerName} = data
 
-      socket.broadcast.emit('update-player-data', {x, y, vx, vy, sprite, playerName})
+      socket.broadcast.emit('update-player-data', {x, y, sprite, playerName})
 
       // If the player is invalid, return
       if (players[socket.id] === undefined) {
+        console.log('invalid player')
         return
       }
 
       // Update the player's data if he moved
       players[socket.id].x = x
       players[socket.id].y = y
-      players[socket.id].vx = vx
-      players[socket.id].vy = vy
       players[socket.id].sprite = sprite
       players[socket.id].playerName = playerName
     })

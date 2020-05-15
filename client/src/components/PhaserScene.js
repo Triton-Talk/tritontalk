@@ -260,26 +260,6 @@ class PhaserScene extends Phaser.Scene {
       this.players[playerName] = container
     })
 
-    /*
-    //set up a callback that logs new data (for now)
-    this.socket.on('update-players', (data) => {
-      console.log(data)
-      if (data[this.socket.id]) {
-        this.upKeyDebug.setText([
-            (this.keyW.isDown ? 'Up ' : '') + 
-            (this.keyA.isDown ? 'Left ' : '') + 
-            (this.keyS.isDown ? 'Down ' : '') + 
-            (this.keyD.isDown ? 'Right ' : ''),
-            'position: ' + this.container.x + ',' + this.container.y,
-            'position from socket.io: ' + data[this.socket.id].x + ',' + data[this.socket.id].y, 
-            'click count: ' + this.clickCount
-        ]);
-      }
-      console.log('new player data received', data)
-      this.playerData = data
-    })
-    */
-
     //communicate our current state on instantiation
     this.socket.on('ready', () => {
       this.socket.emit('new-player', {
@@ -287,14 +267,13 @@ class PhaserScene extends Phaser.Scene {
         y: this.container.y,
         vx: 0,
         vy: 0,
-        playerName: this.socket.id
+        playerName: this.socket.id,
+        sprite: this.playerSprite
       });
     });
 
     this.socket.on('delete-player', data => {
       this.players[data].destroy()
-
-      //Object.keys(this.players).forEach(key => if(key === data) this.players[key].destroy())
     })
 
     this.socket.on('current-players', (data) => {
@@ -461,7 +440,9 @@ class PhaserScene extends Phaser.Scene {
           duration: 50,
           ease: 'Linear',
           delay: 0
-      });
+        });
+
+        console.log(sprite);
 
         var tempMovingX = false
 
