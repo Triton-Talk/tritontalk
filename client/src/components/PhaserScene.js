@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import io from 'socket.io-client';
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
-const URL = process.env.NODE_ENV === 'production' ? '' : 'http://192.168.29.198:3001'
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
