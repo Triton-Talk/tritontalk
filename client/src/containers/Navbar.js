@@ -26,8 +26,7 @@ const NavigationBar = () => {
 
   const lengthOfButtonString = lengthOfButton + "px";
   return (
-    <div style={{ backgroundColor: "rgb(197,146,66)" }}>
-      <div>
+    <div id="navbar-div" style={{ backgroundColor: "rgb(197,146,66)" }}>
         <Navbar style={ navStyle }>
           <Navbar.Toggle />
           {
@@ -67,7 +66,6 @@ const NavigationBar = () => {
               </div>
           }
         </Navbar >
-      </div>
       { killAlert ? null : 
       <div style={location.pathname === '/' ? {display: 'none'} : null} >
         <AlertDismissible killAlert={e => cookies.set('killAlert', true)}/>

@@ -20,7 +20,7 @@ const Router = () => {
 
     <BrowserRouter>
       <AuthProvider>
-        <div className="app">
+        <div className="app" id="main-component">
           <Navbar />
           <Switch>
             <Route path="/home" exact component={LibraryWalk} />

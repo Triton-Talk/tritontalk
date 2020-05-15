@@ -1,6 +1,9 @@
 // import phaser module
+import React from 'react'
 import Phaser from 'phaser';
 import io from 'socket.io-client';
+import Auth from '../utils/auth'
+
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
@@ -54,7 +57,9 @@ class PhaserScene extends Phaser.Scene {
     //this.load.image('building', 'building.png');
   }
 	
-  create() {
+  create(data) {
+    console.log(data)
+
     //TODO: Fix game object positionings. I'm using literal unflexible pixel values
     //When images are created, they stack over each other
 
@@ -79,10 +84,7 @@ class PhaserScene extends Phaser.Scene {
       landingBot.setOrigin(0, 0);
     }
     
-    //this.background.setOrigin(0, 0);
     this.geisel.setOrigin(0, 0);
-
-    //this.background.setScale(2, 2);
     
     //Set player position
     this.player = this.physics.add.sprite(0, 0, 'tritondude');
@@ -582,4 +584,6 @@ class PhaserScene extends Phaser.Scene {
   */
   }
 }
+PhaserScene.contextType = Auth
+
 export default PhaserScene;
