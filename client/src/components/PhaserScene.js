@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import io from 'socket.io-client';
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
-const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://192.168.29.198:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
@@ -57,7 +57,7 @@ class PhaserScene extends Phaser.Scene {
     this.geisel = this.physics.add.sprite(500*this.boothCount, 44, 'geisel');
 
     //Generate the library walk path
-    for (var i = 0; i < this.boothCount; i++) {
+    for (let i = 0; i < this.boothCount; i++) {
       var tempWalk = this.physics.add.sprite(500*i, 100, 'walk');
       var landingtop = this.physics.add.sprite(500*i, 0, 'landing');
       var landingBot = this.physics.add.sprite(500*i, 500, 'landing');
@@ -123,7 +123,7 @@ class PhaserScene extends Phaser.Scene {
     this.container.body.setCollideWorldBounds(true);
     
     //Generate walls around the library walk
-    for (var i = 0; i < this.boothCount; i++) {
+    for (let i = 0; i < this.boothCount; i++) {
       var walls = this.physics.add.staticGroup();
       
       var wallTop = this.add.rectangle((500*i)+150, 0, 350, 100, 0x5e32a8, 0);
@@ -172,49 +172,130 @@ class PhaserScene extends Phaser.Scene {
 
     this.upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
 
-    this.socket = io(URL);
+    this.socket = io(URL, {transports: ['websocket']});
     this.playerData = null
+    this.player_updates = []
     this.players = {}
 
 
-    //set up a callback that logs new data (for now)
-    this.socket.on('update-players', (data) => {
-      if (data[this.socket.id]) {
-      this.upKeyDebug.setText([
-          (this.keyW.isDown ? 'Up ' : '') + 
-          (this.keyA.isDown ? 'Left ' : '') + 
-          (this.keyS.isDown ? 'Down ' : '') + 
-          (this.keyD.isDown ? 'Right ' : ''),
-          'position: ' + this.container.x + ',' + this.container.y,
-          'position from socket.io: ' + data[this.socket.id].x + ',' + data[this.socket.id].y, 
-          'click count: ' + this.clickCount
-      ]);
-    }
-      console.log('new player data received', data)
-      this.playerData = data
-      console.log(this.playerData)
-
-
+    this.socket.on('update-player-data', data => {
+      this.player_updates.push(data)
     })
 
+    this.socket.on('new-player', data => {
+      console.log('new player' ,data)
+      const {x, y, playerName} = data
+
+      //Set player position
+      const newplayer = this.physics.add.sprite(0, 0, 'player');
+
+      //this.player.setCollideWorldBounds(true);
+      newplayer.setOrigin(0.5, 0.5);
+      newplayer.depth = 1000;
+
+      //Player text shows name and college, follows player
+      var playerStyle = { 
+        font: '12px Arial',
+        fill: 'BLUE',
+        wordWrap: true,
+        wordWrapWidth: newplayer.width,
+        align: 'center'
+      };
+
+      var newPlayerText = this.add.text(0, -50, playerName + '\nRevelle', playerStyle)
+      newPlayerText.setOrigin(0.5, 0.5);
+
+      //User controls a container which contains the player sprite and player text
+      const container = this.add.container(x, y, [newplayer, newPlayerText]);
+      container.setSize(64, 64);
+      this.physics.world.enable(container);
+      container.body.setCollideWorldBounds(true);
+
+      this.players[playerName] = container
+    })
+
+    /*
+    //set up a callback that logs new data (for now)
+    this.socket.on('update-players', (data) => {
+      console.log(data)
+      if (data[this.socket.id]) {
+        this.upKeyDebug.setText([
+            (this.keyW.isDown ? 'Up ' : '') + 
+            (this.keyA.isDown ? 'Left ' : '') + 
+            (this.keyS.isDown ? 'Down ' : '') + 
+            (this.keyD.isDown ? 'Right ' : ''),
+            'position: ' + this.container.x + ',' + this.container.y,
+            'position from socket.io: ' + data[this.socket.id].x + ',' + data[this.socket.id].y, 
+            'click count: ' + this.clickCount
+        ]);
+      }
+      console.log('new player data received', data)
+      this.playerData = data
+    })
+    */
+
     //communicate our current state on instantiation
-    this.socket.emit('new-player', {
-      x: this.container.x,
-      y: this.container.y,
-      vx: 0,
-      vy: 0,
-      playerName: this.socket.id
+    this.socket.on('ready', () => {
+      this.socket.emit('new-player', {
+        x: this.container.x,
+        y: this.container.y,
+        vx: 0,
+        vy: 0,
+        playerName: this.socket.id
+      });
     });
+
+    this.socket.on('delete-player', data => {
+      this.players[data].destroy()
+
+      //Object.keys(this.players).forEach(key => if(key === data) this.players[key].destroy())
+    })
+
+    this.socket.on('current-players', (data) => {
+      for( let p in data ){
+        console.log(p)
+        const {x, y, vx, vy, playerName} = data[p]
+
+        //Set player position
+        let newplayer = this.physics.add.sprite(0, 0, 'player');
+
+        //this.player.setCollideWorldBounds(true);
+        newplayer.setOrigin(0.5, 0.5);
+        newplayer.depth = 1000;
+
+        //Player text shows name and college, follows player
+        var playerStyle = { 
+          font: '12px Arial',
+          fill: 'BLUE',
+          wordWrap: true,
+          wordWrapWidth: newplayer.width,
+          align: 'center'
+        };
+
+        var newPlayerText = this.add.text(0, -50, playerName + '\nRevelle', playerStyle)
+        newPlayerText.setOrigin(0.5, 0.5);
+
+        //Container contains the player sprite and player text
+        this.players[playerName] = this.add.container(x, y, [newplayer, newPlayerText]);
+        this.players[playerName].setSize(64, 64);
+        this.physics.world.enable(this.players[playerName]);
+        this.players[playerName].body.setCollideWorldBounds(true);
+      }
+    })
   }
   
   update () {
     this.container.body.velocity.set(0, 0);
     this.isMoving = false;
     this.isMovingX = false;
-    var velocity = 250;
+    const velocity = 250;
+
+    if(this.key1.isDown)
+      this.player.setTexture('player')
+    if(this.key2.isDown)
+      this.player.setTexture('bunny')
     
     //TODO: Fix animations so that sprite always stops at standing frame
-   
 
     if (this.keyA.isDown) {
       //this.menu.visible = true;
@@ -226,14 +307,32 @@ class PhaserScene extends Phaser.Scene {
       this.player.once('animationcomplete', ()=>{
         this.player.anims.play();
       }*/
+
+      this.doNotUpdate = false
+    this.socket.emit('move-player', {
+      x: this.container.x,
+      y: this.container.y,
+      vx: this.container.body.velocity.x,
+      vy: this.container.body.velocity.y,
+      playerName: this.socket.id
+    });
     } else if (this.keyD.isDown) {
       //this.menu.visible = false;
       this.container.body.setVelocityX(velocity);
       this.isMovingX = true;
       this.isMoving = true;
       this.player.anims.play('walkRight', true);
-    }
 
+      this.doNotUpdate = false
+
+    this.socket.emit('move-player', {
+      x: this.container.x,
+      y: this.container.y,
+      vx: this.container.body.velocity.x,
+      vy: this.container.body.velocity.y,
+      playerName: this.socket.id
+    });
+    }
 
     if (this.keyW.isDown) {
       this.container.body.setVelocityY(-velocity);
@@ -241,46 +340,140 @@ class PhaserScene extends Phaser.Scene {
       if (!this.isMovingX) {
         this.player.anims.play('walkUp', true);
       }
+
+      this.doNotUpdate = false
+    this.socket.emit('move-player', {
+      x: this.container.x,
+      y: this.container.y,
+      vx: this.container.body.velocity.x,
+      vy: this.container.body.velocity.y,
+      playerName: this.socket.id
+    });
     } else if (this.keyS.isDown) {
       this.container.body.setVelocityY(velocity);
       this.isMoving = true;
       if (!this.isMovingX) {
         this.player.anims.play('walkDown', true);
       }
-    }
 
+      this.doNotUpdate = false
+    this.socket.emit('move-player', {
+      x: this.container.x,
+      y: this.container.y,
+      vx: this.container.body.velocity.x,
+      vy: this.container.body.velocity.y,
+      playerName: this.socket.id
+    });
+    }
     if(!this.isMoving){
       this.player.anims.stop();
+      if(!this.doNotUpdate)
+        this.socket.emit('move-player', {
+          x: this.container.x,
+          y: this.container.y,
+          vx: this.container.body.velocity.x,
+          vy: this.container.body.velocity.y,
+          playerName: this.socket.id
+        });
+
+    this.doNotUpdate = true
     }
-      console.log("MY VELOCITYX: " + this.container.body.velocity.x);
-      this.socket.emit('move-player', {
-        x: this.container.x,
-        y: this.container.y,
-        vx: this.container.body.velocity.x,
-        vy: this.container.body.velocity.y,
-        playerName: this.socket.id
-      });
 
+    /*
+    this.socket.emit('move-player', {
+      x: this.container.x,
+      y: this.container.y,
+      vx: this.container.body.velocity.x,
+      vy: this.container.body.velocity.y,
+      playerName: this.socket.id
+    });
+    */
 
-    
+    while(this.player_updates.length > 0){
+
+      const {x, y, vx, vy, playerName} = this.player_updates.shift()
+
+      if(this.players[playerName]){
+        this.players[playerName].setX(x);
+        this.players[playerName].setY(y);
+        this.players[playerName].body.setVelocityX(vx);
+        this.players[playerName].body.setVelocityY(vy);
+
+        var tempMovingX = false
+
+        if (vx < 0) {
+          tempMovingX = true;
+          this.players[playerName].first.anims.play('walkLeft', true);
+        } 
+        else if (vx > 0) {
+          tempMovingX = true;
+          this.players[playerName].first.anims.play('walkRight', true);
+        }
+
+        else if (vy < 0) {
+          this.players[playerName].first.anims.play('walkUp', true);
+        } 
+        else if (vy > 0) {
+          this.players[playerName].first.anims.play('walkDown', true);
+        } else {
+          this.players[playerName].first.anims.stop();
+        }
+      } 
+
+      /*
+      else {
+        //Set player position
+        var newplayer = this.physics.add.sprite(0, 0, 'player');
+
+        //this.player.setCollideWorldBounds(true);
+        newplayer.setOrigin(0.5, 0.5);
+        newplayer.depth = 1000;
+
+        //Player text shows name and college, follows player
+        var playerStyle = { 
+          font: '12px Arial',
+          fill: 'BLUE',
+          wordWrap: true,
+          wordWrapWidth: newplayer.width,
+          align: 'center'
+        };
+
+        var newPlayerText = this.add.text(0, -50, playerName + '\nRevelle', playerStyle)
+        newPlayerText.setOrigin(0.5, 0.5);
+
+        //User controls a container which contains the player sprite and player text
+        this.players[playerName] = this.add.container(x, y, [newplayer, newPlayerText]);
+        this.players[playerName].setSize(64, 64);
+        this.physics.world.enable(this.players[playerName]);
+        this.players[playerName].body.setCollideWorldBounds(false);
+        //this.container.body.velocity.set(0, 0);
+      }
+      */
+    }
+
+    /*
     for(let player in this.playerData){
+
       if(player === this.socket.id) {
         console.log("its me: " + this.playerData[player].x)
         continue
       }
-
+      
       if(this.players[player]){
         console.log("setting position for " + player)
         this.players[player].setX(this.playerData[player].x);
         this.players[player].setY(this.playerData[player].y);
         this.players[player].body.setVelocityX(this.playerData[player].vx);
         this.players[player].body.setVelocityY(this.playerData[player].vy);
+
         console.log("received VELOCITY: " + this.players[player].body.velocity.x);
+
         var tempMovingX = false
         if (this.players[player].body.velocity.x < 0) {
           tempMovingX = true;
           this.players[player].first.anims.play('walkLeft', true);
-        } else if (this.players[player].body.velocity.x > 0) {
+        } 
+        else if (this.players[player].body.velocity.x > 0) {
           tempMovingX = true;
           this.players[player].first.anims.play('walkRight', true);
         }
@@ -288,13 +481,16 @@ class PhaserScene extends Phaser.Scene {
         if (!tempMovingX) {
           if (this.players[player].body.velocity.y < 0) {
             this.players[player].first.anims.play('walkUp', true);
-          } else if (this.players[player].body.velocity.y > 0) {
+          } 
+          else if (this.players[player].body.velocity.y > 0) {
             this.players[player].first.anims.play('walkDown', true);
-          } else {
+          } 
+          else {
             this.players[player].first.anims.stop();
           }
         }
-      } else {
+      } 
+      else {
         console.log("creating new " + player)
 
         //Set player position
@@ -319,13 +515,9 @@ class PhaserScene extends Phaser.Scene {
         this.physics.world.enable(this.players[player]);
         this.players[player].body.setCollideWorldBounds(false);
         this.container.body.velocity.set(0, 0);
+      }
     }
-  }
-
-    if(this.key1.isDown)
-      this.player.setTexture('player')
-    if(this.key2.isDown)
-     this.player.setTexture('bunny')
+  */
   }
 }
 export default PhaserScene;

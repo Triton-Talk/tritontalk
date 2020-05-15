@@ -6,26 +6,32 @@ const startGameServer = httpServer => {
 
   phaser.on('connection', socket => {
 
-    console.log('new connection to phaser socket')
+    console.log('new connection to phaser socket', socket.id)
+
+    socket.emit('ready', null)
 
     // When a player connects
     socket.on('new-player', state => {
       console.log('New player joined with state:', state)
       players[socket.id] = state
+      state.playerName = socket.id
 
       // Emit the update-players method in the client side
-      socket.emit('update-players', players)
-
+      socket.emit('current-players', players)
+      socket.broadcast.emit('new-player', state)
     })
 
     socket.on('disconnect', state => {
       delete players[socket.id]
-      phaser.emit('update-players', players)
+      phaser.emit('delete-player', socket.id)
     })
 
     // When a player moves
     socket.on('move-player', data => {
+      
       const {x, y, vx, vy, playerName} = data
+
+      socket.broadcast.emit('update-player-data', {x, y, vx, vy, playerName})
 
       // If the player is invalid, return
       if (players[socket.id] === undefined) {
@@ -39,15 +45,7 @@ const startGameServer = httpServer => {
       players[socket.id].vy = vy
 
       players[socket.id].playerName = playerName
-
-      // Send the data back to the client
-      phaser.emit('update-players', players)
     })
-    
-    const updatePlayers = () => {
-      phaser.emit('update-players', players)
-      setTimeout(() => updatePlayers(), 17)
-    }
   })
 }
 
