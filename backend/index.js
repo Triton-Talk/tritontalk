@@ -3,6 +3,15 @@ require('./models/db')
 
 const express = require('express');
 const http = require('http')
+const https = require('https')
+const fs = require('fs')
+
+const ssl = {
+  ca: fs.readFileSync(’/usr/src/ssl/chain.pem’),
+  cert: fs.readFileSync(’/usr/src/ssl/cert.pem’),
+  key: fs.readFileSync(’/usr/src/ssl/privkey.pem’)
+};
+
 
 const path = require('path');
 const cors = require('cors');
@@ -45,6 +54,10 @@ app.use('/api/room', room)
 
 server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
-gameserver.start(server)
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(3002);
+
+gameserver.start(httpsServer)
 
 module.exports = app
