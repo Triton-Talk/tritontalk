@@ -21,7 +21,19 @@ class PhaserScene extends Phaser.Scene {
 
 
     //This is the player sprite with animation frames
-    this.load.spritesheet('player', 'assets/Char_Sprite_Sheet.png',{
+    this.load.spritesheet('sungod', 'assets/spritesheets/sungod.png',{
+      frameWidth: 64,
+      frameHeight: 64,
+      endFrame: 15
+    });
+
+    this.load.spritesheet('pokeman', 'assets/spritesheets/pokeman.png',{
+      frameWidth: 64,
+      frameHeight: 64,
+      endFrame: 15
+    });
+
+    this.load.spritesheet('tritondude', 'assets/spritesheets/tritondude.png',{
       frameWidth: 64,
       frameHeight: 64,
       endFrame: 15
@@ -48,19 +60,20 @@ class PhaserScene extends Phaser.Scene {
 
     //Number of booths currently open in library walk determines length of generated path
     this.boothCount = 10
+    this.boothWidth = 527
 
     //Set world boundaries to match background image size
-    this.physics.world.setBounds(0, 0, 500*this.boothCount, 400, true, true, true, true);
+    this.physics.world.setBounds(0, 0, this.boothWidth*this.boothCount, 400, true, true, true, true);
 
     //Set background image. If it doesn't move, it doesn't need to be a sprite anymore
     //this.background = this.physics.add.sprite(0, 0, 'background');
-    this.geisel = this.physics.add.sprite(500*this.boothCount, -50, 'geisel');
+    this.geisel = this.physics.add.sprite(this.boothWidth*this.boothCount, -50, 'geisel');
 
     //Generate the library walk path
     for (let i = 0; i < this.boothCount; i++) {
-      var tempWalk = this.physics.add.sprite(500*i, -45, 'walk');
-      var landingtop = this.physics.add.sprite(500*i, -100, 'table');
-      var landingBot = this.physics.add.sprite(500*i, 400, 'table');
+      var tempWalk = this.physics.add.sprite(this.boothWidth*i, -45, 'walk');
+      var landingtop = this.physics.add.sprite(this.boothWidth*i, -100, 'table');
+      var landingBot = this.physics.add.sprite(this.boothWidth*i, 400, 'table');
       tempWalk.setOrigin(0, 0);
       landingtop.setOrigin(0, 0);
       landingBot.setOrigin(0, 0);
@@ -72,7 +85,8 @@ class PhaserScene extends Phaser.Scene {
     //this.background.setScale(2, 2);
     
     //Set player position
-    this.player = this.physics.add.sprite(0, 0, 'player');
+    this.player = this.physics.add.sprite(0, 0, 'tritondude');
+    this.playerSprite = 'tritondude';
     //this.player.setCollideWorldBounds(true);
     this.player.setOrigin(0.5, 0.5);
     
@@ -80,32 +94,60 @@ class PhaserScene extends Phaser.Scene {
 	
 	  //Player sprite's animated walk cycles for each direction
     this.anims.create({
-        key: 'walkDown',
-        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2, first: 3 }),
+        key: 'walkDown-tritondude',
+        frames: this.anims.generateFrameNumbers('tritondude', { start: 0, end: 2, first: 3 }),
         frameRate: 8,
         repeat: 0
     });
 	
     this.anims.create({
-        key: 'walkLeft',
-        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 6, first: 7 }),
+        key: 'walkLeft-tritondude',
+        frames: this.anims.generateFrameNumbers('tritondude', { start: 4, end: 6, first: 7 }),
         frameRate: 8,
         repeat: 0
     });
     
     this.anims.create({
-        key: 'walkRight',
-        frames: this.anims.generateFrameNumbers('player', { start: 8, end: 10, first: 11 }),
+        key: 'walkRight-tritondude',
+        frames: this.anims.generateFrameNumbers('tritondude', { start: 8, end: 10, first: 11 }),
         frameRate: 8,
         repeat: 0
     });
     
     this.anims.create({
-        key: 'walkUp',
-        frames: this.anims.generateFrameNumbers('player', { start: 12, end: 14, first: 15 }),
+        key: 'walkUp-tritondude',
+        frames: this.anims.generateFrameNumbers('tritondude', { start: 12, end: 14, first: 15 }),
         frameRate: 8,
         repeat: 0
     });
+
+    this.anims.create({
+      key: 'walkDown-sungod',
+      frames: this.anims.generateFrameNumbers('sungod', { start: 0, end: 2, first: 3 }),
+      frameRate: 8,
+      repeat: 0
+  });
+
+  this.anims.create({
+      key: 'walkLeft-sungod',
+      frames: this.anims.generateFrameNumbers('sungod', { start: 4, end: 6, first: 7 }),
+      frameRate: 8,
+      repeat: 0
+  });
+  
+  this.anims.create({
+      key: 'walkRight-sungod',
+      frames: this.anims.generateFrameNumbers('sungod', { start: 8, end: 10, first: 11 }),
+      frameRate: 8,
+      repeat: 0
+  });
+  
+  this.anims.create({
+      key: 'walkUp-sungod',
+      frames: this.anims.generateFrameNumbers('sungod', { start: 12, end: 14, first: 15 }),
+      frameRate: 8,
+      repeat: 0
+  });
 
     //Player text shows name and college, follows player
     var playerStyle = { font: '12px Arial',
@@ -126,8 +168,8 @@ class PhaserScene extends Phaser.Scene {
     for (let i = 0; i < this.boothCount; i++) {
       var walls = this.physics.add.staticGroup();
       
-      var wallTop = this.add.rectangle((500*i)+150, 0, 350, 100, 0x5e32a8, 0);
-      var wallBottom = this.add.rectangle((500*i)+150, 300, 350, 100, 0x5e32a8, 0);
+      var wallTop = this.add.rectangle((this.boothWidth*i)+150, 0, 375, 100, 0x5e32a8, 0);
+      var wallBottom = this.add.rectangle((this.boothWidth*i)+150, 300, 375, 100, 0x5e32a8, 0);
       wallTop.setOrigin(0,0);
       wallBottom.setOrigin(0,0);
       walls.add(wallTop);
@@ -141,7 +183,7 @@ class PhaserScene extends Phaser.Scene {
     
     //TODO: Make this a container?
     //Menu that appears when player interacts
-    this.menu = this.add.rectangle(1200, 600, 500, 1250, 0x5e32a8, 70);
+    this.menu = this.add.rectangle(1200, 600, this.boothWidth, 1250, 0x5e32a8, 70);
     this.menu.visible = false; //Appears when prompted
     this.menu.setScrollFactor(0); //Follows camera
     
@@ -189,7 +231,7 @@ class PhaserScene extends Phaser.Scene {
       const {x, y, playerName} = data
 
       //Set player position
-      const newplayer = this.physics.add.sprite(0, 0, 'player');
+      const newplayer = this.physics.add.sprite(0, 0, 'tritondude');
 
       //this.player.setCollideWorldBounds(true);
       newplayer.setOrigin(0.5, 0.5);
@@ -261,7 +303,7 @@ class PhaserScene extends Phaser.Scene {
         const {x, y, vx, vy, playerName} = data[p]
 
         //Set player position
-        let newplayer = this.physics.add.sprite(0, 0, 'player');
+        let newplayer = this.physics.add.sprite(0, 0, 'tritondude');
 
         //this.player.setCollideWorldBounds(true);
         newplayer.setOrigin(0.5, 0.5);
@@ -296,10 +338,14 @@ class PhaserScene extends Phaser.Scene {
     if(this.keyShift.isDown)
       velocity *= 2
 
-    if(this.key1.isDown)
-      this.player.setTexture('player')
-    if(this.key2.isDown)
-      this.player.setTexture('bunny')
+    if(this.key1.isDown) {
+      this.player.setTexture('tritondude');
+      this.playerSprite = 'tritondude';
+    }
+    if(this.key2.isDown) {
+      this.player.setTexture('sungod');
+      this.playerSprite = 'sungod';
+    }
     
     //TODO: Fix animations so that sprite always stops at standing frame
 
@@ -308,7 +354,7 @@ class PhaserScene extends Phaser.Scene {
       this.container.body.setVelocityX(-velocity);
       this.isMoving = true;
       this.isMovingX = true;
-      this.player.anims.play('walkLeft', true);
+      this.player.anims.play('walkLeft-' + this.playerSprite, true);
       /*
       this.player.once('animationcomplete', ()=>{
         this.player.anims.play();
@@ -320,6 +366,7 @@ class PhaserScene extends Phaser.Scene {
       y: this.container.y,
       vx: this.container.body.velocity.x,
       vy: this.container.body.velocity.y,
+      sprite: this.playerSprite,
       playerName: this.socket.id
     });
     } else if (this.keyD.isDown) {
@@ -327,7 +374,7 @@ class PhaserScene extends Phaser.Scene {
       this.container.body.setVelocityX(velocity);
       this.isMovingX = true;
       this.isMoving = true;
-      this.player.anims.play('walkRight', true);
+      this.player.anims.play('walkRight-' + this.playerSprite, true);
 
       this.doNotUpdate = false
 
@@ -336,6 +383,7 @@ class PhaserScene extends Phaser.Scene {
       y: this.container.y,
       vx: this.container.body.velocity.x,
       vy: this.container.body.velocity.y,
+      sprite: this.playerSprite,
       playerName: this.socket.id
     });
     }
@@ -344,7 +392,7 @@ class PhaserScene extends Phaser.Scene {
       this.container.body.setVelocityY(-velocity);
       this.isMoving = true;
       if (!this.isMovingX) {
-        this.player.anims.play('walkUp', true);
+        this.player.anims.play('walkUp-' + this.playerSprite, true);
       }
 
       this.doNotUpdate = false
@@ -353,13 +401,14 @@ class PhaserScene extends Phaser.Scene {
       y: this.container.y,
       vx: this.container.body.velocity.x,
       vy: this.container.body.velocity.y,
+      sprite: this.playerSprite,
       playerName: this.socket.id
     });
     } else if (this.keyS.isDown) {
       this.container.body.setVelocityY(velocity);
       this.isMoving = true;
       if (!this.isMovingX) {
-        this.player.anims.play('walkDown', true);
+        this.player.anims.play('walkDown-' + this.playerSprite, true);
       }
 
       this.doNotUpdate = false
@@ -368,6 +417,7 @@ class PhaserScene extends Phaser.Scene {
       y: this.container.y,
       vx: this.container.body.velocity.x,
       vy: this.container.body.velocity.y,
+      sprite: this.playerSprite,
       playerName: this.socket.id
     });
     }
@@ -379,6 +429,7 @@ class PhaserScene extends Phaser.Scene {
           y: this.container.y,
           vx: this.container.body.velocity.x,
           vy: this.container.body.velocity.y,
+          sprite: this.playerSprite,
           playerName: this.socket.id
         });
 
@@ -397,7 +448,7 @@ class PhaserScene extends Phaser.Scene {
 
     while(this.player_updates.length > 0){
 
-      const {x, y, vx, vy, playerName} = this.player_updates.shift()
+      const {x, y, vx, vy, sprite, playerName} = this.player_updates.shift()
 
       if(this.players[playerName]){
 
@@ -414,18 +465,18 @@ class PhaserScene extends Phaser.Scene {
 
         if (vx < 0) {
           tempMovingX = true;
-          this.players[playerName].first.anims.play('walkLeft', true);
+          this.players[playerName].first.anims.play('walkLeft-' + sprite, true);
         } 
         else if (vx > 0) {
           tempMovingX = true;
-          this.players[playerName].first.anims.play('walkRight', true);
+          this.players[playerName].first.anims.play('walkRight-' + sprite, true);
         }
 
         else if (vy < 0) {
-          this.players[playerName].first.anims.play('walkUp', true);
+          this.players[playerName].first.anims.play('walkUp-' + sprite, true);
         } 
         else if (vy > 0) {
-          this.players[playerName].first.anims.play('walkDown', true);
+          this.players[playerName].first.anims.play('walkDown-' + sprite, true);
         } else {
           this.players[playerName].first.anims.stop();
         }
