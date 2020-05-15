@@ -454,13 +454,13 @@ class PhaserScene extends Phaser.Scene {
           tempMovingX = true;
           this.players[playerName].first.anims.play('walkRight-' + sprite, true);
         }
-
         else if (vy < 0) {
           this.players[playerName].first.anims.play('walkUp-' + sprite, true);
         } 
         else if (vy > 0) {
           this.players[playerName].first.anims.play('walkDown-' + sprite, true);
-        } else {
+        } 
+        else {
           this.players[playerName].first.anims.stop();
         }
       } 
