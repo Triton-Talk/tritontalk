@@ -253,7 +253,9 @@ class PhaserScene extends Phaser.Scene {
 
     this.socket.on('current-players', (data) => {
       for( let p in data ){
-        console.log(p)
+        if(p === this.socket.id)
+          continue
+
         const {x, y, vx, vy, playerName} = data[p]
 
         //Set player position
