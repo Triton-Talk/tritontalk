@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import io from 'socket.io-client';
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
-const URL = process.env.NODE_ENV === 'production' ? 'http://tritontalk.com' : 'http://localhost:3001'
+const URL = process.env.NODE_ENV === 'production' ? 'ws://tritontalk.com' : 'http://localhost:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
@@ -172,7 +172,7 @@ class PhaserScene extends Phaser.Scene {
 
     this.upKeyDebug = this.add.text(300, 10, 'Up', { font: '16px Courier', fill: '#00ff00' });
 
-    this.socket = io(URL)
+    this.socket = io(URL, {transport: ['websocket']})
     this.playerData = null
     this.player_updates = []
     this.players = {}
