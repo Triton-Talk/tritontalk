@@ -34,14 +34,13 @@ const startGameServer = httpServer => {
 
       // If the player is invalid, return
       if (players[socket.id] === undefined) {
+        console.log('invalid player')
         return
       }
 
       // Update the player's data if he moved
       players[socket.id].x = x
       players[socket.id].y = y
-      players[socket.id].vx = vx
-      players[socket.id].vy = vy
       players[socket.id].sprite = sprite
       players[socket.id].playerName = playerName
     })
