@@ -167,6 +167,8 @@ class PhaserScene extends Phaser.Scene {
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+    this.keyShift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
     this.key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
     this.key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
 
@@ -290,7 +292,9 @@ class PhaserScene extends Phaser.Scene {
     this.container.body.velocity.set(0, 0);
     this.isMoving = false;
     this.isMovingX = false;
-    const velocity = 250;
+    var velocity = 250;
+    if(this.keyShift.isDown)
+      velocity *= 2
 
     if(this.key1.isDown)
       this.player.setTexture('player')
