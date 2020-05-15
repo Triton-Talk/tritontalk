@@ -6,13 +6,6 @@ const http = require('http')
 const https = require('https')
 const fs = require('fs')
 
-const ssl = {
-  ca: fs.readFileSync(’/usr/src/ssl/chain.pem’),
-  cert: fs.readFileSync(’/usr/src/ssl/cert.pem’),
-  key: fs.readFileSync(’/usr/src/ssl/privkey.pem’)
-};
-
-
 const path = require('path');
 const cors = require('cors');
 
@@ -52,12 +45,20 @@ app.use('/api/user', user)
 app.use('/api/club', club)
 app.use('/api/room', room)
 
-server = app.listen(3001, () => console.log('node running on localhost:3001'));
+httpServer = app.listen(3001, () => console.log('node running on localhost:3001'));
 
-const httpsServer = https.createServer(credentials, app);
+/*
+const creds = {
+  ca: fs.readFileSync('/usr/src/ssl/chain1.pem'),
+  cert: fs.readFileSync('/usr/src/ssl/cert1.pem'),
+  key: fs.readFileSync('/usr/src/ssl/privkey1.pem')
+};*/
+
+
+const httpsServer = https.createServer();
 
 httpsServer.listen(3002);
 
-gameserver.start(httpsServer)
+gameserver.start(httpServer)
 
 module.exports = app
