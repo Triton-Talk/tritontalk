@@ -15,8 +15,8 @@ export default class LibraryWalk extends Component {
     parent: 'hi',
     autoCenter: Phaser.Scale.CENTER_BOTH,
     marginTop:200,
-    width: 800,
-    height: 600
+    width: "100%",
+    height: 800
 },
         type: Phaser.AUTO,
         physics: {
@@ -32,7 +32,7 @@ export default class LibraryWalk extends Component {
     const { initialize, game } = this.state
     return (
       <div style={{width:"100%",height:"100%",backgroundColor:"black",position:"relative", flexGrow: "1"}}>
-        <div id="hi" style={{top:"250px",paddingTop:"40px",backgroundColor:"black"}} >
+        <div id="hi" style={{top:"250px",paddingTop:"40px"}} >
         <IonPhaser  game={game} initialize={initialize} />
       </div>
       </div>
