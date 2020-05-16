@@ -11,7 +11,7 @@ export default Auth;
 
 const cookies = new Cookies()
 
-const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost'
 
 export const AuthProvider = (props) => {
 

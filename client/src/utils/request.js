@@ -1,6 +1,6 @@
 const request = (path, options) => {
 
-  const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+  const URL = process.env.NODE_ENV === 'production' || process.env.DOCKER_RUN ? '' : 'http://localhost'
 
   options = {
     method: 'POST',

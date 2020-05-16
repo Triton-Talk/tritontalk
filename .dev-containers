@@ -38,4 +38,5 @@ services:
     volumes:
       - /c/Users/shubh/Documents/cs/cse110/tritontalk/client:/usr/src/app
     stdin_open: true
-    command: npm run docker
+    environment:
+      - NODE_ENV=production
