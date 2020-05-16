@@ -8,7 +8,7 @@ services:
     ports:
       - 80:80
     restart: always
-    image: tttvlw-server-development
+    image: tttvlw-nginx-development
     container_name: tttvlw-nginx-development
     depends_on:
       - backend
@@ -32,7 +32,7 @@ services:
       context: ./client
     restart: always
     image: tttvlw-frontend-development
-    container_name: tttvlw-frontend-testing
+    container_name: tttvlw-frontend-development
     ports:
       - 4000:3000
     volumes:
