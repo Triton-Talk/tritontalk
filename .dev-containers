@@ -1,30 +1,30 @@
 version: '3.1'
 
 services:
-#  server:
-#    build:
-#      dockerfile: Dockerfile.dev
-#      context: ./testing/nginx
-#    ports:
-#      - 80:80
-#    restart: always
-#    image: tttvlw-server-development
-#    container_name: tttvlw-nginx-development
-#    depends_on:
-#      - backend
-#      - frontend
-#
-#  backend:
-#    build:
-#      dockerfile: Dockerfile.dev
-#      context: ./backend
-#    restart: always
-#    image: tttvlw-backend-development
-#    container_name: tttvlw-backend-development
-#    ports:
-#      - 5000:3001
-#    volumes:
-#      - /c/Users/shubh/Documents/cs/cse110/tritontalk/backend:/usr/src/app
+  server:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./testing/nginx
+    ports:
+      - 80:80
+    restart: always
+    image: tttvlw-server-development
+    container_name: tttvlw-nginx-development
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    restart: always
+    image: tttvlw-backend-development
+    container_name: tttvlw-backend-development
+    ports:
+      - 5000:3001
+    volumes:
+      - /c/Users/shubh/Documents/cs/cse110/tritontalk/backend:/usr/src/app
 
   frontend:
     build:

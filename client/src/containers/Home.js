@@ -25,14 +25,9 @@ const Home = () => {
   }
 
   return (
-    <>
-      <div style={homeStyle}>
-        <div style={{}}>
-          {body}
-        </div>
-      </div >
-    </>
-
+    <div style={homeStyle}>
+      {body}
+    </div >
   )
 }
 
