@@ -25,6 +25,8 @@ services:
       - 5000:3001
     volumes:
       - /c/Users/shubh/Documents/cs/cse110/tritontalk/backend:/usr/src/app
+    environment:
+      - VARIABLE=docker
 
   frontend:
     build:
@@ -39,4 +41,4 @@ services:
       - /c/Users/shubh/Documents/cs/cse110/tritontalk/client:/usr/src/app
     stdin_open: true
     environment:
-      - NODE_ENV=production
+      - VARIABLE=docker

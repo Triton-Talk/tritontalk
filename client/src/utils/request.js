@@ -1,6 +1,7 @@
 const request = (path, options) => {
 
-  const URL = process.env.NODE_ENV === 'production' || process.env.DOCKER_RUN ? '' : 'http://localhost'
+  const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE='docker' ? 
+              '' : 'http://localhost:3001'
 
   options = {
     method: 'POST',
