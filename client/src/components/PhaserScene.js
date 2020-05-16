@@ -56,7 +56,7 @@ class PhaserScene extends Phaser.Scene {
     //Display a "request call" button, profile picture, and basic user info?
     //this.load.image('building', 'building.png');
   }
-	
+
   create(data) {
     console.log(data)
 
@@ -83,17 +83,17 @@ class PhaserScene extends Phaser.Scene {
       landingtop.setOrigin(0, 0);
       landingBot.setOrigin(0, 0);
     }
-    
+
     this.geisel.setOrigin(0, 0);
-    
+
     //Set player position
     this.player = this.physics.add.sprite(0, 0, 'tritondude');
     this.playerSprite = 'tritondude';
     //this.player.setCollideWorldBounds(true);
     this.player.setOrigin(0.5, 0.5);
-    
-    
-	
+
+
+
 	  //Player sprite's animated walk cycles for each direction
     this.anims.create({
         key: 'walkDown-tritondude',
@@ -101,21 +101,21 @@ class PhaserScene extends Phaser.Scene {
         frameRate: 8,
         repeat: 0
     });
-	
+
     this.anims.create({
         key: 'walkLeft-tritondude',
         frames: this.anims.generateFrameNumbers('tritondude', { start: 4, end: 6, first: 7 }),
         frameRate: 8,
         repeat: 0
     });
-    
+
     this.anims.create({
         key: 'walkRight-tritondude',
         frames: this.anims.generateFrameNumbers('tritondude', { start: 8, end: 10, first: 11 }),
         frameRate: 8,
         repeat: 0
     });
-    
+
     this.anims.create({
         key: 'walkUp-tritondude',
         frames: this.anims.generateFrameNumbers('tritondude', { start: 12, end: 14, first: 15 }),
@@ -136,14 +136,14 @@ class PhaserScene extends Phaser.Scene {
       frameRate: 8,
       repeat: 0
   });
-  
+
   this.anims.create({
       key: 'walkRight-sungod',
       frames: this.anims.generateFrameNumbers('sungod', { start: 8, end: 10, first: 11 }),
       frameRate: 8,
       repeat: 0
   });
-  
+
   this.anims.create({
       key: 'walkUp-sungod',
       frames: this.anims.generateFrameNumbers('sungod', { start: 12, end: 14, first: 15 }),
@@ -165,11 +165,11 @@ class PhaserScene extends Phaser.Scene {
     this.container.setSize(30, 30);
     this.physics.world.enable(this.container);
     this.container.body.setCollideWorldBounds(true);
-    
+
     //Generate walls around the library walk
     for (let i = 0; i < this.boothCount; i++) {
       var walls = this.physics.add.staticGroup();
-      
+
       var wallTop = this.add.rectangle((this.boothWidth*i)+150, 0, 375, 100, 0x5e32a8, 0);
       var wallBottom = this.add.rectangle((this.boothWidth*i)+150, 300, 375, 100, 0x5e32a8, 0);
       wallTop.setOrigin(0,0);
@@ -180,15 +180,14 @@ class PhaserScene extends Phaser.Scene {
       this.physics.add.collider(this.container, wallBottom);
       //this.physics.add.collider()
     }
-    
-    this.container.depth = 1000;
-    
+
+
     //TODO: Make this a container?
     //Menu that appears when player interacts
     this.menu = this.add.rectangle(1200, 600, this.boothWidth, 1250, 0x5e32a8, 70);
     this.menu.visible = false; //Appears when prompted
     this.menu.setScrollFactor(0); //Follows camera
-    
+
     //TODO: Make walls to block player movement
     //this.wall = this.physics.add.rectangle(1200, 600, 500, 1250, 0x5e32a8, 70);
 
@@ -200,12 +199,12 @@ class PhaserScene extends Phaser.Scene {
     //camera.setPosition(500, 500);
     //this.physics.world.enable(camera);
     //camera.body.setCollideWorldBounds(true);
-    
-    
+
+
     this.player.setInteractive()
     this.clickCount = 0
-    this.input.on('gameobjectdown', console.log) 
-    
+    this.input.on('gameobjectdown', console.log)
+
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -240,7 +239,7 @@ class PhaserScene extends Phaser.Scene {
       newplayer.depth = 1000;
 
       //Player text shows name and college, follows player
-      var playerStyle = { 
+      var playerStyle = {
         font: '12px Arial',
         fill: 'BLUE',
         wordWrap: true,
@@ -291,7 +290,7 @@ class PhaserScene extends Phaser.Scene {
         newplayer.depth = 1000;
 
         //Player text shows name and college, follows player
-        var playerStyle = { 
+        var playerStyle = {
           font: '12px Arial',
           fill: 'BLUE',
           wordWrap: true,
@@ -310,7 +309,7 @@ class PhaserScene extends Phaser.Scene {
       }
     })
   }
-  
+
   update () {
     this.container.body.velocity.set(0, 0);
     this.isMoving = false;
@@ -327,7 +326,7 @@ class PhaserScene extends Phaser.Scene {
       this.player.setTexture('sungod');
       this.playerSprite = 'sungod';
     }
-    
+
     //TODO: Fix animations so that sprite always stops at standing frame
 
     if (this.keyA.isDown) {
@@ -449,21 +448,21 @@ class PhaserScene extends Phaser.Scene {
         if (vx < 0) {
           tempMovingX = true;
           this.players[playerName].first.anims.play('walkLeft-' + sprite, true);
-        } 
+        }
         else if (vx > 0) {
           tempMovingX = true;
           this.players[playerName].first.anims.play('walkRight-' + sprite, true);
         }
         else if (vy < 0) {
           this.players[playerName].first.anims.play('walkUp-' + sprite, true);
-        } 
+        }
         else if (vy > 0) {
           this.players[playerName].first.anims.play('walkDown-' + sprite, true);
-        } 
+        }
         else {
           this.players[playerName].first.anims.stop();
         }
-      } 
+      }
 
       /*
       else {
@@ -475,7 +474,7 @@ class PhaserScene extends Phaser.Scene {
         newplayer.depth = 1000;
 
         //Player text shows name and college, follows player
-        var playerStyle = { 
+        var playerStyle = {
           font: '12px Arial',
           fill: 'BLUE',
           wordWrap: true,
@@ -503,7 +502,7 @@ class PhaserScene extends Phaser.Scene {
         console.log("its me: " + this.playerData[player].x)
         continue
       }
-      
+
       if(this.players[player]){
         console.log("setting position for " + player)
         this.players[player].setX(this.playerData[player].x);
@@ -517,7 +516,7 @@ class PhaserScene extends Phaser.Scene {
         if (this.players[player].body.velocity.x < 0) {
           tempMovingX = true;
           this.players[player].first.anims.play('walkLeft', true);
-        } 
+        }
         else if (this.players[player].body.velocity.x > 0) {
           tempMovingX = true;
           this.players[player].first.anims.play('walkRight', true);
@@ -526,15 +525,15 @@ class PhaserScene extends Phaser.Scene {
         if (!tempMovingX) {
           if (this.players[player].body.velocity.y < 0) {
             this.players[player].first.anims.play('walkUp', true);
-          } 
+          }
           else if (this.players[player].body.velocity.y > 0) {
             this.players[player].first.anims.play('walkDown', true);
-          } 
+          }
           else {
             this.players[player].first.anims.stop();
           }
         }
-      } 
+      }
       else {
         console.log("creating new " + player)
 
