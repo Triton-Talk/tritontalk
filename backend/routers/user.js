@@ -6,6 +6,8 @@ const router = new express.Router();
 
 // CREATE / READ
 router.post('/login', async (req, res) => {
+  console.log('request arrived to /login')
+
   const query = {email: req.identity.email}
 
   let user = await User.findOne(query)

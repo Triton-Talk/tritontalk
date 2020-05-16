@@ -2,7 +2,6 @@ require('dotenv').config()
 require('./models/db')
 
 const express = require('express');
-const http = require('http')
 const fs = require('fs')
 
 const path = require('path');
@@ -36,16 +35,22 @@ app.get('/greeting', (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-app.use(authMiddleware)
+var myLogStatement = function(req, res, next) {
+  console.log("Received", req.method, "request for resource", req.path, "from", req.ip);
+  next(); // callback to the middleware function
+}
 
-app.use(videoRouter)
+app.use(myLogStatement)
 
+app.use('/', authMiddleware)
+
+app.use('/api/video', videoRouter)
 app.use('/api/user', user)
 app.use('/api/club', club)
 app.use('/api/room', room)
 
-httpServer = app.listen(3001, () => console.log('node running on localhost:3001'));
+server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
-gameserver.start(httpServer)
+gameserver.start(server)
 
 module.exports = app

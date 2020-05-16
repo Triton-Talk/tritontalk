@@ -59,6 +59,9 @@ export const AuthProvider = (props) => {
       setUser(res)
       if (location.pathname === '/')
         history.push('/lobby')
+    }).catch(error => {
+      console.log(error)
+      alert(error)
     })
   }, [history, location])
 
@@ -66,6 +69,8 @@ export const AuthProvider = (props) => {
     console.log('react effect hook was called')
     if (sessionCookie)
       serverLogin(null)
+    else
+      console.log('session cookie', sessionCookie, 'was null')
    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

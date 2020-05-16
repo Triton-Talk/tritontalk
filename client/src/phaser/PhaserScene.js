@@ -1,5 +1,4 @@
 // import phaser module
-import React from 'react'
 import Phaser from 'phaser';
 import io from 'socket.io-client';
 import Auth from '../utils/auth'
@@ -10,9 +9,16 @@ const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
-  constructor(playerMoved) {
+  constructor(name) {
     // create identifier for class scene
     super({ key: 'phaserScene' });
+
+    this.name = name
+  }
+
+  getMessage ( message ) {
+    console.log(message)
+
   }
 
   preload() {
@@ -58,8 +64,6 @@ class PhaserScene extends Phaser.Scene {
   }
 
   create(data) {
-    console.log(data)
-
     //TODO: Fix game object positionings. I'm using literal unflexible pixel values
     //When images are created, they stack over each other
 
@@ -157,7 +161,7 @@ class PhaserScene extends Phaser.Scene {
     wordWrap: true,
     wordWrapWidth: this.player.width,
     align: 'center'};
-    this.playerText = this.add.text(0, -50, 'Johnny Nguyen \nRevelle', playerStyle);
+    this.playerText = this.add.text(0, -50, this.name + '\nRevelle', playerStyle);
     this.playerText.setOrigin(0.5, 0.5);
 
     //User controls a container which contains the player sprite and player text
@@ -229,7 +233,7 @@ class PhaserScene extends Phaser.Scene {
 
     this.socket.on('new-player', data => {
       console.log('new player' ,data)
-      const {x, y, playerName} = data
+      const {x, y, playerName, name} = data
 
       //Set player position
       const newplayer = this.physics.add.sprite(0, 0, 'tritondude');
@@ -247,7 +251,7 @@ class PhaserScene extends Phaser.Scene {
         align: 'center'
       };
 
-      var newPlayerText = this.add.text(0, -50, playerName + '\nRevelle', playerStyle)
+      var newPlayerText = this.add.text(0, -50, name + '\nRevelle', playerStyle)
       newPlayerText.setOrigin(0.5, 0.5);
 
       //User controls a container which contains the player sprite and player text
@@ -267,7 +271,8 @@ class PhaserScene extends Phaser.Scene {
         vx: 0,
         vy: 0,
         playerName: this.socket.id,
-        sprite: this.playerSprite
+        sprite: this.playerSprite, 
+        name: this.name
       });
     });
 
@@ -280,7 +285,7 @@ class PhaserScene extends Phaser.Scene {
         if(p === this.socket.id)
           continue
 
-        const {x, y, vx, vy, playerName} = data[p]
+        const {x, y, vx, vy, playerName, name} = data[p]
 
         //Set player position
         let newplayer = this.physics.add.sprite(0, 0, 'tritondude');
@@ -298,7 +303,7 @@ class PhaserScene extends Phaser.Scene {
           align: 'center'
         };
 
-        var newPlayerText = this.add.text(0, -50, playerName + '\nRevelle', playerStyle)
+        var newPlayerText = this.add.text(0, -50, name + '\nRevelle', playerStyle)
         newPlayerText.setOrigin(0.5, 0.5);
 
         //Container contains the player sprite and player text
@@ -564,6 +569,5 @@ class PhaserScene extends Phaser.Scene {
   */
   }
 }
-PhaserScene.contextType = Auth
 
 export default PhaserScene;

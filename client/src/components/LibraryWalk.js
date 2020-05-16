@@ -1,42 +1,51 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Phaser from 'phaser'
-import { IonPhaser } from '@ion-phaser/react'
-import PhaserScene from './PhaserScene.js'
+import PhaserScene from '../phaser/PhaserScene.js'
 
+import Auth from '../utils/auth'
 
-export default class LibraryWalk extends Component {
+let game = undefined
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialize: true,
-      game: {
-        scale: {
-    parent: 'hi',
-    autoCenter: Phaser.Scale.CENTER_WIDTH,
-    marginTop:200,
-    width: "100%",
-    height: 600
-},
-        type: Phaser.AUTO,
-        physics: {
-          default: 'arcade',
-          arcade: {}
-        },
-        scene: PhaserScene
-      }
-    }
+const LibraryWalk  = () => {
+  const { user } = React.useContext(Auth)
+  console.log(user)
+
+  if(!user)
+    return <div> LOADING </div>
+
+  //const user = {name: 'dummy obj'}
+
+  const config = {
+    scale: {
+      parent: 'main-component',
+      //autoCenter: Phaser.Scale.CENTER_WIDTH,
+      width: "100%",
+      height: '100vh'
+    },
+    type: Phaser.AUTO,
+    physics: {
+      default: 'arcade',
+      arcade: {}
+    },
   }
 
-  render() {
-    const { initialize, game } = this.state
-    return (
-      <div style={{width:"100%",height:"100%",backgroundColor:"black",position:"relative", flexGrow: "1",overflow:"hidden"}}>
-        <div id="hi" style={{top:"250px",paddingTop:"40px"}} >
-        <IonPhaser  game={game} initialize={initialize} />
+  const getMessage = () =>  {}
+
+  game = new PhaserScene(user.name)
+  config.scene = game
+  const PhaserGame = new Phaser.Game(config)
+
+  return null
+
+  /*
+  return (
+    <div style={{width:"100%",height:"100%",backgroundColor:"black",position:"relative", flexGrow: "1",overflow:"hidden"}}>
+      <div id="hi" style={{top:"250px",paddingTop:"40px"}} >
       </div>
-      </div>
-    )
-  }
+    </div>
+  )*/
 }
 
+export default LibraryWalk
+
+export {game}

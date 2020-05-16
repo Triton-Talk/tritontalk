@@ -10,14 +10,14 @@ const sendTokenResponse = (token, res) => {
   res.send(JSON.stringify({ token: token.toJwt() }));
 };
 
-router.get('/api/video/token', (req, res) => {
+router.get('/token', (req, res) => {
   const identity = req.query.identity;
   const room = req.query.room;
   const token = videoToken(identity, room, config);
   sendTokenResponse(token, res);
 });
 
-router.post('/api/video/token', (req, res) => {
+router.post('/token', (req, res) => {
   console.log('request has arrived')
 
   const room = req.body.room;
