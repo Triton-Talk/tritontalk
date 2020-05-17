@@ -10,6 +10,21 @@ const LibraryWalk  = () => {
   const { user } = React.useContext(Auth)
   console.log(user)
 
+  React.useEffect( () => {
+    if(!user)
+      return
+    game = new PhaserScene(user.name)
+    config.scene = game
+    const PhaserGame = new Phaser.Game(config)
+    
+    return () => {
+      console.log(game); 
+      game.socket.disconnect(); 
+      PhaserGame.destroy(true); 
+      console.log('destroyed')
+    }
+  })
+
   if(!user)
     return <div> LOADING </div>
 
@@ -27,9 +42,6 @@ const LibraryWalk  = () => {
     },
   }
 
-  game = new PhaserScene(user.name)
-  config.scene = game
-  const PhaserGame = new Phaser.Game(config)
 
   return null
 

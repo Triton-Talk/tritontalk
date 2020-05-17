@@ -222,7 +222,6 @@ class PhaserScene extends Phaser.Scene {
     this.player_updates = []
     this.players = {}
 
-
     this.socket.on('update-player-data', data => {
       this.player_updates.push(data)
     })
