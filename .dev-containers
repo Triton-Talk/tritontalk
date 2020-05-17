@@ -41,4 +41,4 @@ services:
       - /c/Users/shubh/Documents/cs/cse110/tritontalk/client:/usr/src/app
     stdin_open: true
     environment:
-      - VARIABLE=docker
+      - REACT_APP_VARIABLE=docker

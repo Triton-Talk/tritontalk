@@ -11,8 +11,6 @@ export default Auth;
 
 const cookies = new Cookies()
 
-const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost'
-
 export const AuthProvider = (props) => {
 
   const sessionCookie = cookies.get('sessionCookie')
@@ -27,8 +25,6 @@ export const AuthProvider = (props) => {
   }
 
   const handleSignOn = () => {
-    console.log('handleSignOn was called')
-
     db.auth().signInWithPopup(GoogleSignOn).then(result => {
       const email = result.user.email
       if (!email || email.substr(email.lastIndexOf('@')) !== '@ucsd.edu') {
@@ -47,14 +43,12 @@ export const AuthProvider = (props) => {
   }
 
   const handleSignOut = () => {
-    console.log('handleSignOut was called')
     setUser(null);
     cookies.remove('sessionCookie')
     history.push('/')
   }
 
   const serverLogin = React.useCallback(credential => {
-    console.log('serverLogin was called')
     request('/api/user/login', { body: { credential } }).then(res => {
       setUser(res)
       if (location.pathname === '/')
@@ -66,7 +60,6 @@ export const AuthProvider = (props) => {
   }, [history, location])
 
   React.useEffect(() => {
-    console.log('react effect hook was called')
     if (sessionCookie)
       serverLogin(null)
     else
