@@ -1,4 +1,4 @@
-const request = (path, options) => {
+const request = (path, options, headers = false) => {
 
   const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE === 'docker' ? 
               '' : 'http://localhost:3001'
@@ -17,8 +17,12 @@ const request = (path, options) => {
   return fetch(URL + path, options).then(response => {
     if (response.status === 404)
       throw new Error()
+
+    if(headers)
+      return {body: response.json(), headers: response.headers}
+
     return response.json()
-  })
+  }).catch(error =>  { throw error })
 }
 
 export default request

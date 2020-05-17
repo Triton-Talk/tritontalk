@@ -16,7 +16,6 @@ const Settings = () => {
   const [modal, setModal] = React.useState(false)
 
   const updateLocalUser = u => {
-    console.log(u.clubs)
     _updateLocalUser(u)
   }
 
@@ -144,7 +143,8 @@ const Settings = () => {
             Update
           </Button>
 
-          <Button style={{ backgroundColor: 'red' }} size="lg" variant="dark" onClick = {e => setModal('delete')}>
+          <Button style={{ backgroundColor: 'red' }} size="lg" variant="dark" 
+                  onClick = {e => setModal('delete')}>
             Delete 
           </Button>
         </div>
@@ -158,7 +158,7 @@ const Settings = () => {
 
       <Modal show={modal === 'failure'} onHide={handleClose} centered> 
 	<Modal.Header closeButton>
-            <Modal.Title>There was an error! Please try again.</Modal.Title>
+            <Modal.Title>There was an error! Let's try that again.</Modal.Title>
 	</Modal.Header>
       </Modal>
 

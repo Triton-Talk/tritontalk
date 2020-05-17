@@ -6,18 +6,19 @@ import '../styles/App.css';
 import Navbar from './Navbar'
 
 import Home from './Home';
-import LibraryWalk from '../components/LibraryWalk';
+import LibraryWalk, {game} from '../components/LibraryWalk';
 import Friends from './Friends';
 import ProfileSettings from './ProfileSettings';
 import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
+import RegisterUser from './RegisterUser';
 
 import { AuthProvider } from '../utils/auth';
 
 const Router = () => {
-  return (
 
+  return (
     <BrowserRouter>
       <AuthProvider>
         <div className="app" id="main-component">
@@ -30,6 +31,7 @@ const Router = () => {
             <Route path="/newclub" exact component={RegisterOrganization} />
             <Route path="/lobby" exact component={Home} />
             <Route path="/" exact component={SplashPage} />
+            <Route path="/reguser" exact component={RegisterUser} />
           </Switch>
         </div >
       </AuthProvider>

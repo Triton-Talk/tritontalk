@@ -13,8 +13,6 @@ const LibraryWalk  = () => {
   if(!user)
     return <div> LOADING </div>
 
-  //const user = {name: 'dummy obj'}
-
   const config = {
     scale: {
       parent: 'main-component',
@@ -28,8 +26,6 @@ const LibraryWalk  = () => {
       arcade: {}
     },
   }
-
-  const getMessage = () =>  {}
 
   game = new PhaserScene(user.name)
   config.scene = game
