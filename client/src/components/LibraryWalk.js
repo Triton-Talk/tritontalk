@@ -1,6 +1,7 @@
 import React from 'react'
 import Phaser from 'phaser'
 import PhaserScene from '../phaser/PhaserScene.js'
+import { Form, Button, Col, Image, Modal} from 'react-bootstrap'
 
 import Auth from '../utils/auth'
 
@@ -9,6 +10,8 @@ let game = undefined
 const LibraryWalk  = () => {
   const { user } = React.useContext(Auth)
   console.log(user)
+
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect( () => {
     if(!user)
@@ -26,14 +29,20 @@ const LibraryWalk  = () => {
   })
 
   if(!user)
-    return <div> LOADING </div>
+    return (
+      <Modal show={true} onHide={() => setLoading(false)} centered> 
+	<Modal.Header closeButton>
+            <Modal.Title>Loading the app....</Modal.Title>
+	</Modal.Header>
+      </Modal>
+      )
 
   const config = {
     scale: {
       parent: 'main-component',
       //autoCenter: Phaser.Scale.CENTER_WIDTH,
       width: "100%",
-      height: '100vh'
+      height: '95vh'
     },
     type: Phaser.AUTO,
     physics: {
@@ -41,7 +50,6 @@ const LibraryWalk  = () => {
       arcade: {}
     },
   }
-
 
   return null
 

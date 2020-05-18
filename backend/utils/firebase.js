@@ -1,7 +1,7 @@
 const admin = require('firebase-admin')
 
 //set up firebase admin
-const serviceAccount = require("./tritontalk-d063d-firebase-adminsdk-hnpwi-f1538684d6.json");
+const serviceAccount = require("./tritontalk-d063d-a82351d39ace.json")
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

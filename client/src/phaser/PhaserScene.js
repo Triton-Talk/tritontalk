@@ -2,7 +2,8 @@
 import Phaser from 'phaser';
 import io from 'socket.io-client';
 
-const URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE === 'docker' ? 
+            '' : 'http://localhost:3001'
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
@@ -19,6 +20,27 @@ class PhaserScene extends Phaser.Scene {
   }
 
   preload() {
+    console.log('READY!!! PART 1')
+
+var progressBar = this.add.graphics();
+var progressBox = this.add.graphics();
+progressBox.fillStyle(0x222222, 0.8);
+progressBox.fillRect(240, 270, 320, 50);
+
+this.load.on('progress', function (value) {
+    console.log(value);
+    progressBar.clear();
+    progressBar.fillStyle(0xffffff, 1);
+    progressBar.fillRect(250, 280, 300 * value, 30);
+});
+
+this.load.on('complete', function () {
+      console.log('complete');
+      progressBar.destroy();
+      progressBox.destroy();
+});
+
+
     //This is the background image used for the map/environment
     this.load.image('background', 'assets/Starfall-Town.png');
     this.load.image('geisel', 'assets/geisel.png');
@@ -61,6 +83,8 @@ class PhaserScene extends Phaser.Scene {
   }
 
   create(data) {
+    console.log('READY!!! PART 2')
+
     //TODO: Fix game object positionings. I'm using literal unflexible pixel values
     //When images are created, they stack over each other
 
@@ -308,6 +332,8 @@ class PhaserScene extends Phaser.Scene {
         this.players[playerName].body.setCollideWorldBounds(true);
       }
     })
+
+    console.log('READY!!! PART 3')
   }
 
   update () {

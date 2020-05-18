@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button, Col, Modal } from 'react-bootstrap'
 import { Link} from 'react-router-dom';
 
-import styles from "../styles/RegisterUser.css"
+import "../styles/RegisterUser.css"
 
 import Auth from '../utils/auth'
 import request from '../utils/request'
@@ -70,7 +70,7 @@ const RegisterUser = () => {
       <h1>Profile Image</h1>
       <label htmlFor="photo-upload" className="custom-file-upload fas">
         <div className="img-wrap img-upload" >
-          <img htmlFor="photo-upload" src={src}/>
+          <img alt="profile picture" htmlFor="photo-upload" src={src}/>
         </div>
         <input id="photo-upload" type="file" onChange={onChange}/> 
       </label>
