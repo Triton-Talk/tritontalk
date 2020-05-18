@@ -23,7 +23,7 @@ const LibraryWalk  = (props) => {
     const PhaserGame = new Phaser.Game(config)
 
     function handleResize() {
-      game.scale.resize(window.innerWidth, window.innerHeight)
+      game.scale.resize(window.innerWidth, 0.92 * window.innerHeight)
     }
 
     window.addEventListener('resize', handleResize)
