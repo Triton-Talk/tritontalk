@@ -18,6 +18,8 @@ const NavigationBar = () => {
   const lengthOfButton = user ? user.name.length * 10 : null;
 
   
+  const [show, setShow] = React.useState(true)
+
   const location = useLocation()
   
   const navStyle = {
@@ -25,9 +27,12 @@ const NavigationBar = () => {
     background: "rgb(23,40,74)",
   }
 
+  const height = show ? 'calc(8vh + 17vh)' : '8vh'  
+  console.log(show, height)
+
   const lengthOfButtonString = lengthOfButton + "px";
   return (
-    <div id="navbar-div" style={{ height: '8vh', backgroundColor: "rgb(23, 40, 74)" }}>
+    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)" }}>
         <Navbar style={ navStyle }>
           <Navbar.Toggle />
           {
@@ -69,7 +74,7 @@ const NavigationBar = () => {
         </Navbar >
       { killAlert ? null : 
       <div style={location.pathname === '/' ? {display: 'none'} : null} >
-        <AlertDismissible killAlert={e => cookies.set('killAlert', true)}/>
+        <AlertDismissible setShow={setShow} killAlert={e => cookies.set('killAlert', true)}/>
       </div> }
     </div >
   )

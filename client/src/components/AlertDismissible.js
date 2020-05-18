@@ -4,7 +4,11 @@ import { Info } from '@material-ui/icons';
 
 
 export default function AlertDismissible(props) {
-  const [show, setShow] = useState(true);
+  const [show, _setShow] = useState(true);
+  const setShow = value => {
+    _setShow(value)
+    props.setShow(value)
+  }
 
   return (
     <div style={{ textAlign: "center" }}>

@@ -7,7 +7,7 @@ import Auth from '../utils/auth'
 
 let game = undefined
 
-const LibraryWalk  = () => {
+const LibraryWalk  = (props) => {
   const { user } = React.useContext(Auth)
   console.log(user)
 
