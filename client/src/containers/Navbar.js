@@ -17,17 +17,16 @@ const NavigationBar = () => {
   const { user, handleSignOut } = useContext(Auth);
   const lengthOfButton = user ? user.name.length * 10 : null;
 
+  const location = useLocation()
   
   const [show, setShow] = React.useState(true)
-
-  const location = useLocation()
   
   const navStyle = {
     ...styles, 
     background: "rgb(23,40,74)",
   }
 
-  const height = show ? 'calc(8vh + 17vh)' : '8vh'  
+  const height = show && !(location.pathname === '/' || location.pathname === '/home') ? 'calc(8vh + 17vh)' : '8vh'  
   console.log(show, height)
 
   const lengthOfButtonString = lengthOfButton + "px";
@@ -73,7 +72,7 @@ const NavigationBar = () => {
           }
         </Navbar >
       { killAlert ? null : 
-      <div style={location.pathname === '/' ? {display: 'none'} : null} >
+      <div style={location.pathname === '/' || location.pathname === '/home' ? {display: 'none'} : null} >
         <AlertDismissible setShow={setShow} killAlert={e => cookies.set('killAlert', true)}/>
       </div> }
     </div >
