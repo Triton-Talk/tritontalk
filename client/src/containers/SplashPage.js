@@ -8,7 +8,7 @@ function SplashPage() {
   const { handleSignOn } = useContext(Auth);
 
   return (
-    <div className="App" style={{backgroundImage: `url(${SplashPageBackground})`, height:'calc(100vh - 76px)' }}>
+    <div className="App" style={{backgroundImage: `url(${SplashPageBackground})`, height:'92vh' }}>
       <h1 className="Logo">TritonTalk</h1>
       <h3 className="SubText">The Virtual Library Walk</h3>
       <div className="vertical">
