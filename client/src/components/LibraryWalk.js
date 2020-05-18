@@ -42,7 +42,7 @@ const LibraryWalk  = () => {
       parent: 'main-component',
       //autoCenter: Phaser.Scale.CENTER_WIDTH,
       width: "100%",
-      height: '95vh'
+      height: '92vh'
     },
     type: Phaser.AUTO,
     physics: {
