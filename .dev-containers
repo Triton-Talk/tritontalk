@@ -24,7 +24,7 @@ services:
     ports:
       - 5000:3001
     volumes:
-      - /c/Users/shubh/Documents/cs/cse110/tritontalk/backend:/usr/src/app
+      - ./backend:/usr/src/app
     environment:
       - VARIABLE=docker
 
@@ -38,7 +38,7 @@ services:
     ports:
       - 4000:3000
     volumes:
-      - /c/Users/shubh/Documents/cs/cse110/tritontalk/client:/usr/src/app
+      - ./client:/usr/src/app
     stdin_open: true
     environment:
       - REACT_APP_VARIABLE=docker
