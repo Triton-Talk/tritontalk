@@ -13,18 +13,27 @@ const LibraryWalk  = (props) => {
 
   const [loading, setLoading] = React.useState(true)
 
-  React.useEffect( () => {
+  React.useEffect(() => {
+
     if(!user)
-      return
+      return undefined
+
     game = new PhaserScene(user.name)
     config.scene = game
     const PhaserGame = new Phaser.Game(config)
+
+    function handleResize() {
+      game.scale.resize(window.innerWidth, window.innerHeight)
+    }
+
+    window.addEventListener('resize', handleResize)
     
     return () => {
       console.log(game); 
       game.socket.disconnect(); 
       PhaserGame.destroy(true); 
       console.log('destroyed')
+      window.removeEventListener('resize', handleResize)
     }
   })
 
