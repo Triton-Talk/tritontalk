@@ -19,7 +19,7 @@ const NavigationBar = () => {
 
   const location = useLocation()
   
-  const [show, setShow] = React.useState(true)
+  const [show, setShow] = React.useState(killAlert === undefined ? true : !killAlert)
   
   const navStyle = {
     ...styles, 
