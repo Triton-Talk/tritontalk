@@ -29,9 +29,32 @@ This will download all the required dependencies.
 
 ## Installation and running the application (For Development i.e. locally)
 
-### Option 1 (Running natively) HOT-RELOADING
+### Option 1 Run through Docker (with hot-reloading of backend and frontend changes)
 
-You will need two terminal windows open
+Run 
+```bash
+./development.sh
+```
+
+On first run, this will take some time to start, so be patient as it build the preliminary containers. 
+Subsequent runs will be much faster, and the containers can be left running for as long as necessary (cannot do this natively)
+
+To see logs, run 
+```bash
+./logs.sh
+```
+It will show the 15 most recent logs and then attach to the containers so you can see live logging. 
+To disconnect, press <Ctrl-C> at any time. This will not close the containers.
+
+To bring the containers offline, use Docker's kill command to close the containers. 
+```bash
+docker kill tttvlw-nginx-development tttvlw-backend-development tttvlw-frontend-development
+```
+
+### Option 2 (Running natively) HOT-RELOADING
+
+You will need two terminal windows open, in addition to wherever you are developing. This should only be used if you cannot 
+install Docker for some reason.
 
 In the first window, do the following: 
 ```bash
@@ -47,14 +70,17 @@ npm install
 npm run dev 
 ```
 
-### Option 2 (With Docker) NO HOT-RELOADING
+### Testing production-ready builds
 
-Install the dependencies:
+Run the following commands:
 
 ```bash
 ./setup.sh
-./test.sh
+./production.sh
 ```
+
+This will emulate a production build with NGINX proxying to the node.js backend and serving the front-end statically. 
+It does not support hot-reloading. Use this only to test before pushing master.
 
 ## Setting up Twilio (Not required -- .ENV should be done for you)
 Create a `.env` file in the `backend/` directory.
