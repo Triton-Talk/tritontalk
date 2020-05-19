@@ -24,12 +24,15 @@ router.post('/login', async (req, res) => {
 
     console.log(user)
 
+    res.header('user_found', 0)
+
     res.status(200).send(JSON.stringify(user));
   }
 
   else{
     console.log('User successfully found')
     console.log(user)
+    res.header('user_found', 1)
     res.status(200).send(JSON.stringify(user));
   }
 });

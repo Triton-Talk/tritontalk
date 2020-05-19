@@ -49,8 +49,11 @@ export const AuthProvider = (props) => {
   }
 
   const serverLogin = React.useCallback(credential => {
-    request('/api/user/login', { body: { credential } }).then(res => {
-      setUser(res)
+    const body = {credential}
+    request('/api/user/login', {body}, true).then(response => {
+      const {body, headers} = response
+      console.log(headers.get('user_found'))
+      setUser(body)
       if (location.pathname === '/')
         history.push('/lobby')
     }).catch(error => {
