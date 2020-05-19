@@ -12,10 +12,19 @@
 .OnlineText {
   color: white;
     font-family: 'Londrina Solid', cursive;
-    font-size:50px;
+    font-size:40px;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #4B7FE6;
     padding:0px;
+    display: inline;
+}
+
+.OnlineTextSpecial {
+  color: rgba(255,178,56, 1);
+    font-family: 'Londrina Solid', cursive;
+    font-size:40px;
+    padding:0px;
+    display: inline;
 }
 
 .NavBarLogo:hover{
@@ -27,7 +36,7 @@
 button {
     background-color: #ffb511;
     color: black;
-    border-radius: 6px; 
+    border-radius: 6px;
 }
 
 a:hover{
