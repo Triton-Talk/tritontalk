@@ -49,7 +49,7 @@ router.use('/api/*', async (req, res, next) => {
     catch(error){
       console.log(error)
       console.log(`Failed to parse identity: ${req.body}`);
-      return res.status(404).send(error + '\n\nError: failed to parse identity')
+      return res.status(404).send('Error: failed to parse identity')
     }
   }
 })

@@ -5,7 +5,7 @@ module.exports = dependencies => {
   describe('User tests', function(done){
 
     it('creates a new User', function(done){
-      const User = require('../models/User')
+      const User = require('../../models/User')
       
       const exampleuser = new User({
         name: 'Example user',
@@ -16,7 +16,7 @@ module.exports = dependencies => {
     })
 
     it('reads a User', function(done){
-      const User = require('../models/User')
+      const User = require('../../models/User')
       
       const query = {email: 'example@ucsd.edu'}
 
@@ -28,7 +28,7 @@ module.exports = dependencies => {
     })
 
     it('updates a User', function(done){
-      const User = require('../models/User')
+      const User = require('../../models/User')
       
       const query = {email: 'example@ucsd.edu'}
 
@@ -41,7 +41,7 @@ module.exports = dependencies => {
     })
 
     it('deletes a User', async function(){
-      const User = require('../models/User')
+      const User = require('../../models/User')
       
       const query = {email: 'example@ucsd.edu'}
 

@@ -6,7 +6,7 @@ module.exports = dependencies => {
   describe('Club tests', function(done){
 
     it('creates a new Club', function(done){
-      const Club = require('../models/Club')
+      const Club = require('../../models/Club')
 
       const exampleclub = new Club({
         name: 'Example club',
@@ -17,7 +17,7 @@ module.exports = dependencies => {
     })
 
     it('reads a Club', function(done){
-      const Club = require('../models/Club')
+      const Club = require('../../models/Club')
 
       const query = { name: 'Example club' }
 
@@ -29,7 +29,7 @@ module.exports = dependencies => {
     })
 
     it('updates a Club', function(done){
-      const Club = require('../models/Club')
+      const Club = require('../../models/Club')
 
       const query = { name: 'Example club' }
 
@@ -41,7 +41,7 @@ module.exports = dependencies => {
     })
 
     it('deletes a Club', async function(){
-      const Club = require('../models/Club')
+      const Club = require('../../models/Club')
 
       const query = { name: 'Example club' }
 

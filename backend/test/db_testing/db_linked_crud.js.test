@@ -4,9 +4,9 @@ module.exports = dependencies => {
   describe('Linked object CRUD functionality', function(done){
 
     it('creates linked objects', async function(){
-      const User = require('../models/User')
-      const Club = require('../models/Club')
-      const Room = require('../models/Room')
+      const User = require('../../models/User')
+      const Club = require('../../models/Club')
+      const Room = require('../../models/Room')
       
       const exampleuser = new User({
         name: 'Example user',
@@ -34,9 +34,9 @@ module.exports = dependencies => {
     })
 
     it('reads linked objects', async function(){
-      const User = require('../models/User')
-      const Club = require('../models/Club')
-      const Room = require('../models/Room')
+      const User = require('../../models/User')
+      const Club = require('../../models/Club')
+      const Room = require('../../models/Room')
       
       const exampleuser = await User.findOne({ name: 'Example user' }).populate(['clubs', 'hosted_rooms'])
 
@@ -54,9 +54,9 @@ module.exports = dependencies => {
     })
 
     it('updates linked objects', async function(){ 
-      const User = require('../models/User')
-      const Club = require('../models/Club')
-      const Room = require('../models/Room')
+      const User = require('../../models/User')
+      const Club = require('../../models/Club')
+      const Room = require('../../models/Room')
       
       const exampleuser = await User.findOneAndUpdate({ name: 'Example user' }, {name: 'New example user'}, {new: true})
                                     .populate(['clubs', 'hosted_rooms'])
@@ -74,9 +74,9 @@ module.exports = dependencies => {
     })
 
     it('deletes linked objects', async function(){ 
-      const User = require('../models/User')
-      const Club = require('../models/Club')
-      const Room = require('../models/Room')
+      const User = require('../../models/User')
+      const Club = require('../../models/Club')
+      const Room = require('../../models/Room')
       
       const exampleuser = await User.findOne({ name: 'New example user' })
                                     .populate([{path: 'clubs', model: Club}, {path: 'hosted_rooms', model: Room}])

@@ -25,7 +25,7 @@ describe('Ensuring credentials can be properly set', function(){
 
 describe('Database testing', function(){
   
-  require('./db_basic_crud.js.test')(dependencies)
+  require('./db_testing/db_basic_crud.js.test')(dependencies)
 
-  require('./db_linked_crud.js.test')(dependencies)
+  require('./db_testing/db_linked_crud.js.test')(dependencies)
 })

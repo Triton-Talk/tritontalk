@@ -5,7 +5,7 @@ module.exports = dependencies => {
   describe('Room tests', function(done){
 
     it('creates a new Room', function(){
-      const Room = require('../models/Room')
+      const Room = require('../../models/Room')
 
       const exampleroom = new Room({ name: 'Example room' })
 
@@ -13,7 +13,7 @@ module.exports = dependencies => {
     })
 
     it('reads a Room', function(done){
-      const Room = require('../models/Room')
+      const Room = require('../../models/Room')
 
       const query = { name: 'Example room' }
 
@@ -25,7 +25,7 @@ module.exports = dependencies => {
     })
 
     it('updates a Room', function(done){
-      const Room = require('../models/Room')
+      const Room = require('../../models/Room')
 
       const query = { name: 'Example room' }
 
@@ -37,7 +37,7 @@ module.exports = dependencies => {
     })
 
     it('deletes a Room', async function(){
-      const Room = require('../models/Room')
+      const Room = require('../../models/Room')
 
       const query = { name: 'new name' }
 
