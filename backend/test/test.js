@@ -36,5 +36,6 @@ describe('API Endpoint testing', function(){
 
   require('./api_testing/user.js.test')(dependencies)
   require('./api_testing/room.js.test')(dependencies)
+  require('./api_testing/club.js.test')(dependencies)
 
 })

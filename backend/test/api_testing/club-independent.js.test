@@ -2,7 +2,7 @@ module.exports = dependencies => {
 
   const {app, axios, chai} = dependencies
 
-  describe('Testing cookie-based session authenticated calls', function(){
+  describe('Testing independent calls', function(){
 
     before(async function(){
       this.timeout(10000)
@@ -12,10 +12,8 @@ module.exports = dependencies => {
 
       this.log = console.log
       console.log = () => {}
-
-      //create the request agent and insert a dummy user that will create all of these requests
-      this.agent = chai.request.agent(app)
-      const response = await this.agent.post('/api/user/login').send({credential: this.credential})
+      //create the user
+      const response = await chai.request(app).post('/api/user/login').send({credential: this.credential})
       
       console.log = this.log
       return 
@@ -26,7 +24,7 @@ module.exports = dependencies => {
       this.log = console.log
       console.log = () => {}
 
-      const response = await this.agent.delete('/api/user/delete')
+      const response = await chai.request(app).delete('/api/user/delete').send({credential: this.credential})
 
       console.log = this.log
       return response
@@ -43,13 +41,14 @@ module.exports = dependencies => {
       done()
     })
 
-    it('creates a new room', function(done){
-      const room = {name: 'Example Room'}
+    it('creates a new club', function(done){
+      const club = {name: 'Example Club'}
 
-      this.agent.post('/api/room/create').send({room}).then(function(res){
+      chai.request(app).post('/api/club/create').send({credential: this.credential, club}).then(function(res){
+
         chai.expect(res).to.have.status(200);
 
-        chai.expect(res.body.name).to.eql('Example Room')
+        chai.expect(res.body.name).to.eql('Example Club')
         chai.expect(res.body.authorized_users).to.have.lengthOf(1)
 
         chai.expect(res.body.authorized_users[0].name).to.eql('Example User')
@@ -61,12 +60,11 @@ module.exports = dependencies => {
     })
 
 
-    it('gets a room by name', function(done){
-      const name = 'Example Room'
-      this.agent.get('/api/room/get').send({name}).then(function(res){
+    it('gets a club by name', function(done){
+      chai.request(app).get('/api/club/get').send({credential: this.credential, name: 'Example Club'}).then(function(res){
         chai.expect(res).to.have.status(200);
 
-        chai.expect(res.body.name).to.eql('Example Room')
+        chai.expect(res.body.name).to.eql('Example Club')
 
         done()
       }).catch(function(error){
@@ -74,13 +72,13 @@ module.exports = dependencies => {
       });
     })
 
-    it('gets all rooms', function(done){
-      this.agent.get('/api/room/getAll').then(function(res){
+    it('gets all clubs', function(done){
+      chai.request(app).get('/api/club/getAll').send({credential: this.credential}).then(function(res){
         chai.expect(res).to.have.status(200);
 
         chai.expect(res.body).to.have.lengthOf(1)
 
-        chai.expect(res.body[0].name).to.eql('Example Room')
+        chai.expect(res.body[0].name).to.eql('Example Club')
 
         chai.expect(res.body[0].authorized_users).to.have.lengthOf(1)
 
@@ -90,13 +88,13 @@ module.exports = dependencies => {
       });
     })
 
-    it('updates a room', function(done){
-      const room = {name: 'New Example Room'}
-      const name = 'Example Room'
-      this.agent.put('/api/room/update').send({name, room}).then(function(res){
+    it('updates a club', function(done){
+      const club = {name: 'New Example Club'}
+      const name = 'Example Club'
+      chai.request(app).put('/api/club/update').send({credential: this.credential, name, club}).then(function(res){
         chai.expect(res).to.have.status(200);
 
-        chai.expect(res.body.name).to.eql(room.name)
+        chai.expect(res.body.name).to.eql(club.name)
 
         chai.expect(res.body.authorized_users).to.have.lengthOf(1)
 
@@ -106,17 +104,19 @@ module.exports = dependencies => {
       });
     })
 
-    it('deletes a room', function(done){
-      const name = 'New Example Room'
-      this.agent.delete('/api/room/delete').send({name}).then(function(res){
+    it('deletes a club', function(done){
+      const name = 'New Example Club'
+      chai.request(app).delete('/api/club/delete').send({credential: this.credential, name}).then(function(res){
         chai.expect(res).to.have.status(200);
 
-        chai.expect(res.body.summary).to.eql('Room deleted')
+        chai.expect(res.body.summary).to.eql('Club deleted')
 
         done()
       }).catch(function(error){
         throw error; 
       });
     })
+/*
+    */
   })
 }
