@@ -55,7 +55,7 @@ router.put('/update', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
-  const room = Room.findOneAndUpdate(query, req.body.room, {new: true})
+  const room = await Room.findOneAndUpdate(query, req.body.room, {new: true})
 
   if(!room){
     return res.status(404).send('Failed to update')

@@ -3,9 +3,9 @@ module.exports = dependencies => {
 
   describe('Testing user.js', function(){
     
-    require('./user-independent.test.js')(dependencies)
+    require('./user-independent.js.test')(dependencies)
 
-    require('./user-session.test.js')(dependencies)
+    require('./user-session.js.test')(dependencies)
 
   })
 }

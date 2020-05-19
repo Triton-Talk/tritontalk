@@ -1,0 +1,121 @@
+module.exports = dependencies => {
+
+  const {app, axios, chai} = dependencies
+
+  describe('Testing independent calls', function(){
+
+    before(async function(){
+      this.timeout(10000)
+      console.log('setting credential')
+      const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+process.env.FIREBASE_API_KEY
+      const body = { email: "example@ucsd.edu", password: "example", returnSecureToken: true }
+      this.credential = (await axios.post(url, body)).data.idToken
+
+      this.log = console.log
+      console.log = () => {}
+      //create the user
+      const response = await chai.request(app).post('/api/user/login').send({credential: this.credential})
+      
+      console.log = this.log
+      console.log('credential set, proceeding with tests')
+      return 
+    })
+
+    after(async function(){
+      //create the user
+      this.log = console.log
+      console.log = () => {}
+
+      const response = await chai.request(app).delete('/api/user/delete').send({credential: this.credential})
+
+      console.log = this.log
+      return response
+    })
+
+    beforeEach(function(done){
+      this.log = console.log
+      console.log = () => {}
+      done()
+    })
+
+    afterEach(function(done){
+      console.log = this.log
+      done()
+    })
+
+    it('creates a new room', function(done){
+      const room = {name: 'Example Room'}
+
+      chai.request(app).post('/api/room/create').send({credential: this.credential, room}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        chai.expect(res.body.name).to.eql('Example Room')
+        chai.expect(res.body.authorized_users).to.have.lengthOf(1)
+
+        chai.expect(res.body.authorized_users[0].name).to.eql('Example User')
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+
+
+    it('gets a room by name', function(done){
+      chai.request(app).get('/api/room/get').send({credential: this.credential, name: 'Example Room'}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        chai.expect(res.body.name).to.eql('Example Room')
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+
+    it('gets all rooms', function(done){
+      chai.request(app).get('/api/room/getAll').send({credential: this.credential}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        chai.expect(res.body).to.have.lengthOf(1)
+
+        chai.expect(res.body[0].name).to.eql('Example Room')
+
+        chai.expect(res.body[0].authorized_users).to.have.lengthOf(1)
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+
+    it('updates a room', function(done){
+      const room = {name: 'New Example Room'}
+      const name = 'Example Room'
+      chai.request(app).put('/api/room/update').send({credential: this.credential, name, room}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        chai.expect(res.body.name).to.eql(room.name)
+
+        chai.expect(res.body.authorized_users).to.have.lengthOf(1)
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+
+    it('deletes a room', function(done){
+      const name = 'New Example Room'
+      chai.request(app).delete('/api/room/delete').send({credential: this.credential, name}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        chai.expect(res.body.summary).to.eql('Room deleted')
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+  })
+}

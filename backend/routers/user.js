@@ -22,8 +22,6 @@ router.post('/login', async (req, res) => {
     await user.save()
     console.log('New user created')
 
-    console.log(user)
-
     res.header('user_found', 0)
 
     res.status(200).send(JSON.stringify(user));
@@ -73,11 +71,9 @@ router.get('/getAll', async (req, res) => {
 
 // UPDATE
 router.put('/update', async (req, res) => {
-  console.log('here we goooooooo')
   const query = {email: req.identity.email}
 
   const user = await User.findOneAndUpdate(query, req.body.user, { new: true })
-  console.log('okay she worked')
 
   if(!user)
     return res.status(404).send('Cannot modify a nonexistent user')

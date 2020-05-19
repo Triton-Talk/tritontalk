@@ -1,0 +1,11 @@
+module.exports = dependencies => {
+  const {app, axios, chai} = dependencies
+
+  describe('Testing room .js', function(){
+    
+    require('./room-independent.js.test')(dependencies)
+
+    //require('./room-session.js.test')(dependencies)
+
+  })
+}

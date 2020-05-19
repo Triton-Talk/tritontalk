@@ -17,6 +17,7 @@ before(function(){
 
 dependencies = { chai, axios, app }
 
+/*
 describe('Sanity check', function(){
   require('./index.js.test')(dependencies)
 })
@@ -31,9 +32,11 @@ describe('Database testing', function(){
 
   require('./db_testing/db_linked_crud.js.test')(dependencies)
 })
+*/
 
 describe('API Endpoint testing', function(){
 
-  require('./api_testing/user.js.test')(dependencies)
+  //require('./api_testing/user.js.test')(dependencies)
+  require('./api_testing/room.js.test')(dependencies)
 
 })
