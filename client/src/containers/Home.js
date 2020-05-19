@@ -13,7 +13,7 @@ const Home = () => {
     height: "100%",
     position: "relative",
     flexGrow: "1",
-    zIndex: "0",
+    zIndex: "-2"
   }
 
   var PAGE = "HOME";
@@ -26,6 +26,7 @@ const Home = () => {
 
   return (
     <div style={homeStyle}>
+      <br></br>
       {body}
     </div >
   )
