@@ -27,3 +27,5 @@ yarn-error.log*
 .*swp
 
 backend/utils/*.json
+**/.nyc_output
+**/coverage
