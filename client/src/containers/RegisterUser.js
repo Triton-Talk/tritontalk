@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Button, Col, Modal } from 'react-bootstrap'
 import { Link} from 'react-router-dom';
-
+import majorDepartments from "../data/majorDepartments"
 import "../styles/RegisterUser.css"
 
 import Auth from '../utils/auth'
@@ -109,6 +109,12 @@ const RegisterUser = () => {
               <Form.Control size="sm" as="select" value={localUser.club}
                             onChange={e => updateLocalUser({...localUser, club:e.target.value})}>
                 {clubs.map((club, i) => <option key={i}>{club}</option>)}
+              </Form.Control>
+
+              <Form.Label>Major Department</Form.Label>
+              <Form.Control size="sm" as="select" value={localUser.club}
+                            onChange={e => updateLocalUser({...localUser, majorDepartment :e.target.value})}>
+                {majorDepartments.map((majorD, i) => <option key={i}>{majorD}</option>)}
               </Form.Control>
 
               <Form.Label>Mini Bio</Form.Label>
