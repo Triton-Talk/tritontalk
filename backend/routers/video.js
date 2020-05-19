@@ -11,7 +11,7 @@ const sendTokenResponse = (token, res) => {
 };
 
 router.get('/token', (req, res) => {
-  const identity = req.query.identity;
+  const identity = req.identity
   const room = req.query.room;
   const token = videoToken(identity, room, config);
   sendTokenResponse(token, res);

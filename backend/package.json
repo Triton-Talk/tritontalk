@@ -4,8 +4,7 @@
   "description": "The Virtual Library Walk",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test.js --exit",
-    "coverage": "nyc --reporter=text --reporter=html mocha test/test.js --exit",
+    "test": "nyc --reporter=text --reporter=html mocha test/test.js --exit",
     "start": "echo '`npm run dev` will give you better results' && node index.js",
     "dev": "nodemon index.js",
     "docker": "./node_modules/nodemon/bin/nodemon.js index.js"

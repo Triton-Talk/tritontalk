@@ -27,6 +27,7 @@ module.exports = dependencies => {
       console.log = () => {}
 
       const response = await this.agent.delete('/api/user/delete')
+      this.agent.close()
 
       console.log = this.log
       return response

@@ -1,0 +1,57 @@
+module.exports = dependencies => {
+  const {app, axios, chai} = dependencies
+
+  describe('Testing video.js', function(){
+
+    before(async function(){
+      const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+process.env.FIREBASE_API_KEY
+      const body = { email: "example@ucsd.edu", password: "example", returnSecureToken: true }
+      this.credential = (await axios.post(url, body)).data.idToken
+
+      this.agent = chai.request.agent(app)
+    })
+
+    after(function(){
+      this.agent.close()
+    })
+
+    beforeEach(function(done){
+      this.log = console.log
+      console.log = () => {}
+      done()
+    })
+
+    afterEach(function(done){
+      console.log = this.log
+      done()
+    })
+
+    it('requests a token from the server using a credential', function(done){
+      this.timeout(4000)
+
+      const name = 'Example Video Room'
+      this.agent.get('/api/video/token').send({credential: this.credential, name}).then(function(res){
+        chai.expect(res).to.have.status(200);
+        
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+
+    })
+
+    it('requests a token from the server using a cookie', function(done){
+      this.timeout(4000)
+
+      const name = 'Example Video Room'
+      this.agent.post('/api/video/token').send({name}).then(function(res){
+        chai.expect(res).to.have.status(200);
+
+        done()
+      }).catch(function(error){
+        throw error; 
+      });
+    })
+    
+  })
+}
