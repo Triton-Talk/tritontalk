@@ -38,8 +38,20 @@ router.post('/login', async (req, res) => {
 });
 
 // READ
-router.get('/get', async (req, res) => {
+router.get('/me', async (req, res) => {
   const query = {email: req.identity.email}
+
+  const user = await User.findOne(query) 
+
+  if(!user)
+    return res.status(404).send('Cannot get a nonexistent user')
+
+  res.status(200).send(user)
+})
+
+// READ
+router.get('/get', async (req, res) => {
+  const query = {email: req.body.email}
 
   const user = await User.findOne(query) 
 
@@ -61,9 +73,11 @@ router.get('/getAll', async (req, res) => {
 
 // UPDATE
 router.put('/update', async (req, res) => {
+  console.log('here we goooooooo')
   const query = {email: req.identity.email}
 
   const user = await User.findOneAndUpdate(query, req.body.user, { new: true })
+  console.log('okay she worked')
 
   if(!user)
     return res.status(404).send('Cannot modify a nonexistent user')

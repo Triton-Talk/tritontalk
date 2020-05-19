@@ -1,0 +1,11 @@
+module.exports = dependencies => {
+  const {app, axios, chai} = dependencies
+
+  describe('Testing user.js', function(){
+    
+    require('./user-independent.test.js')(dependencies)
+
+    require('./user-session.test.js')(dependencies)
+
+  })
+}
