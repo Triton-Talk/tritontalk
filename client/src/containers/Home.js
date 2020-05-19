@@ -13,7 +13,7 @@ const Home = () => {
     height: "100%",
     position: "relative",
     flexGrow: "1",
-    zIndex: "-2"
+    zIndex: "0"
   }
 
   var PAGE = "HOME";

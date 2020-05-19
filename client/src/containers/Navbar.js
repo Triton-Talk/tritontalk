@@ -31,7 +31,7 @@ const NavigationBar = () => {
 
   const lengthOfButtonString = lengthOfButton + "px";
   return (
-    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)" }}>
+    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)", zIndex: "2" }}>
       <Navbar style={navStyle}>
         <Navbar.Toggle />
         {
