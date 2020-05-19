@@ -44,9 +44,9 @@ const VideoChat = () => {
           handleSubmit={handleSubmit}
         />
         <br></br>
-        <div><center><h1 className="OnlineText">Currently: 3 people are online.</h1></center></div>
+        <div><center><h1 className="OnlineTextSpecial">3</h1><h1 className="OnlineText"> people are online.</h1></center></div>
         <div style={{ paddingBottom: "100px" }}>
-          <center><Chart /></center>
+          {/* <center><Chart /></center> */}
         </div>
       </div>
     );

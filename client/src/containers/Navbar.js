@@ -18,63 +18,63 @@ const NavigationBar = () => {
   const lengthOfButton = user ? user.name.length * 10 : null;
 
   const location = useLocation()
-  
+
   const [show, setShow] = React.useState(killAlert === undefined ? true : !killAlert)
-  
+
   const navStyle = {
-    ...styles, 
+    ...styles,
     background: "rgb(23,40,74)",
   }
 
-  const height = show && !(location.pathname === '/' || location.pathname === '/home') ? 'calc(8vh + 17vh)' : '8vh'  
+  const height = show && !(location.pathname === '/' || location.pathname === '/home') ? 'calc(8vh + 17vh)' : '8vh'
   console.log(show, height)
 
   const lengthOfButtonString = lengthOfButton + "px";
   return (
-    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)" }}>
-        <Navbar style={ navStyle }>
-          <Navbar.Toggle />
-          {
-            user !== null && user !== undefined ?
-              <>
-                <div className="centered" style={{ textAlign: "center", height: '54px' }}>
-                  <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
-                </div>
-                <Navbar.Collapse className="justify-content-end">
-                  <div className="dropdown">
-                    <button style={{
-                      width: lengthOfButtonString,
-                      cursor: 'default'
-                    }}> {user.name}</button>
-                    <div className="dropdown-content">
-                      <Link to='/profile'>
-                        <button className="dropdown">Account Settings</button>
-                      </Link>
-                      <Link to='/random'>
-                        <button className="dropdown">Meet a Student</button>
-                      </Link>
-                      <Link to='/home'>
-                        <button className="dropdown">Library Walk</button>
-                      </Link>
-                      <Link to='/friends'>
-                        <button className="dropdown">Friends</button>
-                      </Link>
-                      <button className="dropdown"
-                        onClick={handleSignOut}>Sign out</button>
-                    </div>
-                  </div>
-                </Navbar.Collapse>
-              </>
-              :
-              <div className="centered">
-                <h1 className="NavBarLogo">TritonTalk</h1>
+    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)", zIndex: "2" }}>
+      <Navbar style={navStyle}>
+        <Navbar.Toggle />
+        {
+          user !== null && user !== undefined ?
+            <>
+              <div className="centered" style={{ textAlign: "center", height: '54px' }}>
+                <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
-          }
-        </Navbar >
-      { killAlert ? null : 
-      <div style={location.pathname === '/' || location.pathname === '/home' ? {display: 'none'} : null} >
-        <AlertDismissible setShow={setShow} killAlert={e => cookies.set('killAlert', true)}/>
-      </div> }
+              <Navbar.Collapse className="justify-content-end">
+                <div className="dropdown">
+                  <button style={{
+                    width: lengthOfButtonString,
+                    cursor: 'default'
+                  }}> {user.name}</button>
+                  <div className="dropdown-content">
+                    <Link to='/profile'>
+                      <button className="dropdown">Account Settings</button>
+                    </Link>
+                    <Link to='/random'>
+                      <button className="dropdown">Meet a Student</button>
+                    </Link>
+                    <Link to='/home'>
+                      <button className="dropdown">Library Walk</button>
+                    </Link>
+                    <Link to='/friends'>
+                      <button className="dropdown">Friends</button>
+                    </Link>
+                    <button className="dropdown"
+                      onClick={handleSignOut}>Sign out</button>
+                  </div>
+                </div>
+              </Navbar.Collapse>
+            </>
+            :
+            <div className="centered">
+              <h1 className="NavBarLogo">TritonTalk</h1>
+            </div>
+        }
+      </Navbar >
+      {killAlert ? null :
+        <div style={location.pathname === '/' || location.pathname === '/home' ? { display: 'none' } : null} >
+          <AlertDismissible setShow={setShow} killAlert={e => cookies.set('killAlert', true)} />
+        </div>}
     </div >
   )
 }
