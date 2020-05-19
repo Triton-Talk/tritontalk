@@ -1,0 +1,11 @@
+module.exports = dependencies => {
+  const {app, axios, chai} = dependencies
+
+  describe('Testing club.js', function(){
+    
+    require('./club-independent.js.test')(dependencies)
+
+    require('./club-session.js.test')(dependencies)
+
+  })
+}

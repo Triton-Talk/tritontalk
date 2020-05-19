@@ -41,8 +41,11 @@ router.use(async (req, res, next) => {
 })
 
 router.post('/create', async (req, res) => {
+  console.log('HERE WE GOOOO')
 
   const club = new Club( req.body.club )
+
+  club.authorized_users.push(req.user)
 
   await club.save()
 
@@ -54,7 +57,7 @@ router.put('/update', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
-  const club = Club.findOneAndUpdate(query, req.body.club, {new: true})
+  const club = await Club.findOneAndUpdate(query, req.body.club, {new: true})
 
   if(!club){
     return res.status(404).send('Failed to update')
