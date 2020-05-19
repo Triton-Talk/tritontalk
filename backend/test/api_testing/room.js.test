@@ -5,7 +5,7 @@ module.exports = dependencies => {
     
     require('./room-independent.js.test')(dependencies)
 
-    //require('./room-session.js.test')(dependencies)
+    require('./room-session.js.test')(dependencies)
 
   })
 }

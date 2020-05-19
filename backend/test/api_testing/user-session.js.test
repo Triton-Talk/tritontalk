@@ -2,7 +2,7 @@ module.exports = dependencies => {
 
   const {app, axios, chai} = dependencies
 
-  describe('Testing cookie-based session authentication', function(){
+  describe('Testing cookie-based session authenticated calls', function(){
 
     before(async function(){
       const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+process.env.FIREBASE_API_KEY
