@@ -13,7 +13,7 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
-
+import MyClubs from './MyClubs'
 import { AuthProvider } from '../utils/auth';
 
 const Router = () => {
@@ -32,6 +32,7 @@ const Router = () => {
             <Route path="/newclub" exact component={RegisterOrganization} />
             <Route path="/lobby" exact component={Home} />
             <Route path="/newuser" exact component={RegisterUser} />
+            <Route path="/myclubs" exact component={MyClubs} />
           </Switch>
         </div >
       </AuthProvider>
