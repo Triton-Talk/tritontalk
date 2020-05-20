@@ -57,8 +57,12 @@ const createSocket = game => {
     addBooth(data, game)
   })
 
-  game.socket.on('delete-room', data => {
-    game.booths[data].list[2].setTexture('transparent')
+  game.socket.on('delete-room', index => {
+    game.booths[index].list[2].setTexture('transparent')
+    game.booths[index].list[2].displayWidth = 150;
+    game.booths[index].list[2].displayHeight = 150;
+
+    game.booths[index].list[0].text = 'No Club yet';
   })
 }
 
@@ -104,6 +108,8 @@ const addBooth = async (data, game) => {
       game.booths[data.index].list[2].setTexture('booth_image' + data.name)
       game.booths[data.index].list[2].displayWidth = 150;
       game.booths[data.index].list[2].displayHeight = 150;
+
+      game.booths[data.index].list[0].text = data.name
     }, this);
 
     game.load.start();

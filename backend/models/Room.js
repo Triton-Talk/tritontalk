@@ -36,6 +36,9 @@ const roomSchema = new mongoose.Schema({
   club: {
     type: ObjectId,
     ref: 'Club'
+  }, 
+  index: {
+    type: Number
   }
 }, {collection: 'Rooms'})
 
