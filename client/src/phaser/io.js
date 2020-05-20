@@ -47,23 +47,22 @@ const createSocket = game => {
     }
   })
 
-  game.socket.on('new-room', async data => {
-    console.log('\n\n\nNEW ROOM', data)
-    const url = await storage.ref('booth_' + data.name + '.jpg').getDownloadURL()
-    console.log(url);
+  game.socket.on('current-rooms', (data) => {
+    for(let boothId in data){
+      addBooth(data[boothId], game)
+    }
+  })
 
-    game.load.image('booth_image', url);
+  game.socket.on('new-room', data => {
+    addBooth(data, game)
+  })
 
-    game.load.once('complete', () => {
-      console.log("finished loading image")
-      game.booths[19].list[2].setTexture('booth_image')
-      game.booths[19].list[2].displayWidth = 150;
-      game.booths[19].list[2].displayHeight = 150;
-    }, this);
+  game.socket.on('delete-room', index => {
+    game.booths[index].list[2].setTexture('transparent')
+    game.booths[index].list[2].displayWidth = 150;
+    game.booths[index].list[2].displayHeight = 150;
 
-    game.load.start();
-    
-    // update client-side booth array once we have this stuff on backend
+    game.booths[index].list[0].text = 'No Club yet';
   })
 }
 
@@ -111,6 +110,25 @@ const addPlayer = (player, game) => {
   container.body.setCollideWorldBounds(true);
 
   game.players[playerId] = container
+}
+
+const addBooth = async (data, game) => {
+    const url = await storage.ref('booth_' + data.name + '.jpg').getDownloadURL()
+
+    game.load.image('booth_image' + data.name, url);
+
+    game.load.once('complete', () => {
+      console.log("finished loading image")
+      game.booths[data.index].list[2].setTexture('booth_image' + data.name)
+      game.booths[data.index].list[2].displayWidth = 150;
+      game.booths[data.index].list[2].displayHeight = 150;
+
+      game.booths[data.index].list[0].text = data.name
+    }, this);
+
+    game.load.start();
+    
+    // update client-side booth array once we have this stuff on backend
 }
 
 

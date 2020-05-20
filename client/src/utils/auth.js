@@ -57,7 +57,7 @@ export const AuthProvider = (props) => {
       console.log('this user is a new user????', newUser)
       setUser(body)
       if (location.pathname === '/'){
-        if(newUser){
+        if(newUser === 0){
           console.log('/newuser')
           history.push('/newuser')
         }

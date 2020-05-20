@@ -33,9 +33,7 @@ const RegisterUser = () => {
     const options = {body: {user: localUser}, method: 'PUT'}
     
     request('/api/user/update', options, true).then(res => {
-      for(let [key, value] of res.headers)
-        console.log(key, value)
-      res.body.then(a => setUser(a))
+      setUser(res.body)
       setModal(1)
     }).catch(error => {
       console.log(error)
@@ -96,7 +94,7 @@ const RegisterUser = () => {
               </Form.Control>
 
               <Form.Label>Major</Form.Label>
-              <Form.Control size="sm" type="name" placeholder="Major" value={localUser.major}
+              <Form.Control size="sm" type="name" as="select" placeholder="Major" value={localUser.major}
                             onChange={e => updateLocalUser({...localUser, major:e.target.value})}>
                 {majorDepartments.map((dept, i) => <option key={i}>{dept}</option>)}
               </Form.Control>
