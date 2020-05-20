@@ -52,6 +52,7 @@ app.use('/api/room', room)
 server = app.listen(3001, () => console.log('node running on localhost:3001'));
 
 app.locals.booths = {}
-app.locals.phaser = gameserver.start(server)
+app.locals.index = 19
+app.locals.phaser = gameserver.start(server, app.locals)
 
 module.exports = app

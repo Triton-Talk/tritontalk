@@ -54,14 +54,20 @@ router.post('/create', async (req, res) => {
 
 router.post('/createForClub', async (req, res) => {
 
+  const room = req.body.room
+  /*
   const room = new Room(req.body.room)
 
   room.authorized_users.push(req.user)
   room.club = req.body.club
 
   await room.save()
+  */
+  
+  room.index = req.app.locals.index--
 
   req.app.locals.booths[room.name] = room
+  console.log(room)
   req.app.locals.phaser.emit('new-room', room)
 
   res.status(200).send(room)
@@ -84,12 +90,16 @@ router.delete('/delete', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
+  /*
   const result = await Room.deleteOne(query)
 
   if(result.deletedCount !== 1)
     return res.status(404).send('Failed to delete room')
+   */
 
-  req.app.locals.booths[req.body.name] = null
+  req.app.locals.index = req.app.locals.booths[req.body.name].index
+  req.app.locals.phaser.emit('delete-room', req.app.locals.index)
+  delete req.app.locals.booths[req.body.name]
   return res.status(200).send({summary: 'Room deleted'})
 })
 

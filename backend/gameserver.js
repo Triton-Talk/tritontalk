@@ -1,8 +1,9 @@
-const startGameServer = httpServer => {
+const startGameServer = (httpServer, data) => {
+  const {booths} = data
+
   const phaser = require('socket.io')(httpServer);
 
   const players = {}
-  const booths = {}
   const oldPlayers = {}
 
   phaser.on('connection', socket => {
@@ -19,6 +20,8 @@ const startGameServer = httpServer => {
 
       // Emit the update-players method in the client side
       socket.emit('current-players', players)
+      socket.emit('current-rooms', booths)
+      console.log('current-rooms', booths)
       socket.broadcast.emit('new-player', data)
     })
 
