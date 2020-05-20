@@ -105,41 +105,6 @@ const createPlayer = game => {
   //game.physics.world.enable(camera);
   //camera.body.setCollideWorldBounds(true);
 
-  /*
-  //Generate walls around the library walk
-  for (let i = 0; i < game.boothCount; i++) {
-    const walls = game.physics.add.staticGroup();
-
-    const wallTop = game.add.rectangle((game.boothWidth*i)+150, 0, 375, 100, 0x5e32a8, 0);
-    const wallBottom = game.add.rectangle((game.boothWidth*i)+150, 300, 375, 100, 0x5e32a8, 0);
-    wallTop.setOrigin(0,0);
-    wallBottom.setOrigin(0,0);
-    walls.add(wallTop);
-    walls.add(wallBottom);
-    game.physics.add.collider(game.container, wallTop);
-    game.physics.add.collider(game.container, wallBottom);
-  }
-
-
-  //TODO: Make game a container?
-  //Menu that appears when player interacts
-  game.menu = game.add.rectangle(1200, 600, game.boothWidth, 1250, 0x5e32a8, 70);
-  game.menu.visible = false; //Appears when prompted
-  game.menu.setScrollFactor(0); //Follows camera
-
-  //TODO: Make walls to block player movement
-  //game.wall = game.physics.add.rectangle(1200, 600, 500, 1250, 0x5e32a8, 70);
-
-  //Camera follows the container as it moves until the map's edge
-  var camera = game.cameras.main;
-  camera.startFollow(game.container);
-
-  //Camera just goes black when I try to apply physics to have it collide with bounds
-  //camera.setPosition(500, 500);
-  //game.physics.world.enable(camera);
-  //camera.body.setCollideWorldBounds(true);
-  */
-
 }
 
 export default createPlayer
