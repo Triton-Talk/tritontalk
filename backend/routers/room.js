@@ -87,14 +87,17 @@ router.delete('/delete', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}
 
-  const result = await Room.deleteOne(query)
+  const result = await Room.findOne(query)
 
-  if(result.deletedCount !== 1)
+  if(!result)
     return res.status(404).send('Failed to delete room')
 
-  req.app.locals.index = req.app.locals.booths[req.body.name].index
+  req.app.locals.index = result.index
   req.app.locals.phaser.emit('delete-room', req.app.locals.index)
+
   delete req.app.locals.booths[req.body.name]
+  await result.remove()
+
   return res.status(200).send({summary: 'Room deleted'})
 })
 

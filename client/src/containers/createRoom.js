@@ -35,9 +35,10 @@ const CreateRoom = () => {
     .catch(err => console.log(err))
   }
 
+  console.log(clubName)
   return (
     <Form onSubmit={handleSubmit} onReset={handleReset}>
-      <SelectOneThing label='Club' options={clubs} value={clubName} onChange={e => _setClubName(e)} />
+      <SelectOneThing label='Club' options={clubs} value={clubName} onChange={e => _setClubName(e.target.value)} />
       <Button type='submit'>Make a Booth</Button>
       <Button type='reset'>Delete Booth</Button>
     </Form>

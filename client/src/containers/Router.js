@@ -13,7 +13,7 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
-import CreateRoom from './createRoom';
+import CreateRoom from './CreateRoom.js';
 
 import MyClubs from './MyClubs'
 import { AuthProvider } from '../utils/auth';
