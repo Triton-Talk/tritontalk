@@ -32,7 +32,12 @@ const roomSchema = new mongoose.Schema({
       type: ObjectId, 
       ref: 'User'
     }
-  ]
+  ],
+  club: {
+    type: ObjectId,
+    ref: 'Club'
+    default: null
+  }
 }, {collection: 'Rooms'})
 
 const Room = mongoose.model('Room', roomSchema)
