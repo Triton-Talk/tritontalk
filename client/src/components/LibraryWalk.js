@@ -18,7 +18,7 @@ const LibraryWalk  = (props) => {
     if(!user)
       return undefined
 
-    game = new PhaserScene(user.name)
+    game = new PhaserScene(user)
     config.scene = game
     const PhaserGame = new Phaser.Game(config)
 

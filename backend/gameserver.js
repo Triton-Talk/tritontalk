@@ -11,27 +11,34 @@ const startGameServer = httpServer => {
     socket.emit('ready', null)
 
     // When a player connects
-    socket.on('new-player', state => {
-      console.log('New player joined with state:', state)
-      players[socket.id] = state
-      state.playerName = socket.id
+    socket.on('new-player', data => {
+      console.log('New player joined with state:', data)
+      players[socket.id] = data
+      data.playerId = socket.id
 
       // Emit the update-players method in the client side
       socket.emit('current-players', players)
-      socket.broadcast.emit('new-player', state)
+      socket.broadcast.emit('new-player', data)
     })
 
-    socket.on('disconnect', state => {
+    socket.on('disconnect', data => {
       delete players[socket.id]
       phaser.emit('delete-player', socket.id)
     })
 
+    socket.on('update-sprite', data => {
+      const {sprite, playerId} = data
+
+      socket.broadcast.emit('update-player-sprite', {sprite, playerId})
+      players[socket.id].sprite = sprite
+    })
+
     // When a player moves
     socket.on('move-player', data => {
-      const {x, y, vx, vy, sprite, playerName, name} = data
+      const {x, y, vx, vy, sprite, playerId, name} = data
 
       // Send update to all clients
-      socket.broadcast.emit('update-player-data', {x, y, vx, vy, sprite, playerName})
+      socket.broadcast.emit('update-player-location', {x, y, vx, vy, sprite, playerId})
 
       // If the player is invalid, return
       if (players[socket.id] === undefined) {
@@ -44,8 +51,7 @@ const startGameServer = httpServer => {
       players[socket.id].y = y
       players[socket.id].vx = vx
       players[socket.id].vy = vy
-      players[socket.id].sprite = sprite
-      players[socket.id].playerName = playerName
+      players[socket.id].playerId = playerId
     })
   })
 }
