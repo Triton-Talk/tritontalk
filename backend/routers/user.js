@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
 router.get('/me', async (req, res) => {
   const query = {email: req.identity.email}
 
-  const user = await User.findOne(query) 
+  const user = await User.findOne(query).populate(['clubs', 'hosted_rooms'])
 
   if(!user)
     return res.status(404).send('Cannot get a nonexistent user')

@@ -6,6 +6,8 @@ import { Form, Button, Col, Image, Modal} from 'react-bootstrap'
 import Auth from '../utils/auth'
 import request from '../utils/request'
 
+import majorDepartments from '../data/majorDepartments'
+
 import {SelectOneThing, SelectManyThings} from '../components/SelectOneThing';
 
 const Settings = () => {
@@ -64,8 +66,6 @@ const Settings = () => {
 
   const colleges = ["Select One...", "Revelle", "Muir", "Warren", "Marshall", "ERC", "Sixth"]
 
-  const majors = ["Select One...", "Computer Science", "Biology", "Electrical Engineering", "Other"]
-
   const years = ["Select One...", "First year", "Second year", "Third year", "Fourth year"]
 
   const clubs = ["Select One...", "IEEE", "..."]
@@ -88,7 +88,7 @@ const Settings = () => {
               onChange={(e) => updateLocalUser({ ...localUser, college: e.target.value })} />
 
             <SelectOneThing controlId="settings.Major" label="Major"
-              options={majors} value={localUser.major}
+              options={majorDepartments} value={localUser.major}
               onChange={(e) => updateLocalUser({ ...localUser, major: e.target.value })} />
 
             <SelectOneThing controlId="settings.Year" label="Year"

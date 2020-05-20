@@ -2,6 +2,7 @@ const startGameServer = httpServer => {
   const phaser = require('socket.io')(httpServer);
 
   const players = {}
+  const booths = {}
   const oldPlayers = {}
 
   phaser.on('connection', socket => {
@@ -54,6 +55,8 @@ const startGameServer = httpServer => {
       players[socket.id].playerId = playerId
     })
   })
+
+  return phaser
 }
 
 module.exports = {start: startGameServer}

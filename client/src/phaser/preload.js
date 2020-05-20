@@ -21,13 +21,12 @@ const preload = game => {
         progressBox.destroy();
   });
 
-
   //This is the background image used for the map/environment
   game.load.image('background', 'assets/Starfall-Town.png');
   game.load.image('geisel', 'assets/geisel.png');
   game.load.image('walk', 'assets/walk.png');
   game.load.image('table', 'assets/table.png');
-
+  game.load.image('transparent', 'assets/transparent.png');
 
   //This is the player sprite with animation frames
   game.load.spritesheet('sungod', 'assets/spritesheets/sungod.png',{

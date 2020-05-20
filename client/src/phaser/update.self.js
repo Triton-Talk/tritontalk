@@ -58,6 +58,8 @@ const updateSelf = game => {
     game.doUpdate = false
   }
 
+
+  // Socket Update
   if(game.doUpdate)
     game.socket.emit('move-player', {
       x: game.container.x,

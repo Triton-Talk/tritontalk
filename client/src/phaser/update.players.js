@@ -1,10 +1,8 @@
-const updateSelf = game => {
+const updatePlayers = game => {
 
   while(game.player_updates.length > 0){
 
     const {x, y, vx, vy, sprite, playerId} = game.player_updates.shift()
-
-    console.log(x, y, playerId)
 
     if(game.players[playerId]){
 
@@ -16,9 +14,6 @@ const updateSelf = game => {
         ease: 'Linear',
         delay: 0
       });
-
-      console.log(sprite);
-
 
       if (vx < 0) {
         game.players[playerId].first.anims.play('walkLeft-' + sprite, true);
@@ -39,4 +34,4 @@ const updateSelf = game => {
   }
 }
 
-export default updateSelf
+export default updatePlayers

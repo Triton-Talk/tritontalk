@@ -53,9 +53,17 @@ export const AuthProvider = (props) => {
     request('/api/user/login', {body}, true).then(response => {
       const {body, headers} = response
       console.log(headers.get('user_found'))
+      const newUser = headers.get('user_found')
+      console.log('this user is a new user????', newUser)
       setUser(body)
-      if (location.pathname === '/')
-        history.push('/lobby')
+      if (location.pathname === '/'){
+        if(newUser){
+          console.log('/newuser')
+          history.push('/newuser')
+        }
+        else
+          history.push('/home')
+      }
     }).catch(error => {
       console.log(error)
       alert(error)

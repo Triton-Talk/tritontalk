@@ -51,6 +51,23 @@ router.post('/create', async (req, res) => {
 
 });
 
+router.post('/createForClub', async (req, res) => {
+
+  const room = new Room(req.body.room)
+
+  room.authorized_users.push(req.user)
+
+  await room.save()
+
+  console.log(room)
+  console.log(req.app.locals.phaser)
+  req.app.locals.phaser.emit('new-room', 'NEW ROOM IS COMING FOLKS')
+  req.app.locals.phaser.emit('new-room', room)
+  
+
+  res.status(200).send(room)
+});
+
 router.put('/update', async (req, res) => {
 
   const query = {name: req.body.name, authorized_users: req.user}

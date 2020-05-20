@@ -41,13 +41,16 @@ router.use(async (req, res, next) => {
 })
 
 router.post('/create', async (req, res) => {
-  console.log('HERE WE GOOOO')
+  
+  console.log(req.body.club)
 
   const club = new Club( req.body.club )
 
   club.authorized_users.push(req.user)
-
+  
   await club.save()
+  req.user.clubs.push(club)
+  await req.user.save()
 
   res.status(200).send(club)
 

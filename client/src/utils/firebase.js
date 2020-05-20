@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage"
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -15,4 +16,5 @@ var firebaseConfig = {
 // Initialize Firebase
 const db = firebase.initializeApp(firebaseConfig);
 export default db;
+export const storage = firebase.storage()
 export const GoogleSignOn = new firebase.auth.GoogleAuthProvider()

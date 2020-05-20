@@ -13,6 +13,7 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
+import CreateRoom from './createRoom';
 
 import { AuthProvider } from '../utils/auth';
 
@@ -32,6 +33,7 @@ const Router = () => {
             <Route path="/newclub" exact component={RegisterOrganization} />
             <Route path="/lobby" exact component={Home} />
             <Route path="/newuser" exact component={RegisterUser} />
+            <Route path="/newbooth" exact component={CreateRoom} />
           </Switch>
         </div >
       </AuthProvider>

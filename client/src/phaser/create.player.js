@@ -80,7 +80,7 @@ const createPlayer = game => {
   game.container.setSize(30, 30);
   game.physics.world.enable(game.container);
   game.container.body.setCollideWorldBounds(true);
-
+  
 
   game.player.setInteractive()
   game.clickCount = 0
@@ -90,6 +90,7 @@ const createPlayer = game => {
   game.keyA = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
   game.keyS = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
   game.keyD = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+  game.keyE = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
   game.keyShift = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 

@@ -97,7 +97,9 @@ const RegisterUser = () => {
 
               <Form.Label>Major</Form.Label>
               <Form.Control size="sm" type="name" placeholder="Major" value={localUser.major}
-                            onChange={e => updateLocalUser({...localUser, major:e.target.value})}/>
+                            onChange={e => updateLocalUser({...localUser, major:e.target.value})}>
+                {majorDepartments.map((dept, i) => <option key={i}>{dept}</option>)}
+              </Form.Control>
 
               <Form.Label>Year</Form.Label>
               <Form.Control size="sm" as="select" value={localUser.year}

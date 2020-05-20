@@ -1,4 +1,5 @@
 var majorDepartments = [
+	"Select One...",
 	"Anthropology",
 	"Arts",
 	"Bioengineering",

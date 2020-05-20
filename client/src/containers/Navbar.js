@@ -38,7 +38,7 @@ const NavigationBar = () => {
           user !== null && user !== undefined ?
             <>
               <div className="centered" style={{ textAlign: "center", height: '54px' }}>
-                <Link to="/lobby"><h1 className="NavBarLogo">TritonTalk</h1></Link>
+                <Link to="/home"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
@@ -47,17 +47,21 @@ const NavigationBar = () => {
                     cursor: 'default'
                   }}> {user.name}</button>
                   <div className="dropdown-content">
-                    <Link to='/profile'>
-                      <button className="dropdown">Account Settings</button>
-                    </Link>
+                    
                     <Link to='/random'>
                       <button className="dropdown">Meet a Student</button>
                     </Link>
-                    <Link to='/home'>
-                      <button className="dropdown">Library Walk</button>
+                    <Link to='/lobby'>
+                      <button className="dropdown">Register a Club</button>
                     </Link>
                     <Link to='/friends'>
                       <button className="dropdown">Friends</button>
+                    </Link>
+                    <Link to='/profile'>
+                      <button className="dropdown">Account Settings</button>
+                    </Link>
+                    <Link to='/newbooth'>
+                      <button className="dropdown">New Booth</button>  
                     </Link>
                     <button className="dropdown"
                       onClick={handleSignOut}>Sign out</button>

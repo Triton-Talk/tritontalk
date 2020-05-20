@@ -2,6 +2,9 @@ import React from 'react'
 import { Form, Button, Col } from 'react-bootstrap';
 import Autocomplete from '../components/Autocomplete'
 
+import request from '../utils/request'
+import {storage} from '../utils/firebase'
+
 const states = [
   "Alabama",
   "Alaska",
@@ -57,15 +60,44 @@ const states = [
 const RegisterOrganization  = () =>  {
   
   const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
+  const [img, setImg] = React.useState(null)
+
   const setClub = (c) => {
-    console.log(c)
     _setClub(c)
   }
 
+  const handleSubmit = event => {
+    
+    event.preventDefault()
+    
+    const ref = storage.ref().child('/booth_' + club.name +'.jpg')
+    ref.put(club.booth[0]).then(snapshot => {
+      console.log(snapshot)
+    })
+
+    const cleanedClub = {name: club.name, booth: `/booth_${club.name}.jpg`}
+    if(cleanedClub.name === undefined)
+      cleanedClub.name = "IT IS BROKEN :("
+    const body = {club: cleanedClub}
+
+    const room = {name: club.name}
+    event.preventDefault()
+    request('/api/club/create', { body, method: 'POST'})
+    .then(response => {
+      setClub(response); 
+    })
+    .catch(err => console.log(err)) 
+  }
+
+  if (img !== null){
+    return <img src={"data:image/png;base64, " + img} alt="Red dot" />
+  }
+
   return (
+    
     <div>
       <br></br>
-      <Form style={{ maxWidth: "95%" }}>
+      <Form onSubmit={handleSubmit} style={{ maxWidth: "95%" }}>
         <Form.Row>
           <Form.Group as={Col} controlId="name">
             <Form.Label>Name</Form.Label>
@@ -77,7 +109,7 @@ const RegisterOrganization  = () =>  {
         <Form.Row>
           <Form.Group as={Col} controlId="booth_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input onChange={e => setClub({...club, booth: e.target.value})}/>
+              <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files})}/>
               <Form.File.Label> 
                 Booth Image
               </Form.File.Label>
@@ -86,7 +118,7 @@ const RegisterOrganization  = () =>  {
 
           <Form.Group as={Col} controlId="flyer_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid />
+              <Form.File.Input isValid onChange={e => setClub({...club, flyer: e.target.files})}/>
               <Form.File.Label>
                 Flyer Image
               </Form.File.Label>

@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import {storage} from '../utils/firebase.js'
 
 const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE === 'docker' ? 
             '' : 'http://localhost:3001'
@@ -44,6 +45,25 @@ const createSocket = game => {
 
       addPlayer(data[playerId], game)
     }
+  })
+
+  game.socket.on('new-room', async data => {
+    console.log('\n\n\nNEW ROOM', data)
+    const url = await storage.ref('booth_' + data.name + '.jpg').getDownloadURL()
+    console.log(url);
+
+    game.load.image('booth_image', url);
+
+    game.load.once('complete', () => {
+      console.log("finished loading image")
+      game.booths[19].list[2].setTexture('booth_image')
+      game.booths[19].list[2].displayWidth = 150;
+      game.booths[19].list[2].displayHeight = 150;
+    }, this);
+
+    game.load.start();
+    
+    // update client-side booth array once we have this stuff on backend
   })
 }
 
