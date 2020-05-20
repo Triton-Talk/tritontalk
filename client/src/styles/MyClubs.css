@@ -1,0 +1,10 @@
+.cardTitle {
+    color: white;
+    font-family: 'Londrina Solid', cursive;
+    font-size:50px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    -webkit-text-fill-color: rgb(0,0,0);
+    padding:0px;
+    margin-left: 30px;
+}

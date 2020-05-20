@@ -15,6 +15,7 @@ import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
 import CreateRoom from './createRoom';
 
+import MyClubs from './MyClubs'
 import { AuthProvider } from '../utils/auth';
 
 const Router = () => {
@@ -34,6 +35,7 @@ const Router = () => {
             <Route path="/lobby" exact component={Home} />
             <Route path="/newuser" exact component={RegisterUser} />
             <Route path="/newbooth" exact component={CreateRoom} />
+            <Route path="/myclubs" exact component={MyClubs} />
           </Switch>
         </div >
       </AuthProvider>
