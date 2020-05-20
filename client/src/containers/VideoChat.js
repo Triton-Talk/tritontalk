@@ -6,7 +6,7 @@ import Room from '../components/Room';
 
 import Auth from '../utils/auth';
 import request from '../utils/request';
-import Chart from '../components/Chart/Chart';
+//import Chart from '../components/Chart/Chart';
 
 const VideoChat = () => {
   const { user } = React.useContext(Auth);

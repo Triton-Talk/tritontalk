@@ -1,9 +1,3 @@
-import Phaser from 'phaser';
-import io from 'socket.io-client';
-
-const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE === 'docker' ? 
-            '' : 'http://localhost:3001'
-
 const preload = game => {
   var progressBar = game.add.graphics();
   var progressBox = game.add.graphics();
