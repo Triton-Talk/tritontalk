@@ -28,10 +28,18 @@ const CreateRoom = () => {
     .catch(err => console.log(err))
   }
 
+  const handleReset = (e) => {
+    e.preventDefault()
+    request('/api/room/delete', {body: {name: clubName}, method: 'DELETE'})
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} onReset={handleReset}>
       <SelectOneThing label='Club' options={clubs} value={clubName} onChange={e => _setClubName(e)} />
       <Button type='submit'>Make a Booth</Button>
+      <Button type='reset'>Delete Booth</Button>
     </Form>
   )
 }
