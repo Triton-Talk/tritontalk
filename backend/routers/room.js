@@ -89,7 +89,7 @@ router.delete('/delete', async (req, res) => {
   if(result.deletedCount !== 1)
     return res.status(404).send('Failed to delete room')
 
-  req.app.locals.booths[room.name] = room
+  req.app.locals.booths[req.body.name] = null
   return res.status(200).send({summary: 'Room deleted'})
 })
 
