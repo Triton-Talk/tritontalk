@@ -15,6 +15,24 @@ const updateSelf = game => {
     game.player.setTexture('sungod');
     game.playerSprite = 'sungod';
   }
+  if(game.key3.isDown) {
+    game.player.setTexture('queen');
+    game.playerSprite = 'queen';
+  }
+  if(game.key4.isDown) {
+    game.player.setTexture('neptune');
+    game.playerSprite = 'neptune';
+  }
+  if(game.key5.isDown) {
+    game.player.setTexture('pokeman');
+    game.playerSprite = 'pokeman';
+  }
+
+  //Reset player position to Geisel
+  game.keyEnter.on('down', function(event) {
+    game.container.x = 1000*game.boothCount - 128
+    game.container.y = 200
+  });
 
   //TODO: Fix animations so that sprite always stops at standing frame
 
@@ -57,7 +75,6 @@ const updateSelf = game => {
 
     game.doUpdate = false
   }
-
 
   // Socket Update
   if(game.doUpdate)

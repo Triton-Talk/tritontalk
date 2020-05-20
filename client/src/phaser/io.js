@@ -74,6 +74,20 @@ const addPlayer = (player, game) => {
   //Set player position
   let newplayer = game.physics.add.sprite(0, 0, 'tritondude');
 
+  //Allow players to interact with each other via mouse hovers and clicks
+  newplayer.setInteractive()
+  newplayer.on('pointerover', function (pointer) {
+    newplayer.setTint(0x7d95ff);
+  });
+
+  newplayer.on('pointerout', function (pointer) {
+    newplayer.clearTint();
+  });
+
+  newplayer.on('pointerdown', function (pointer) {
+    game.menu.visible = true;
+  });
+
   //game.player.setCollideWorldBounds(true);
   newplayer.setOrigin(0.5, 0.5);
   newplayer.depth = 1000;

@@ -41,7 +41,7 @@ const createWalk = game => {
     botText.setOrigin(0.5, 0.5);
     var botTable = game.physics.add.sprite(0, 0, 'table');
     var botImage = game.physics.add.sprite(0, 150, 'transparent');
-    game.booths[(2 * i) + 1] = game.add.container(game.boothWidth*i + 75, 450, [botText, botTable, botImage]);
+    game.booths[(2 * i) + 1] = game.add.container(game.boothWidth*i + 75, 450, [botTable, botText, botImage]);
   }
 
   game.geisel.setOrigin(0, 0);

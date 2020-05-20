@@ -27,6 +27,7 @@ const preload = game => {
   game.load.image('walk', 'assets/walk.png');
   game.load.image('table', 'assets/table.png');
   game.load.image('transparent', 'assets/transparent.png');
+  game.load.image('profilePicture', 'assets/borger.jpg');
 
   //This is the player sprite with animation frames
   game.load.spritesheet('sungod', 'assets/spritesheets/sungod.png',{
@@ -36,6 +37,18 @@ const preload = game => {
   });
 
   game.load.spritesheet('pokeman', 'assets/spritesheets/pokeman.png',{
+    frameWidth: 64,
+    frameHeight: 64,
+    endFrame: 15
+  });
+
+  game.load.spritesheet('queen', 'assets/spritesheets/queen triton.png',{
+    frameWidth: 64,
+    frameHeight: 64,
+    endFrame: 15
+  });
+
+  game.load.spritesheet('neptune', 'assets/spritesheets/king_neptune_edition.png',{
     frameWidth: 64,
     frameHeight: 64,
     endFrame: 15
