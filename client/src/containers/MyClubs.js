@@ -2,6 +2,7 @@ import React from 'react'
 import {Card,Button,CardColumns} from 'react-bootstrap'
 import  "../styles/MyClubs.css"
 
+import request from '../utils/request'
 
 const ClubOwnerCard = ({club}) =>{
   return(
@@ -45,14 +46,22 @@ const ClubMemberCard = ({club}) =>{
 
 const MyClubs = (props) => {
 
+  const [clubs, setClubs] = React.useState(undefined)
+  
+  request('/api/user/me', {method: 'GET'}, false).then(response => {
+    setClubs(response.clubs)
+  })
+
   /*Dummy Data*/
   const club = {
     image : 'https://i.pinimg.com/originals/30/ef/3d/30ef3dada38214dc9cc458b59b7efa2f.jpg',
     title : 'Club Title',
     inCall : false,
   }
+  
+  if(!clubs)
+    return <h1> Loading </h1>
 
-  const clubs = [club]  
 
   return (
     <div>
