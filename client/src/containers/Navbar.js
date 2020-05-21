@@ -27,7 +27,6 @@ const NavigationBar = () => {
   }
 
   const height = show && !(location.pathname === '/' || location.pathname === '/home') ? 'calc(8vh + 17vh)' : '8vh'
-  console.log(show, height)
 
   const lengthOfButtonString = lengthOfButton + "px";
   return (
@@ -48,20 +47,20 @@ const NavigationBar = () => {
                   }}> {user.name}</button>
                   <div className="dropdown-content">
                     
-                    <Link to='/random'>
-                      <button className="dropdown">Meet a Student</button>
+                    <Link to='/profile'>
+                      <button className="dropdown">Account Settings</button>
                     </Link>
-                    <Link to='/lobby'>
+                    <Link to='/newclub'>
                       <button className="dropdown">Register a Club</button>
+                    </Link>
+                    <Link to='/newbooth'>
+                      <button className="dropdown">New Booth</button>  
                     </Link>
                     <Link to='/friends'>
                       <button className="dropdown">Friends</button>
                     </Link>
-                    <Link to='/profile'>
-                      <button className="dropdown">Account Settings</button>
-                    </Link>
-                    <Link to='/newbooth'>
-                      <button className="dropdown">New Booth</button>  
+                    <Link to='/random'>
+                      <button className="dropdown">Meet a Student</button>
                     </Link>
                     <button className="dropdown"
                       onClick={handleSignOut}>Sign out</button>

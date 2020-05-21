@@ -68,7 +68,7 @@ const RegisterUser = () => {
       <h1>Profile Image</h1>
       <label htmlFor="photo-upload" className="custom-file-upload fas">
         <div className="img-wrap img-upload" >
-          <img alt="profile picture" htmlFor="photo-upload" src={src}/>
+          <img alt="profile photograph" htmlFor="photo-upload" src={src}/>
         </div>
         <input id="photo-upload" type="file" onChange={onChange}/> 
       </label>

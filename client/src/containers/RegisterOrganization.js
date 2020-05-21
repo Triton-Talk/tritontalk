@@ -60,7 +60,6 @@ const states = [
 const RegisterOrganization  = () =>  {
   
   const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
-  const [img, setImg] = React.useState(null)
 
   const setClub = (c) => {
     _setClub(c)
@@ -70,27 +69,38 @@ const RegisterOrganization  = () =>  {
     
     event.preventDefault()
     
-    const ref = storage.ref().child('/booth_' + club.name +'.jpg')
-    ref.put(club.booth[0]).then(snapshot => {
-      console.log(snapshot)
-    })
+    if(club.booth){
 
-    const cleanedClub = {name: club.name, booth: `/booth_${club.name}.jpg`}
-    if(cleanedClub.name === undefined)
-      cleanedClub.name = "IT IS BROKEN :("
-    const body = {club: cleanedClub}
+      //lets not overwrite
+      storage.ref().child('/booth_'+club.name+'.jpg').getDownloadURL().catch(error => {
+        if(error.code === 'storage.object-not-found'){
+          //upload the file now!
+          const ref = storage.ref().child('/booth_' + club.name +'.jpg')
+          ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+          club.booth = `/booth_${club.name}.jpg`
+        }
+      })
 
-    const room = {name: club.name}
+    }
+
+    if(club.flyer){
+      storage.ref().child('/flyer_'+club.name+'.jpg').getDownloadURL().catch(error => {
+        if(error.code === 'storage.object-not-found'){
+          const ref = storage.ref().child('/flyer_' + club.name +'.jpg')
+          ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+          club.flyer = `/flyer_${club.name}.jpg`
+        }
+      })
+    }
+
+    const body = {club}
+
     event.preventDefault()
     request('/api/club/create', { body, method: 'POST'})
     .then(response => {
       setClub(response); 
     })
     .catch(err => console.log(err)) 
-  }
-
-  if (img !== null){
-    return <img src={"data:image/png;base64, " + img} alt="Red dot" />
   }
 
   return (

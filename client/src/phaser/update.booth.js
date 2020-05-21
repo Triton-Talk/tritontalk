@@ -2,13 +2,10 @@ import Phaser from 'phaser';
 
 const updateBooth = game => {
 
-    
-    //For each booth, check if player is within distance
-  
-  var threshold = 130
+  //For each booth, check if player is within distance
+  const threshold = 130
   var interacting = false
   for (let i = 0; i < 2 * game.boothCount; i++) {
-
     //If the player is within distance of booth, highlight the booth and text
     if(Phaser.Math.Distance.Between(game.container.x, game.container.y, game.booths[i].x, game.booths[i].y) <= threshold)
     {
@@ -25,7 +22,6 @@ const updateBooth = game => {
       game.booths[i].list[1].clearTint();
     }
       
-
 
   }
   //Lock player interaction while interacting with booth
