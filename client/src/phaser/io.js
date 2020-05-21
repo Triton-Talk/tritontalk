@@ -58,6 +58,9 @@ const createSocket = game => {
   })
 
   game.socket.on('delete-room', index => {
+    console.log(game.booths, index)
+    if(!game.booths[index])
+      return 
     game.booths[index].list[2].setTexture('transparent')
     game.booths[index].list[2].displayWidth = 150;
     game.booths[index].list[2].displayHeight = 150;

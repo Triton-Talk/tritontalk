@@ -47,7 +47,7 @@ router.post('/create', async (req, res) => {
 
   await room.save()
 
-  req.app.locals.booths[room.name] = room
+  //req.app.locals.booths[room.name] = room
   res.status(200).send(room)
 
 });
@@ -59,12 +59,24 @@ router.post('/createForClub', async (req, res) => {
   room.authorized_users.push(req.user)
   room.club = req.body.club
 
-  room.index = req.app.locals.index--
+  const array = Array(20).fill(0)
+  for(let booth in req.app.locals.booths){ 
+    array[req.app.locals.booths[booth].index] = 1
+  }
+  
+  console.log(array)
+
+  room.index = array.lastIndexOf(0)
+
+  console.log(room)
+
+  if(room.index === -1)
+    return res.status(404).send('Failed to create booth')
 
   await room.save()
 
-  req.app.locals.booths[room.name] = room
-  console.log(room)
+  req.app.locals.booths.push(room)
+  console.log(req.app.locals.booths, room.index)
   req.app.locals.phaser.emit('new-room', room)
 
   res.status(200).send(room)
@@ -92,10 +104,10 @@ router.delete('/delete', async (req, res) => {
   if(!result)
     return res.status(404).send('Failed to delete room')
 
-  req.app.locals.index = result.index
-  req.app.locals.phaser.emit('delete-room', req.app.locals.index)
+  req.app.locals.phaser.emit('delete-room', result.index)
 
-  delete req.app.locals.booths[req.body.name]
+  req.app.locals.booths = req.app.locals.booths.filter( element => element.name !== result.name)
+  console.log(req.app.locals.booths)
   await result.remove()
 
   return res.status(200).send({summary: 'Room deleted'})
