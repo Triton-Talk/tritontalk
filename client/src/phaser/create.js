@@ -52,7 +52,9 @@ const create = game => {
   game.menuBox = game.add.rectangle(0, 0, 500, 1350, 0x192847, 70);
   game.menuPortrait = game.add.rectangle(-125, 150, 175, 175, 0xebb734);
   game.menuPic = game.add.image(-125, 150, "profilePicture").setScale(0.25);
+
   game.menuClose = game.add.text(175, 40, "CLOSE", tooltipsStyle).setInteractive();
+
   game.menuTitle = game.add.text(-200, 35, "Student/Club Name", tooltipsStyle);
   game.menuText = game.add.text(-225, 250, "Description:\nPull from user profile or club info", tooltipsStyle);
 
@@ -61,11 +63,11 @@ const create = game => {
   
   //Container holds all menu components
   game.menu = game.add.container(1300, 0, [game.menuBox, game.menuPortrait, game.menuClose, game.menuCallButton, 
-                                           game.menuText, game.menuTitle, game.menuPic, game.menuCallText]).setInteractive();
+                                           game.menuText, game.menuTitle, game.menuPic, game.menuCallText]);
   game.menu.visible = false; //Appears when prompted
   game.menu.setScrollFactor(0); //Follows camera
 
-  //Close menu
+  //Close menu why isn't this working
   game.menuClose.on('pointerdown', function (pointer) {
     game.menu.visible = false;
   });

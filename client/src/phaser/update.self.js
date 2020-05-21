@@ -35,21 +35,19 @@ const updateSelf = game => {
   });
 
   //TODO: Fix animations so that sprite always stops at standing frame
-
   if (game.keyA.isDown) {
-    //game.menu.visible = true;
     game.container.body.setVelocityX(-velocity);
     game.isMoving = true;
     game.isMovingX = true;
     game.player.anims.play('walkLeft-' + game.playerSprite, true);
-
+    game.standFrame = 4
     game.doUpdate = true
   } else if (game.keyD.isDown) {
     game.container.body.setVelocityX(velocity);
     game.isMovingX = true;
     game.isMoving = true;
     game.player.anims.play('walkRight-' + game.playerSprite, true);
-
+    game.standFrame = 8
     game.doUpdate = true
   }
 
@@ -58,6 +56,7 @@ const updateSelf = game => {
     game.isMoving = true;
     if (!game.isMovingX) {
       game.player.anims.play('walkUp-' + game.playerSprite, true);
+      game.standFrame = 12
     }
 
     game.doUpdate = true
@@ -66,13 +65,14 @@ const updateSelf = game => {
     game.isMoving = true;
     if (!game.isMovingX) {
       game.player.anims.play('walkDown-' + game.playerSprite, true);
+      game.standFrame = 0
     }
 
     game.doUpdate = true
   }
   if(!game.isMoving){
     game.player.anims.stop(null, true);
-
+    game.player.setFrame(game.standFrame);
     game.doUpdate = false
   }
 

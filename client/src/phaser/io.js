@@ -89,7 +89,6 @@ const addPlayer = (player, game) => {
 
   //game.player.setCollideWorldBounds(true);
   newplayer.setOrigin(0.5, 0.5);
-  newplayer.depth = 1000;
 
   //Player text shows name and college, follows player
   var playerStyle = {
@@ -108,7 +107,8 @@ const addPlayer = (player, game) => {
   container.setSize(64, 64);
   game.physics.world.enable(container);
   container.body.setCollideWorldBounds(true);
-
+  container.depth = 1000
+  container.bringToTop(newPlayerText);
   game.players[playerId] = container
 }
 

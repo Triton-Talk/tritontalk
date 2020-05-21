@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 
 const createPlayer = game => {
   //Set player position
-  game.player = game.physics.add.sprite(0, 0, 'tritondude');
+  game.player = game.physics.add.sprite(0, -5, 'tritondude');
   game.playerSprite = 'tritondude';
   game.player.setOrigin(0.5, 0.5);
 
@@ -170,6 +170,8 @@ const createPlayer = game => {
   game.container.setSize(30, 30);
   game.physics.world.enable(game.container);
   game.container.body.setCollideWorldBounds(true);
+  game.container.depth = 1000
+  game.container.bringToTop(game.playerText);
 
   game.clickCount = 0
   game.input.on('gameobjectdown', console.log)
