@@ -23,15 +23,15 @@ const startGameServer = (httpServer, data) => {
 
       // Emit the update-players method in the client side
       socket.emit('current-players', players)
-      /*
       socket.emit('current-rooms', booths)
       console.log('current-rooms', booths)
-      */
 
+      /*
       axios.get('http://localhost:3001/api/room/getAll', {data: {'admin': true}}).then(response => {
         socket.emit('current-rooms', response.data)
         console.log('current-rooms', response.data)
       })
+      */
 
       socket.broadcast.emit('new-player', data)
     })
