@@ -1,5 +1,9 @@
+const axios = require('axios')
+
 const startGameServer = (httpServer, data) => {
   const {booths} = data
+
+  console.log('instantiating game server with', booths)
 
   const phaser = require('socket.io')(httpServer);
 
@@ -14,14 +18,21 @@ const startGameServer = (httpServer, data) => {
 
     // When a player connects
     socket.on('new-player', data => {
-      console.log('New player joined with state:', data)
       players[socket.id] = data
       data.playerId = socket.id
 
       // Emit the update-players method in the client side
       socket.emit('current-players', players)
+      /*
       socket.emit('current-rooms', booths)
       console.log('current-rooms', booths)
+      */
+
+      axios.get('http://localhost:3001/api/room/getAll', {data: {'admin': true}}).then(response => {
+        socket.emit('current-rooms', response.data)
+        console.log('current-rooms', response.data)
+      })
+
       socket.broadcast.emit('new-player', data)
     })
 

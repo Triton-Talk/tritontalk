@@ -19,11 +19,11 @@ const clubSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  booth_image: {
-    type: Buffer,
+  booth: {
+    type: String,
   },
   flyer: {
-    type: Buffer,
+    type: String,
   },
   meeting_times: [ meetingTimeSchema ], 
   authorized_users: [{

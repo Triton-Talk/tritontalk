@@ -6,6 +6,10 @@ const router = new express.Router();
 
 // PREPROCESSOR FOR ALL API ROUTES
 router.use('/api/*', async (req, res, next) => {
+  console.log('\n\n'+req.get('host'))
+  if(req.body.admin)
+    return next()
+
   if(req.cookies.sessionCookie){
     try{
       const sessionCookie = req.cookies.sessionCookie || '';

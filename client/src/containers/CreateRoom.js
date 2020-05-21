@@ -13,8 +13,7 @@ const CreateRoom = () => {
 
   if(clubs.length === 0){
     request('/api/user/me', {method: 'GET'}).then(res => {
-      console.log(res)
-      _setClubs(res.clubs.map(e => e.name))
+      _setClubs(res.clubs)
       _setClubName(res.clubs[0].name)
     })
   }
@@ -22,23 +21,31 @@ const CreateRoom = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const room = {name : clubName}
-    console.log('requesting', room)
-    request('/api/room/createForClub', {body: {room}, method: 'POST'})
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    const club = clubs[clubs.findIndex(e => e.name === clubName)]
+
+    const options = {
+      body: {room, club},
+      method: 'POST'
+    }
+
+    request('/api/room/createForClub', options).then(res => console.log(res)).catch(err => console.log(err))
   }
 
   const handleReset = (e) => {
     e.preventDefault()
-    request('/api/room/delete', {body: {name: clubName}, method: 'DELETE'})
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+
+    const options = {
+      body: {name: clubName},
+      method: 'DELETE'
+    }
+
+    request('/api/room/delete', options).then(res => console.log(res)).catch(err => console.log(err))
   }
 
-  console.log(clubName)
   return (
     <Form onSubmit={handleSubmit} onReset={handleReset}>
-      <SelectOneThing label='Club' options={clubs} value={clubName} onChange={e => _setClubName(e.target.value)} />
+      <SelectOneThing label='Club' options={clubs.map(e => e.name)} value={clubName} 
+                      onChange={e => _setClubName(e.target.value)} />
       <Button type='submit'>Make a Booth</Button>
       <Button type='reset'>Delete Booth</Button>
     </Form>

@@ -18,7 +18,7 @@ router.get('/get', async (req, res) => {
 
 // READ
 router.get('/getAll', async (req, res) => {
-  const rooms = await Room.find({})
+  const rooms = await Room.find({}).populate('club')
 
   if(!rooms)
     return res.status(404).send('There are no rooms!')
@@ -47,7 +47,7 @@ router.post('/create', async (req, res) => {
 
   await room.save()
 
-  //req.app.locals.booths[room.name] = room
+  req.app.locals.booths.push(room)
   res.status(200).send(room)
 
 });
@@ -63,20 +63,18 @@ router.post('/createForClub', async (req, res) => {
   for(let booth in req.app.locals.booths){ 
     array[req.app.locals.booths[booth].index] = 1
   }
-  
-  console.log(array)
 
   room.index = array.lastIndexOf(0)
-
-  console.log(room)
 
   if(room.index === -1)
     return res.status(404).send('Failed to create booth')
 
   await room.save()
 
+  await room.execPopulate('club')
+
   req.app.locals.booths.push(room)
-  console.log(req.app.locals.booths, room.index)
+  console.log(req.app.locals.booths)
   req.app.locals.phaser.emit('new-room', room)
 
   res.status(200).send(room)
@@ -106,7 +104,7 @@ router.delete('/delete', async (req, res) => {
 
   req.app.locals.phaser.emit('delete-room', result.index)
 
-  req.app.locals.booths = req.app.locals.booths.filter( element => element.name !== result.name)
+  req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== result.name), 1)
   console.log(req.app.locals.booths)
   await result.remove()
 

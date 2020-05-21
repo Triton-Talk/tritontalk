@@ -10,6 +10,8 @@ const createSocket = game => {
   game.playerData = null
   game.player_updates = []
   game.players = {}
+  
+  game.booth_list = {}
 
   //communicate our current state on instantiation
   game.socket.on('ready', () => {
@@ -50,11 +52,14 @@ const createSocket = game => {
   game.socket.on('current-rooms', (data) => {
     for(let boothId in data){
       addBooth(data[boothId], game)
+      game.booth_list[data[boothId].index] = data
     }
   })
 
   game.socket.on('new-room', data => {
+    console.log(data)
     addBooth(data, game)
+    game.booth_list[data.index] = data
   })
 
   game.socket.on('delete-room', index => {
@@ -66,6 +71,8 @@ const createSocket = game => {
     game.booths[index].list[2].displayHeight = 150;
 
     game.booths[index].list[0].text = 'No Club yet';
+
+    delete game.booth_list[index]
   })
 }
 
@@ -126,7 +133,7 @@ const addBooth = async (data, game) => {
       game.booths[data.index].list[2].displayWidth = 150;
       game.booths[data.index].list[2].displayHeight = 150;
 
-      game.booths[data.index].list[0].text = data.name
+      game.booths[data.index].list[1].text = data.name
     }, this);
 
     game.load.start();

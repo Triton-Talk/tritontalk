@@ -65,42 +65,29 @@ const RegisterOrganization  = () =>  {
     _setClub(c)
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     
     event.preventDefault()
-    
-    if(club.booth){
 
-      //lets not overwrite
-      storage.ref().child('/booth_'+club.name+'.jpg').getDownloadURL().catch(error => {
-        if(error.code === 'storage.object-not-found'){
-          //upload the file now!
-          const ref = storage.ref().child('/booth_' + club.name +'.jpg')
-          ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
-          club.booth = `/booth_${club.name}.jpg`
-        }
-      })
+    request('/api/club/get', { body: {name: club.name}, method: 'GET'}).catch(error => {
+      
+      if(club.booth){
+        const ref = storage.ref().child('/booth_' + club.name +'.jpg')
+        ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+        club.booth = `/booth_${club.name}.jpg`
+      }
 
-    }
+      if(club.flyer){
+        const ref = storage.ref().child('/flyer_' + club.name +'.jpg')
+        ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+        club.flyer = `/flyer_${club.name}.jpg`
+      }
 
-    if(club.flyer){
-      storage.ref().child('/flyer_'+club.name+'.jpg').getDownloadURL().catch(error => {
-        if(error.code === 'storage.object-not-found'){
-          const ref = storage.ref().child('/flyer_' + club.name +'.jpg')
-          ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
-          club.flyer = `/flyer_${club.name}.jpg`
-        }
-      })
-    }
+      const body = {club}
+      console.log(body)
 
-    const body = {club}
-
-    event.preventDefault()
-    request('/api/club/create', { body, method: 'POST'})
-    .then(response => {
-      setClub(response); 
+      request('/api/club/create', { body, method: 'POST'}).then(response => setClub(response))
     })
-    .catch(err => console.log(err)) 
   }
 
   return (
