@@ -1,5 +1,3 @@
-import Phaser from 'phaser';
-
 
 const createWalls = game => {
   //Generate walls around the library walk

@@ -1,7 +1,7 @@
 import React from 'react'
 import Phaser from 'phaser'
 import PhaserScene from '../phaser/PhaserScene.js'
-import { Form, Button, Col, Image, Modal} from 'react-bootstrap'
+import { Modal} from 'react-bootstrap'
 
 import Auth from '../utils/auth'
 
@@ -10,8 +10,6 @@ let game = undefined
 const LibraryWalk  = (props) => {
   const { user } = React.useContext(Auth)
   console.log(user)
-
-  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
 
@@ -39,7 +37,7 @@ const LibraryWalk  = (props) => {
 
   if(!user)
     return (
-      <Modal show={true} onHide={() => setLoading(false)} centered> 
+      <Modal show={true} centered> 
 	<Modal.Header closeButton>
             <Modal.Title>Loading the app....</Modal.Title>
 	</Modal.Header>

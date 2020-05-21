@@ -1,12 +1,7 @@
-import Phaser from 'phaser';
-
 import createPlayer from './create.player.js'
 import createWalk from './create.walk.js'
 import createWalls from './create.walls.js'
 import createSocket from './io.js'
-
-const URL = process.env.NODE_ENV === 'production' || process.env.REACT_APP_VARIABLE === 'docker' ? 
-            '' : 'http://localhost:3001'
 
 const create = game => {
 
