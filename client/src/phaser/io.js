@@ -52,7 +52,7 @@ const createSocket = game => {
   game.socket.on('current-rooms', (data) => {
     for(let boothId in data){
       addBooth(data[boothId], game)
-      game.booth_list[data[boothId].index] = data
+      game.booth_list[data[boothId].index] = data[boothId]
     }
   })
 
