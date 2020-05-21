@@ -36,7 +36,7 @@ const createWalk = game => {
     var topImage = game.physics.add.sprite(0, -150, 'transparent');
     
 
-    game.booths[2 * i] = game.add.container(game.boothWidth*i + 75, -50, [topText, topTable, topImage]);
+    game.booths[2 * i] = game.add.container(game.boothWidth*i + 75, -50, [topTable, topText, topImage]);
     var botText = game.add.text(0, 55, 'No Club yet', textStyle);
     botText.setOrigin(0.5, 0.5);
     var botTable = game.physics.add.sprite(0, 0, 'table');
