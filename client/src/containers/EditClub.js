@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Button, Col, Modal } from 'react-bootstrap';
-
 import request from '../utils/request'
 import {storage} from '../utils/firebase'
 
