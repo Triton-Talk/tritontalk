@@ -8,7 +8,7 @@ import request from '../utils/request'
 
 import majorDepartments from '../data/majorDepartments'
 
-import {SelectOneThing, SelectManyThings} from '../components/SelectOneThing';
+import {SelectOneThing} from '../components/SelectOneThing';
 
 const Settings = () => {
 
@@ -68,8 +68,6 @@ const Settings = () => {
 
   const years = ["Select One...", "First year", "Second year", "Third year", "Fourth year"]
 
-  const clubs = ["Select One...", "IEEE", "..."]
-
   return (
     <div>
       <hr />
@@ -112,18 +110,6 @@ const Settings = () => {
               <Form.Label>Hobbies</Form.Label>
               <Form.Control size="lg" as="textarea" rows="3" value={localUser.hobbies}
                 onChange={(e) => updateLocalUser({ ...localUser, hobbies: e.target.value })} />
-            </Form.Group>
-
-            <Form.Group controlId="settings.Clubs">
-              <SelectManyThings controlId="settings.Clubs"
-                label={
-                  <>
-                    <span>Clubs</span>
-                    <Button style={{ margin: "10px" }} className="btn-warning">Add More Clubs</Button>
-                  </>
-                }
-                options={clubs} value={localUser.clubs}
-                onChange={(e) => updateLocalUser({ ...localUser, clubs: [...localUser.clubs, e.target.value] })}/>
             </Form.Group>
 
             <Form.Group controlId="settings.Bio">

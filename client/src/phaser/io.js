@@ -128,7 +128,7 @@ const addBooth = async (data, game) => {
     game.load.image('booth_image' + data.name, url);
 
     game.load.once('complete', () => {
-      console.log("finished loading image")
+      //console.log("finished loading image")
       game.booths[data.index].list[2].setTexture('booth_image' + data.name)
       game.booths[data.index].list[2].displayWidth = 150;
       game.booths[data.index].list[2].displayHeight = 150;

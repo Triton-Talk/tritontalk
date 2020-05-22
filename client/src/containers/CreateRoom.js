@@ -14,7 +14,11 @@ const CreateRoom = () => {
   if(clubs.length === 0){
     request('/api/user/me', {method: 'GET'}).then(res => {
       _setClubs(res.clubs)
-      _setClubName(res.clubs[0].name)
+      if (res.clubs[0]) {
+        _setClubName(res.clubs[0].name)
+      } else {
+        _setClubName("Create a Club First!")
+      }
     })
   }
 

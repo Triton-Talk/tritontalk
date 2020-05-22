@@ -63,7 +63,7 @@ export const AuthProvider = (props) => {
       }
     }).catch(error => {
       console.log(error)
-      alert(error)
+      history.push('/')
     })
   }, [history, location])
 

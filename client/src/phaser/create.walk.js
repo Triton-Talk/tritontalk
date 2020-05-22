@@ -30,14 +30,14 @@ const createWalk = game => {
       align: 'center'
     };
   
-    var topText = game.add.text(0, -50, 'No Club yet', textStyle);
+    var topText = game.add.text(0, -50, '', textStyle);
     topText.setOrigin(0.5, 0.5);
     var topTable = game.physics.add.sprite(0, 0, 'table');
     var topImage = game.physics.add.sprite(0, -150, 'transparent');
     
 
     game.booths[2 * i] = game.add.container(game.boothWidth*i + 75, -50, [topTable, topText, topImage]);
-    var botText = game.add.text(0, 55, 'No Club yet', textStyle);
+    var botText = game.add.text(0, 55, '', textStyle);
     botText.setOrigin(0.5, 0.5);
     var botTable = game.physics.add.sprite(0, 0, 'table');
     var botImage = game.physics.add.sprite(0, 150, 'transparent');

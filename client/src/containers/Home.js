@@ -4,8 +4,11 @@ import '../styles/App.css';
 import VideoChat from './VideoChat';
 import Chat from './Chat';
 //import Footer from '../components/footer';
+import {useLocation} from 'react-router-dom'
 
 const Home = () => {
+
+  const location = useLocation()
 
   const homeStyle = {
     background: 'linear-gradient(180deg, rgba(23,40,74, 1) 5%, rgba(23,40,74, .8) 30%,rgba(0,0,0, .9) 60%), url(https://i.imgur.com/a0XP0R0.png)',
@@ -19,7 +22,8 @@ const Home = () => {
   var PAGE = "HOME";
   var body;
   if (PAGE === "HOME") {
-    body = <VideoChat />;
+    console.log(location.state.name)
+    body = <VideoChat roomName={location.state.name}/>;
   } else {
     body = <Chat />;
   }

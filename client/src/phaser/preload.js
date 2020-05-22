@@ -2,12 +2,12 @@ const preload = game => {
   var progressBar = game.add.graphics();
   var progressBox = game.add.graphics();
   progressBox.fillStyle(0x222222, 0.8);
-  progressBox.fillRect(240, 270, 320, 50);
+  progressBox.fillRect(game.cameras.main.centerX-160, game.cameras.main.centerY-25, 320, 50);
 
   game.load.on('progress', function (value) {
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillRect(game.cameras.main.centerX-150, game.cameras.main.centerY-15, 300 * value, 30);
   });
 
   game.load.on('complete', function () {

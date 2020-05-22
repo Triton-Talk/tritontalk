@@ -1,22 +1,43 @@
 import React from 'react'
 import Phaser from 'phaser'
 import PhaserScene from '../phaser/PhaserScene.js'
-import { Modal} from 'react-bootstrap'
+import Cookies from 'universal-cookie'
+import { useHistory } from 'react-router-dom'
 
 import Auth from '../utils/auth'
 
 let game = undefined
 
+const cookies = new Cookies()
+let shouldKillAlert = cookies.get('killAlert')
 const LibraryWalk  = (props) => {
+
+  const history = useHistory()
+
   const { user } = React.useContext(Auth)
-  console.log(user)
+  //console.log(user)
+
+  const killAlert = () => {
+    console.log("THIS WILL KILL THE ALERT")
+    cookies.set('killAlert', true)
+  }
+
+  const joinRoom = (name) => {
+    console.log("I SHOULD JOIN A CALL FOR " + name)
+    history.push({pathname: "/lobby", state: {name: name}})
+    //return (<Redirect to={{pathname: "/lobby", state: {name: {name}}}}/>)
+  }
 
   React.useEffect(() => {
+    document.getElementById("root").style.backgroundColor = 'black'
+
 
     if(!user)
       return undefined
 
-    game = new PhaserScene(user)
+    
+
+    game = new PhaserScene(user, joinRoom, killAlert, shouldKillAlert)
     config.scene = game
     const PhaserGame = new Phaser.Game(config)
 
@@ -32,17 +53,10 @@ const LibraryWalk  = (props) => {
       PhaserGame.destroy(true); 
       console.log('destroyed')
       window.removeEventListener('resize', handleResize)
+      document.getElementById("root").style.backgroundColor = 'white'
     }
   })
 
-  if(!user)
-    return (
-      <Modal show={true} centered> 
-	<Modal.Header closeButton>
-            <Modal.Title>Loading the app....</Modal.Title>
-	</Modal.Header>
-      </Modal>
-      )
 
   const config = {
     scale: {

@@ -13,17 +13,18 @@ import RandomCall from './RandomCall';
 import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
-import CreateRoom from './CreateRoom.js';
+import CreateRoom from './CreateRoom';
+import EditClub from './EditClub'
 
 import MyClubs from './MyClubs'
 import { AuthProvider } from '../utils/auth';
 
-const Router = () => {
+const Router = () => {  
 
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div className="app" id="main-component">
+        <div className="app" id="main-component" >
           <Navbar />
           <Switch>
             <Route path="/" exact component={SplashPage} />
@@ -36,6 +37,7 @@ const Router = () => {
             <Route path="/newuser" exact component={RegisterUser} />
             <Route path="/newbooth" exact component={CreateRoom} />
             <Route path="/myclubs" exact component={MyClubs} />
+            <Route path="/editclub" exact component={EditClub}/>
           </Switch>
         </div >
       </AuthProvider>

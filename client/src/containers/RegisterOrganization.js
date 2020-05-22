@@ -1,62 +1,9 @@
 import React from 'react'
 import { Form, Button, Col } from 'react-bootstrap';
-import Autocomplete from '../components/Autocomplete'
 
 import request from '../utils/request'
 import {storage} from '../utils/firebase'
 
-const states = [
-  "Alabama",
-  "Alaska",
-  "Arizona",
-  "Arkansas",
-  "California",
-  "Colorado",
-  "Connecticut",
-  "Delaware",
-  "Florida",
-  "Georgia",
-  "Hawaii",
-  "Idaho",
-  "Illnois",
-  "Indiana",
-  "Iowa",
-  "Kansas",
-  "Kentucky",
-  "Louisiana",
-  "Maine",
-  "Maryland",
-  "Massachusetts",
-  "Michigan",
-  "Minnesota",
-  "Mississippi",
-  "Missouri",
-  "Montana",
-  "Nebraska",
-  "Nevada",
-  "New Hampshire",
-  "New Jersey",
-  "New Mexico",
-  "New York",
-  "North Carolina",
-  "North Dakota",
-  "Ohio",
-  "Oklahoma",
-  "Oregon",
-  "Pennsylvania",
-  "Rhode Island",
-  "South Carolina",
-  "South Dakota",
-  "Tennessee",
-  "Texas",
-  "Utah",
-  "Vermont",
-  "Virginia",
-  "Washington",
-  "West Virginia",
-  "Wisconsin",
-  "Wyoming"
-];
 const RegisterOrganization  = () =>  {
   
   const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
@@ -108,7 +55,7 @@ const RegisterOrganization  = () =>  {
             <Form.File id="formcheck-api-custom" custom>
               <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files})}/>
               <Form.File.Label> 
-                Booth Image
+                Booth Image (150px x 150px recommended)
               </Form.File.Label>
             </Form.File>
           </Form.Group>
@@ -123,22 +70,10 @@ const RegisterOrganization  = () =>  {
             </Form.File>
           </Form.Group>
         </Form.Row>
-
         <Form.Group controlId="description">
           <Form.Label>Organization Description</Form.Label>
           <Form.Control size="lg" as="textarea" rows="3" placeholder="What does your organization do" 
           value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} />
-        </Form.Group>
-
-        <Form.Label>Add Members</Form.Label>
-        <Button style={{ marginLeft: "8px", marginBottom: "8px" }} variant="warning">
-          Add more Members
-        </Button>
-        <Form.Group><Autocomplete suggestions={states} /></Form.Group>
-
-        <Form.Group id="formGridCheckbox">
-          <Form.Check type="switch" id="custom-switch"
-            label="Make my Organization Public to Library Walk" />
         </Form.Group>
 
         <div style={{display:'flex', justifyContent: 'space-evenly'}}>
