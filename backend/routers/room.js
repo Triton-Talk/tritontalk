@@ -1,6 +1,7 @@
 const express = require('express');
 
 const User = require('../models/User')
+const Club = require('../models/Club')
 const Room = require('../models/Room')
 
 const router = new express.Router();
@@ -8,7 +9,7 @@ const router = new express.Router();
 router.get('/get', async (req, res) => {
   const query = {name: req.body.name}
 
-  const room = await Room.findOne(query)
+  const room = await Room.findOne(query).populate('club')
 
   if(!room)
     return res.status(404).send('Failed to find a room with that name')
@@ -56,12 +57,15 @@ router.post('/createForClub', async (req, res) => {
 
   const room = new Room(req.body.room)
 
-  room.authorized_users.push(req.user)
-  room.club = req.body.club
+  room.creator = req.user
+
+  room.club = await Club.findOne({name: req.body.club.name})
+  room.club['room'] = room.id
 
   const array = Array(20).fill(0)
-  for(let booth in req.app.locals.booths){ 
-    array[req.app.locals.booths[booth].index] = 1
+  const booths = await Room.find({})
+  for(let booth in booths){ 
+    array[booths[booth].index] = 1
   }
 
   room.index = array.lastIndexOf(0)
@@ -69,6 +73,7 @@ router.post('/createForClub', async (req, res) => {
   if(room.index === -1)
     return res.status(404).send('Failed to create booth')
 
+  await room.club.save()
   await room.save()
 
   await room.execPopulate('club')
@@ -95,18 +100,22 @@ router.put('/update', async (req, res) => {
 
 router.delete('/delete', async (req, res) => {
 
-  const query = {name: req.body.name, authorized_users: req.user}
+  const query = {name: req.body.name, creator: req.user}
 
-  const result = await Room.findOne(query)
+  const room = await Room.findOne(query).populate('club')
+  
+  room.club['room'] = null
 
-  if(!result)
+  if(!room)
     return res.status(404).send('Failed to delete room')
 
-  req.app.locals.phaser.emit('delete-room', result.index)
+  req.app.locals.phaser.emit('delete-room', room.index)
 
-  req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== result.name), 1)
+  req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== room.name), 1)
   console.log(req.app.locals.booths)
-  await result.remove()
+
+  await room.club.save()
+  await room.remove()
 
   return res.status(200).send({summary: 'Room deleted'})
 })

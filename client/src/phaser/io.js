@@ -70,7 +70,7 @@ const createSocket = game => {
     game.booths[index].list[2].displayWidth = 150;
     game.booths[index].list[2].displayHeight = 150;
 
-    game.booths[index].list[0].text = 'No Club yet';
+    game.booths[index].list[1].text = '';
 
     delete game.booth_list[index]
   })

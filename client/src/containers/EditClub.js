@@ -3,12 +3,14 @@ import { Form, Button, Col, Modal } from 'react-bootstrap';
 import request from '../utils/request'
 import {storage} from '../utils/firebase'
 
+import {useHistory} from 'react-router-dom'
+
 const EditClub = (props) =>  {
 
-  console.log(props.location)
-  
-  const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
+  const [club, _setClub] = React.useState(props.location.state)
   const [modal, setModal] = React.useState(false)
+
+  const history = useHistory()
 
   const setClub = (c) => {
     _setClub(c)
@@ -49,10 +51,12 @@ const EditClub = (props) =>  {
 
   const handleDelete = event => {
     
-    const options = {body: {club}, method: 'DELETE'}
+    const options = {body: {name: club.name}, method: 'DELETE'}
+    console.log(club)
     
     request('/api/club/delete', options).then(res => {
       console.log(res)
+      history.push('/myclubs')      
     }).catch(error => {
       console.log(error)
       setModal('failure')
@@ -65,12 +69,12 @@ const EditClub = (props) =>  {
     
     <div>
       <br></br>
-      <Form onSubmit={handleSubmit} style={{ maxWidth: "95%" }}>
+      <Form onSubmit={handleSubmit} onReset={handleReset} style={{ maxWidth: "95%" }}>
         <Form.Row>
           <Form.Group as={Col} controlId="name">
             <Form.Label>Name</Form.Label>
-            <Form.Control size="lg" type="name" placeholder="Organization Name" 
-                          value={club.name} onChange={e => setClub({...club, name:e.target.value})}/>
+            <Form.Control size="lg" type="name" placeholder={club.name} 
+                          onChange={e => setClub({...club, name:e.target.value})} disabled/>
           </Form.Group>
         </Form.Row>
 

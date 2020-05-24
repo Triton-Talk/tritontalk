@@ -23,6 +23,8 @@ const RegisterOrganization  = () =>  {
         ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
         club.booth = `/booth_${club.name}.jpg`
       }
+      else
+        club.booth = '/default.jpg'
 
       if(club.flyer){
         const ref = storage.ref().child('/flyer_' + club.name +'.jpg')

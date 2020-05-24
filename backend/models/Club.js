@@ -22,14 +22,15 @@ const clubSchema = new mongoose.Schema({
   booth: {
     type: String,
   },
-  flyer: {
-    type: String,
-  },
   meeting_times: [ meetingTimeSchema ], 
-  authorized_users: [{
+  creator: {
     type: ObjectId, 
     ref: 'User'
-  }]
+  },
+  room: {
+    type: ObjectId,
+    ref: 'Room'
+  }
 }, {collection: 'Clubs'})
 
 const Club = mongoose.model('Club', clubSchema)

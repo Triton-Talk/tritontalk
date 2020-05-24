@@ -42,23 +42,27 @@ router.use(async (req, res, next) => {
 
 router.post('/create', async (req, res) => {
   
-  console.log(req.body.club)
-
   const club = new Club( req.body.club )
-
-  club.authorized_users.push(req.user)
+  club.creator = req.user
+  club.room = undefined
   
-  await club.save()
-  req.user.clubs.push(club)
-  await req.user.save()
+  try{
+    await club.save()
 
-  res.status(200).send(club)
+    req.user.clubs.push(club)
+    await req.user.save()
+
+    res.status(200).send(club)
+  }
+  catch(err){
+    console.log(err)
+  }
 
 });
 
 router.put('/update', async (req, res) => {
 
-  const query = {name: req.body.name, authorized_users: req.user}
+  const query = {name: req.body.name, creator: req.user}
 
   const club = await Club.findOneAndUpdate(query, req.body.club, {new: true})
 
@@ -71,9 +75,11 @@ router.put('/update', async (req, res) => {
 
 router.delete('/delete', async (req, res) => {
 
-  const query = {name: req.body.name, authorized_users: req.user}
+  const query = {name: req.body.name, creator: req.user}
+  console.log(query)
 
   const result = await Club.deleteOne(query)
+  console.log(result);
 
   if(result.deletedCount !== 1)
     return res.status(404).send('Failed to delete club')
