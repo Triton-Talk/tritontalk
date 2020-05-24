@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         throw new Error('Email is invalid')
     }
   },
+  sprite: {
+    type: String,
+    default: 'tritondude'
+  },
   picture: {
     type: String,
     default: ''

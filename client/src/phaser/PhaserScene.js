@@ -12,6 +12,7 @@ class PhaserScene extends Phaser.Scene {
     // create identifier for class scene
     super({ key: 'phaserScene' });
 
+    this.user = user;
     this.name = user.name
     this.college = user.college
 

@@ -1,31 +1,40 @@
+import request from '../utils/request'
+
 const updateSelf = game => {
 
   game.container.body.velocity.set(0, 0);
   game.isMoving = false;
   game.isMovingX = false;
   let velocity = 250;
+
+  const setSprite = sprite => {
+    game.player.setTexture(sprite)
+    game.user.sprite = sprite
+    
+    const options = {body : {user: game.user}, method: 'PUT'}
+
+    request('/api/user/update', options).catch(error => {
+      console.log(error)
+    })
+  }
+
   if(game.keyShift.isDown)
     velocity *= 2
 
   if(game.key1.isDown) {
-    game.player.setTexture('tritondude');
-    game.playerSprite = 'tritondude';
+    setSprite('tritondude')
   }
   if(game.key2.isDown) {
-    game.player.setTexture('sungod');
-    game.playerSprite = 'sungod';
+    setSprite('sungod')
   }
   if(game.key3.isDown) {
-    game.player.setTexture('queen');
-    game.playerSprite = 'queen';
+    setSprite('queen')
   }
   if(game.key4.isDown) {
-    game.player.setTexture('neptune');
-    game.playerSprite = 'neptune';
+    setSprite('neptune')
   }
   if(game.key5.isDown) {
-    game.player.setTexture('pokeman');
-    game.playerSprite = 'pokeman';
+    setSprite('pokeman')
   }
 
   //Reset player position to Geisel
@@ -39,14 +48,14 @@ const updateSelf = game => {
     game.container.body.setVelocityX(-velocity);
     game.isMoving = true;
     game.isMovingX = true;
-    game.player.anims.play('walkLeft-' + game.playerSprite, true);
+    game.player.anims.play('walkLeft-' + game.user.sprite, true);
     game.standFrame = 4
     game.doUpdate = true
   } else if (game.keyD.isDown) {
     game.container.body.setVelocityX(velocity);
     game.isMovingX = true;
     game.isMoving = true;
-    game.player.anims.play('walkRight-' + game.playerSprite, true);
+    game.player.anims.play('walkRight-' + game.user.sprite, true);
     game.standFrame = 8
     game.doUpdate = true
   }
@@ -55,7 +64,7 @@ const updateSelf = game => {
     game.container.body.setVelocityY(-velocity);
     game.isMoving = true;
     if (!game.isMovingX) {
-      game.player.anims.play('walkUp-' + game.playerSprite, true);
+      game.player.anims.play('walkUp-' + game.user.sprite, true);
       game.standFrame = 12
     }
 
@@ -64,7 +73,7 @@ const updateSelf = game => {
     game.container.body.setVelocityY(velocity);
     game.isMoving = true;
     if (!game.isMovingX) {
-      game.player.anims.play('walkDown-' + game.playerSprite, true);
+      game.player.anims.play('walkDown-' + game.user.sprite, true);
       game.standFrame = 0
     }
 
@@ -83,7 +92,7 @@ const updateSelf = game => {
       y: game.container.y,
       vx: game.container.body.velocity.x,
       vy: game.container.body.velocity.y,
-      sprite: game.playerSprite,
+      sprite: game.user.sprite,
       playerId: game.socket.id
     });
 }

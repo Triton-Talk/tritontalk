@@ -21,7 +21,7 @@ const createSocket = game => {
       vx: 0,
       vy: 0,
       playerId: game.socket.id,
-      sprite: game.playerSprite, 
+      sprite: game.user.sprite, 
       name: game.name,
       college: game.college
     });

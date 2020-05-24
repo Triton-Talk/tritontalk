@@ -1,9 +1,10 @@
 import Phaser from 'phaser'
 
 const createPlayer = game => {
+
   //Set player position
-  game.player = game.physics.add.sprite(0, -5, 'tritondude');
-  game.playerSprite = 'tritondude';
+  game.player = game.physics.add.sprite(0, -5, game.user.sprite);
+  game.user.sprite = game.user.sprite;
   game.player.setOrigin(0.5, 0.5);
 
   //Player sprite's animated walk cycles for each direction

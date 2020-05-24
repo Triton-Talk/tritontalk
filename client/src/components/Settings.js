@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Form, Button, Col, Image, Modal} from 'react-bootstrap'
 
 import Auth from '../utils/auth'
@@ -8,7 +8,7 @@ import request from '../utils/request'
 
 import majorDepartments from '../data/majorDepartments'
 
-import {SelectOneThing} from '../components/SelectOneThing';
+import {SelectOneThing} from '../components/SelectOneThing'
 
 const Settings = () => {
 
