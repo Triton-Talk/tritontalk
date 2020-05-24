@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card,Button, Modal} from 'react-bootstrap'
+import {Card, Button, Modal, Spinner} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import  "../styles/MyClubs.css"
 
@@ -8,8 +8,11 @@ import {storage} from '../utils/firebase'
 
 const ClubOwnerCard = ({club}) =>{
 
+  const image = React.createRef()
+
   const [url, setUrl] = React.useState(null)
   const [modal, setModal] = React.useState(false)
+  const [load, setLoad] = React.useState(false)
 
   storage.ref(club.booth).getDownloadURL().then(url =>{
     setUrl(url)
@@ -48,13 +51,24 @@ const ClubOwnerCard = ({club}) =>{
     })
   }
 
+  React.useEffect(() => {
+    if(image && image.complete)
+      setLoad(true)
+  }, [])
+
   return(
     <>
       <Card style={{ width: '300px', margin: '30px' }}>
         <Card.Body className="justify content-end">
 
           <div style={{position:"center",textAlign:"center"}}>
-            <img src={url} alt='club-flyer' style={{margin: '10px', width:"160px",height:"160px"}}/>
+            <img src={url} ref={image} onLoad={() => console.log('loaded', setLoad(true), load)} alt='Flyer' 
+                 style={{margin: '10px', width:"160px",height:"160px", display: load ? 'inline' : 'none'}}/>
+            {
+              load ? 
+              null : 
+              <Spinner animation='border' style={{margin: '10px', width: '160px', height:'160px'}}/>
+            }
           </div>
 
           <div className="text-center">

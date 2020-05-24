@@ -31,15 +31,16 @@ const LibraryWalk  = (props) => {
   React.useEffect(() => {
     document.getElementById("root").style.backgroundColor = 'black'
 
-
     if(!user)
       return undefined
 
-    
-
-    game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert)
-    config.scene = game
-    const PhaserGame = new Phaser.Game(config)
+    if(!game){
+      game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert)
+      config.scene = game
+      const PhaserGame = new Phaser.Game(config)
+    }
+    else
+      document.getElementsByTagName('canvas')[0].style.display='block'
 
     function handleResize() {
       game.scale.resize(window.innerWidth, 0.92 * window.innerHeight)
@@ -48,10 +49,7 @@ const LibraryWalk  = (props) => {
     window.addEventListener('resize', handleResize)
     
     return () => {
-      console.log(game); 
-      game.socket.disconnect(); 
-      PhaserGame.destroy(true); 
-      console.log('destroyed')
+      document.getElementsByTagName('canvas')[0].style.display='none'
       window.removeEventListener('resize', handleResize)
       document.getElementById("root").style.backgroundColor = 'white'
     }
