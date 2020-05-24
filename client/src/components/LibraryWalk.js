@@ -9,7 +9,7 @@ import Auth from '../utils/auth'
 let game = undefined
 
 const cookies = new Cookies()
-let shouldKillAlert = cookies.get('killAlert')
+let shouldKillAlert = cookies.get('killTutorial')
 const LibraryWalk  = (props) => {
 
   const history = useHistory()
@@ -17,9 +17,9 @@ const LibraryWalk  = (props) => {
   const { user } = React.useContext(Auth)
   //console.log(user)
 
-  const killAlert = () => {
-    console.log("THIS WILL KILL THE ALERT")
-    cookies.set('killAlert', true)
+  const killTutorial = () => {
+    console.log("THIS WILL KILL THE TUTORIAL")
+    cookies.set('killTutorial', true)
   }
 
   const joinRoom = (name) => {
@@ -37,7 +37,7 @@ const LibraryWalk  = (props) => {
 
     
 
-    game = new PhaserScene(user, joinRoom, killAlert, shouldKillAlert)
+    game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert)
     config.scene = game
     const PhaserGame = new Phaser.Game(config)
 
