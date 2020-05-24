@@ -27,12 +27,10 @@ const roomSchema = new mongoose.Schema({
     unique: true
   },
   chat_logs: [ chatSchema ],
-  authorized_users: [
-    {
-      type: ObjectId, 
-      ref: 'User'
-    }
-  ],
+  creator: {
+    type: ObjectId, 
+    ref: 'User'
+  },
   club: {
     type: ObjectId,
     ref: 'Club'
