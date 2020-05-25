@@ -66,5 +66,10 @@ const userSchema = new mongoose.Schema({
   }],
 }, {collection: 'Users'})
 
+userSchema.pre('remove', async function(){
+
+
+})
+
 const User = mongoose.model('User', userSchema)
 module.exports = User

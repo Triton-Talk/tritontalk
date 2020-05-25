@@ -43,17 +43,10 @@ router.use(async (req, res, next) => {
 router.post('/create', async (req, res) => {
   
   const club = new Club( req.body.club )
-  club.creator = req.user
-  club.room = undefined
+  club.creator = req.user.id
 
   try{
     await club.save()
-
-    req.user.clubs.push(club)
-    await req.user.save()
-
-    //avoid any circular dependencies
-    req.user.depopulate('clubs')
 
     res.status(200).send(club)
   }
@@ -79,14 +72,13 @@ router.put('/update', async (req, res) => {
 router.delete('/delete', async (req, res) => {
 
   const query = {name: req.body.name, creator: req.user}
-  console.log(query)
 
-  const result = await Club.deleteOne(query)
-  console.log(result);
+  const club = await Club.findOne(query)
 
-  if(result.deletedCount !== 1)
+  if(!club)
     return res.status(404).send('Failed to delete club')
 
+  await club.remove()
   return res.status(200).send({summary: 'Club deleted'})
 })
 

@@ -40,5 +40,35 @@ const roomSchema = new mongoose.Schema({
   }
 }, {collection: 'Rooms'})
 
+roomSchema.pre('save', async function(){
+  if(this.club)
+    this.club['room'] = this.id
+
+  const array = Array(20).fill(0)
+  const booths = await mongoose.models['Room'].find({})
+  for(let booth in booths){ 
+    array[booths[booth].index] = 1
+  }
+
+  this.index = array.lastIndexOf(0)
+
+  if(this.index === -1)
+    return 'Failed to create booth'
+
+  await this.club.save()
+  return
+})
+
+roomSchema.pre('remove', async function(){
+  console.log('removing room')
+
+  if(this.club){
+    const club = await mongoose.models['Club'].findById(this.club)
+    club['room'] = undefined
+    await club.save()
+  }
+
+})
+
 const Room = mongoose.model('Room', roomSchema)
 module.exports = Room

@@ -44,7 +44,7 @@ router.post('/create', async (req, res) => {
 
   const room = new Room(req.body.room)
 
-  room.creator = req.user
+  room.creator = req.user.id
 
   await room.save()
 
@@ -56,26 +56,10 @@ router.post('/create', async (req, res) => {
 router.post('/createForClub', async (req, res) => {
 
   const room = new Room(req.body.room)
-
-  room.creator = req.user
-
+  room.creator = req.user.id
   room.club = await Club.findOne({name: req.body.club.name})
-  room.club['room'] = room.id
 
-  const array = Array(20).fill(0)
-  const booths = await Room.find({})
-  for(let booth in booths){ 
-    array[booths[booth].index] = 1
-  }
-
-  room.index = array.lastIndexOf(0)
-
-  if(room.index === -1)
-    return res.status(404).send('Failed to create booth')
-
-  await room.club.save()
   await room.save()
-
   await room.execPopulate('club')
 
   req.app.locals.booths.push(room)
@@ -103,21 +87,15 @@ router.delete('/delete', async (req, res) => {
   const query = {name: req.body.name, creator: req.user}
 
   const room = await Room.findOne(query).populate('club')
-  
-  if(room.club){
-    room.club['room'] = null
-    await room.club.save()
-  }
 
   if(!room)
     return res.status(404).send('Failed to delete room')
 
-  req.app.locals.phaser.emit('delete-room', room.index)
+  await room.remove()
 
   req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== room.name), 1)
   console.log(req.app.locals.booths)
-
-  await room.remove()
+  req.app.locals.phaser.emit('delete-room', room.index)
 
   return res.status(200).send({summary: 'Room deleted'})
 })
