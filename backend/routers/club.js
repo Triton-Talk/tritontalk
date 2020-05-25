@@ -45,12 +45,15 @@ router.post('/create', async (req, res) => {
   const club = new Club( req.body.club )
   club.creator = req.user
   club.room = undefined
-  
+
   try{
     await club.save()
 
     req.user.clubs.push(club)
     await req.user.save()
+
+    //avoid any circular dependencies
+    req.user.depopulate('clubs')
 
     res.status(200).send(club)
   }

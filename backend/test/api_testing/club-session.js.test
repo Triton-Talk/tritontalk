@@ -2,7 +2,7 @@ module.exports = dependencies => {
 
   const {app, axios, chai} = dependencies
 
-  describe('Testing independent calls', function(){
+  describe('Testing cookie based session authentication calls', function(){
 
     before(async function(){
       this.timeout(10000)
@@ -52,9 +52,9 @@ module.exports = dependencies => {
         chai.expect(res).to.have.status(200);
 
         chai.expect(res.body.name).to.eql('Example Club')
-        chai.expect(res.body.authorized_users).to.have.lengthOf(1)
+        chai.expect(res.body.creator).to.exist
 
-        chai.expect(res.body.authorized_users[0].name).to.eql('Example User')
+        chai.expect(res.body.creator.name).to.eql('Example User')
 
         done()
       }).catch(function(error){
@@ -84,7 +84,7 @@ module.exports = dependencies => {
 
         chai.expect(res.body[0].name).to.eql('Example Club')
 
-        chai.expect(res.body[0].authorized_users).to.have.lengthOf(1)
+        chai.expect(res.body[0].creator).to.exist
 
         done()
       }).catch(function(error){
@@ -100,7 +100,7 @@ module.exports = dependencies => {
 
         chai.expect(res.body.name).to.eql(club.name)
 
-        chai.expect(res.body.authorized_users).to.have.lengthOf(1)
+        chai.expect(res.body.creator).to.exist
 
         done()
       }).catch(function(error){
