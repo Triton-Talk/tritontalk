@@ -67,8 +67,21 @@ const userSchema = new mongoose.Schema({
 }, {collection: 'Users'})
 
 userSchema.pre('remove', async function(){
+  for(const id of this.clubs){
+    console.log(id)
+    const club = await mongoose.models['Club'].findById(id)
+    if(!club)
+      continue
+    if(club.room)
+      await mongoose.models['Room'].deleteOne({_id: club.room})
+    await mongoose.models['Club'].deleteOne({_id: club.id})
+  }
 
-
+  for(const id of this.friends){
+    const friend = await mongoose.models['User'].findById(id)
+    friend.friends = friend.friends.filter(element => element.toString() !== this.id.toString())
+    friend.save()
+  }
 })
 
 const User = mongoose.model('User', userSchema)

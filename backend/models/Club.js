@@ -47,8 +47,6 @@ clubSchema.pre('remove', async function(){
 
   const creator = await mongoose.models['User'].findById(this.creator)
   const clubs = creator.clubs.filter(element => element.toString() !== this.id.toString())
-  clubs.forEach(element => console.log(element, element == this.id.toString()))
-  console.log('CREATOR!!!!!!', creator, clubs)
 
   creator.clubs = clubs
   await creator.save()

@@ -85,11 +85,12 @@ router.put('/update', async (req, res) => {
 router.delete('/delete', async (req, res) => {
   const query = {email: req.identity.email}
 
-  const result = await User.deleteOne(query)
+  const user = await User.findOne(query)
 
-  if(result.deletedCount !== 1)
+  if(!user)
     return res.status(404).send('Failed to delete user')
 
+  await user.remove()
   return res.status(200).send({summary: 'User deleted'})
 })
 
