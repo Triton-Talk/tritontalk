@@ -15,7 +15,6 @@ const LibraryWalk  = (props) => {
   const history = useHistory()
 
   const { user } = React.useContext(Auth)
-  //console.log(user)
 
   const killTutorial = () => {
     console.log("THIS WILL KILL THE TUTORIAL")
@@ -25,7 +24,6 @@ const LibraryWalk  = (props) => {
   const joinRoom = (name) => {
     console.log("I SHOULD JOIN A CALL FOR " + name)
     history.push({pathname: "/lobby", state: {name: name}})
-    //return (<Redirect to={{pathname: "/lobby", state: {name: {name}}}}/>)
   }
 
   React.useEffect(() => {
@@ -39,8 +37,10 @@ const LibraryWalk  = (props) => {
       config.scene = game
       const PhaserGame = new Phaser.Game(config)
     }
-    else
+    else{
       document.getElementsByTagName('canvas')[0].style.display='block'
+      game.input.keyboard.manager.preventDefault = true
+    }
 
     function handleResize() {
       game.scale.resize(window.innerWidth, 0.92 * window.innerHeight)
@@ -52,6 +52,7 @@ const LibraryWalk  = (props) => {
       document.getElementsByTagName('canvas')[0].style.display='none'
       window.removeEventListener('resize', handleResize)
       document.getElementById("root").style.backgroundColor = 'white'
+      game.input.keyboard.manager.preventDefault = false
     }
   })
 
@@ -71,14 +72,6 @@ const LibraryWalk  = (props) => {
   }
 
   return null
-
-  /*
-  return (
-    <div style={{width:"100%",height:"100%",backgroundColor:"black",position:"relative", flexGrow: "1",overflow:"hidden"}}>
-      <div id="hi" style={{top:"250px",paddingTop:"40px"}} >
-      </div>
-    </div>
-  )*/
 }
 
 export default LibraryWalk
