@@ -32,7 +32,7 @@ const EditClub = (props) =>  {
       club.flyer = `/flyer_${club.name}.jpg`
     }
 
-    const body = {club}
+    const body = {name: club.name, club}
     console.log(body)
 
     request('/api/club/update', { body, method: 'PUT'}).then(response => {
