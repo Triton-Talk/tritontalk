@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Button, Modal, Spinner} from 'react-bootstrap'
+import {Card, Button, Dropdown, SplitButton, Modal, Spinner} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import  "../styles/MyClubs.css"
 
@@ -14,13 +14,11 @@ const ClubOwnerCard = ({club}) =>{
   const [modal, setModal] = React.useState(false)
   const [load, setLoad] = React.useState(false)
 
-  storage.ref(club.booth).getDownloadURL().then(url =>{
-    setUrl(url)
-  })
-
+  const [name, setName] = React.useState(club.name)
+  
   const createBooth  = (e) => {
     //allow for custom room names later
-    const room = {name : club.name}
+    const room = {name} 
 
     const options = {
       body: {room, club},
@@ -39,7 +37,7 @@ const ClubOwnerCard = ({club}) =>{
   const deleteBooth = (e) => {
     //allow for custom room names later
     const options = {
-      body: {name: club.name},
+      body: {name},
       method: 'DELETE'
     }
 
@@ -52,9 +50,14 @@ const ClubOwnerCard = ({club}) =>{
   }
 
   React.useEffect(() => {
+    storage.ref(club.booth).getDownloadURL().then(url => setUrl(url)); 
+    return
+  }, [url])
+
+  React.useEffect(() => {
     if(image && image.complete)
       setLoad(true)
-  }, [])
+  }, [image])
 
   return(
     <>
@@ -62,7 +65,7 @@ const ClubOwnerCard = ({club}) =>{
         <Card.Body className="justify content-end">
 
           <div style={{position:"center",textAlign:"center"}}>
-            <img src={url} ref={image} onLoad={() => console.log('loaded', setLoad(true), load)} alt='Flyer' 
+            <img src={url} ref={image} onLoad={() => setLoad(true)} alt='Flyer' 
                  style={{margin: '10px', width:"160px",height:"160px", display: load ? 'inline' : 'none'}}/>
             {
               load ? 
@@ -82,12 +85,32 @@ const ClubOwnerCard = ({club}) =>{
             {
               club.room ? 
               <Button variant="danger" onClick={deleteBooth}>Delete Booth</Button> :
-              <Button variant="warning" onClick={createBooth}>Create Booth</Button>
+ //             <Button variant="warning" onClick={createBooth}>Create Booth</Button>
+	      <div style={{display: 'flex'}}>
+		<SplitButton variant='warning' title='Create Booth' alignRight drop='down' onClick={createBooth}>
+		  <Dropdown.Item onClick={() => { setModal('named') }} eventKey="1">Create Named Booth</Dropdown.Item>
+		</SplitButton>
+	      </div>
             }
           </div>
 
         </Card.Body>
       </Card>
+
+      <Modal size="lg" show={modal === 'named'} onHide={() => setModal(false) || setName(club.name)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Creating Named Booth 
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h3>What would you like to name your new Booth?</h3>
+          <input value={name} onChange={e => setName(e.target.value)} type='text'/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setModal(false) || setName(club.name)}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
 
       <Modal size="lg" show={modal === 'success'} onHide={() => setModal(false)} centered>
         <Modal.Header closeButton>
@@ -127,7 +150,6 @@ const MyClubs = (props) => {
 
   React.useEffect( () => {
     request('/api/user/me', {method: 'GET'}).then(res => {
-      console.log(res.clubs)
       _setClubs(res.clubs)
     })
   }, [])
