@@ -35,7 +35,8 @@ const clubSchema = new mongoose.Schema({
 
 clubSchema.pre('save', async function(){
   const creator = await mongoose.models['User'].findById(this.creator)
-  creator.clubs.push(this.id)
+  if(!creator.clubs.includes(this.id))
+    creator.clubs.push(this.id)
   await creator.save()
 })
 
