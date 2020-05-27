@@ -40,9 +40,9 @@ const roomSchema = new mongoose.Schema({
   }
 }, {collection: 'Rooms'})
 
+//USER FACING HOOKS
 roomSchema.pre('save', async function(){
-  if(this.club)
-    this.club['room'] = this.id
+  await mongoose.models['Club'].findOneAndUpdate({creator: this.creator}, {room: this.id})
 
   const array = Array(20).fill(0)
   const booths = await mongoose.models['Room'].find({})
@@ -55,20 +55,20 @@ roomSchema.pre('save', async function(){
   if(this.index === -1)
     return 'Failed to create booth'
 
-  await this.club.save()
   return
 })
 
 roomSchema.pre('remove', async function(){
   console.log('removing room')
 
-  if(this.club){
-    const club = await mongoose.models['Club'].findById(this.club)
-    club['room'] = undefined
-    await club.save()
-  }
-
+  await mongoose.models['Club'].findOneAndUpdate({creator: this.creator}, {room: undefined})
 })
+
+//INTERNALLY USED HOOKS
+roomSchema.pre('deleteMany', async function(){
+  console.log('removing room internallly')
+})
+
 
 const Room = mongoose.model('Room', roomSchema)
 module.exports = Room

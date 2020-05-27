@@ -33,24 +33,22 @@ const clubSchema = new mongoose.Schema({
   }
 }, {collection: 'Clubs'})
 
+//USER FACING HOOKS
 clubSchema.pre('save', async function(){
-  const creator = await mongoose.models['User'].findById(this.creator)
-  if(!creator.clubs.includes(this.id))
-    creator.clubs.push(this.id)
-  await creator.save()
+  await mongoose.models['User'].findByIdAndUpdate(this.creator, {$addToSet: { clubs: this.id}})
 })
 
 clubSchema.pre('remove', async function(){
   if(this.room){
-    console.log('cleared the room too!!')
-    await mongoose.models['Room'].deleteOne({_id: this.room})
+    await mongoose.models['Room'].deleteMany({_id: this.room})
   }
 
-  const creator = await mongoose.models['User'].findById(this.creator)
-  const clubs = creator.clubs.filter(element => element.toString() !== this.id.toString())
+  await mongoose.models['User'].findByIdAndUpdate(this.creator, {$pull: { clubs: this.id}})
+})
 
-  creator.clubs = clubs
-  await creator.save()
+//INTERNALLY USED HOOKS
+clubSchema.pre('deleteMany', async function(doc){
+  console.log('removing clubs internallly')
 })
 
 const Club = mongoose.model('Club', clubSchema)
