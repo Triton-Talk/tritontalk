@@ -40,6 +40,7 @@ const LibraryWalk  = (props) => {
     else{
       document.getElementsByTagName('canvas')[0].style.display='block'
       game.input.keyboard.manager.preventDefault = true
+      game.input.keyboard.enabled = true
     }
 
     function handleResize() {
@@ -53,6 +54,7 @@ const LibraryWalk  = (props) => {
       window.removeEventListener('resize', handleResize)
       document.getElementById("root").style.backgroundColor = 'white'
       game.input.keyboard.manager.preventDefault = false
+      game.input.keyboard.enabled = false
     }
   })
 
@@ -60,7 +62,6 @@ const LibraryWalk  = (props) => {
   const config = {
     scale: {
       parent: 'main-component',
-      //autoCenter: Phaser.Scale.CENTER_WIDTH,
       width: "100%",
       height: '92vh'
     },

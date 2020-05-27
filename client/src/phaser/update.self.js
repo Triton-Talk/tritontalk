@@ -8,6 +8,11 @@ const updateSelf = game => {
   let velocity = 250;
 
   const setSprite = sprite => {
+    if(game.user.sprite === sprite)
+      return
+
+    console.log('old sprite: ', game.user.sprite, 'new sprite: ', sprite)
+
     game.player.setTexture(sprite)
     game.user.sprite = sprite
     
@@ -21,21 +26,11 @@ const updateSelf = game => {
   if(game.keyShift.isDown)
     velocity *= 2
 
-  if(game.key1.isDown) {
-    setSprite('tritondude')
-  }
-  if(game.key2.isDown) {
-    setSprite('sungod')
-  }
-  if(game.key3.isDown) {
-    setSprite('queen')
-  }
-  if(game.key4.isDown) {
-    setSprite('neptune')
-  }
-  if(game.key5.isDown) {
-    setSprite('pokeman')
-  }
+  game.key1.on('down', () => setSprite('tritondude'))
+  game.key2.on('down', () => setSprite('sungod'))
+  game.key3.on('down', () => setSprite('queen'))
+  game.key4.on('down', () => setSprite('neptune'))
+  game.key5.on('down', () => setSprite('pokeman'))
 
   //Reset player position to Geisel
   game.keyEnter.on('down', function(event) {
