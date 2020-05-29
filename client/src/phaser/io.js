@@ -10,6 +10,9 @@ const createSocket = game => {
   game.playerData = null
   game.player_updates = []
   game.players = {}
+  game.sprites = {}
+  game.colleges = {}
+  game.names = {}
   
   game.booth_list = {}
 
@@ -22,8 +25,9 @@ const createSocket = game => {
       vy: 0,
       playerId: game.socket.id,
       sprite: game.user.sprite, 
-      name: game.name,
-      college: game.college
+      name: game.user.name,
+      college: game.user.college,
+      bio: game.user.bio
     });
   });
 
@@ -31,13 +35,27 @@ const createSocket = game => {
     game.player_updates.push(data)
   })
 
+  game.socket.on('update-sprite', data => {
+    game.players[data.playerId].list[0].setTexture(data.sprite)
+    game.sprites[data.playerId] = data.sprite
+  })
+
+  game.socket.on('update-college', data => {
+    game.players[data.playerId].list[1].setText(game.names[data.playerId] + '\n' + data.college)
+    game.colleges[data.playerId] = data.college
+  })
+
   game.socket.on('new-player', data => {
     addPlayer(data, game)
   })
 
   game.socket.on('delete-player', data => {
-    if(game.players[data])
+    if(game.players[data]) {
+      game.player_updates = game.player_updates.filter(element =>element.playerId !== data)
+
       game.players[data].destroy()
+      delete game.players[data]
+    }
   })
 
   game.socket.on('current-players', (data) => {
@@ -74,14 +92,32 @@ const createSocket = game => {
 
     delete game.booth_list[index]
   })
+
+  game.socket.on('call-notif', names => {
+    if (game.user.name === names.receiver) {
+      //pmenu with names.sender name and sprite
+      game.pmenu.visible = true;
+      game.menu.visible = false;
+      //set the X of the menu dynamically, so it moves on resize
+      game.pmenu.setX(game.cameras.main.centerX)
+
+      game.pmenu.list[3].text = names.sender
+      game.pmenu.list[2].text = names.sender + " would like to call you."
+
+      game.pmenu.list[4].setTexture(names.sprite)
+      game.pmenu.list[4].displayWidth = 150;
+      game.pmenu.list[4].displayHeight = 150;
+      game.selectedPlayer = names.sender;
+    }
+  })
 }
 
 const addPlayer = (player, game) => {
 
-  const {x, y, playerId, name, college} = player
+  const {x, y, playerId, name, sprite, college, bio} = player
 
   //Set player position
-  let newplayer = game.physics.add.sprite(0, 0, 'tritondude');
+  let newplayer = game.physics.add.sprite(0, -5, sprite);
 
   //Allow players to interact with each other via mouse hovers and clicks
   newplayer.setInteractive()
@@ -94,7 +130,20 @@ const addPlayer = (player, game) => {
   });
 
   newplayer.on('pointerdown', function (pointer) {
-    game.menu.visible = true;
+      console.log("clicked on " + name)
+      game.pmenu.visible = true;
+      game.menu.visible = false;
+      //set the X of the menu dynamically, so it moves on resize
+      game.pmenu.setX(game.cameras.main.centerX)
+
+      game.pmenu.list[3].text = name
+      game.pmenu.list[2].text = bio
+
+      game.pmenu.list[4].setTexture(game.sprites[playerId])
+      game.pmenu.list[4].displayWidth = 150;
+      game.pmenu.list[4].displayHeight = 150;
+      game.selectedPlayer = name;
+    
   });
 
   //game.player.setCollideWorldBounds(true);
@@ -114,16 +163,20 @@ const addPlayer = (player, game) => {
 
   //User controls a container which contains the player sprite and player text
   const container = game.add.container(x, y, [newplayer, newPlayerText]);
-  container.setSize(64, 64);
+  container.setSize(30, 30);
   game.physics.world.enable(container);
   container.body.setCollideWorldBounds(true);
-  container.depth = 1000
   container.bringToTop(newPlayerText);
   game.players[playerId] = container
+  game.sprites[playerId] = sprite
+  game.colleges[playerId] = college
+  game.names[playerId] = name
+  game.players[playerId].depth = y
+
 }
 
 const addBooth = async (data, game) => {
-    const url = await storage.ref('booth_' + data.name + '.jpg').getDownloadURL()
+    const url = await storage.ref(data.club.booth).getDownloadURL()
 
     game.load.image('booth_image' + data.name, url);
 

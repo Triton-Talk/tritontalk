@@ -13,8 +13,6 @@ class PhaserScene extends Phaser.Scene {
     super({ key: 'phaserScene' });
 
     this.user = user;
-    this.name = user.name
-    this.college = user.college
 
     this.joinRoom = joinRoom
     this.killTutorial = killTutorial

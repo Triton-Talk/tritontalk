@@ -3,6 +3,8 @@ const express = require('express');
 const User = require('../models/User')
 const Club = require('../models/Club')
 
+const admin = require('../utils/firebase')
+
 const router = new express.Router();
 
 router.get('/get', async (req, res, next) => {
@@ -46,12 +48,28 @@ router.post('/create', async (req, res) => {
   club.creator = req.user.id
 
   try{
+      setTimeout(async () => {
+        try{
+          const meta = await admin.storage().bucket().file(club.booth.substr(1)).getMetadata()
+          if(meta.code === 404){
+            club.booth = '/default.jpg'
+            await club.save()
+          }
+        }
+        catch(err){
+          club.booth = '/default.jpg'
+          await club.save()
+        }
+      }, 15000)
+
     await club.save()
 
     res.status(200).send(club)
   }
   catch(err){
     console.log(err)
+
+    res.status(404).send('Failed to create club')
   }
 
 });
@@ -79,6 +97,7 @@ router.delete('/delete', async (req, res) => {
     return res.status(404).send('Failed to delete club')
 
   await club.remove()
+  
   return res.status(200).send({summary: 'Club deleted'})
 })
 

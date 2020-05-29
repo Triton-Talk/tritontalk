@@ -52,7 +52,7 @@ const ClubOwnerCard = ({club}) =>{
   React.useEffect(() => {
     storage.ref(club.booth).getDownloadURL().then(url => setUrl(url)); 
     return
-  }, [url])
+  }, [club.booth,url])
 
   React.useEffect(() => {
     if(image && image.complete)

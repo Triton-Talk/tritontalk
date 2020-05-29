@@ -13,7 +13,7 @@ const updateBooth = game => {
         game.booths[i].list[1].setTint(0x7d95ff);
         //console.log("I want to join booth " + i);
         //console.log(game.booth_list)
-        game.menu.visible = true;
+        if (!game.pmenu.visible) game.menu.visible = true;
         //set the X of the menu dynamically, so it moves on resize
         game.menu.setX(game.cameras.main.centerX)
 

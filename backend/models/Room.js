@@ -42,7 +42,7 @@ const roomSchema = new mongoose.Schema({
 
 //USER FACING HOOKS
 roomSchema.pre('save', async function(){
-  await mongoose.models['Club'].findOneAndUpdate({creator: this.creator}, {room: this.id})
+  await mongoose.models['Club'].findByIdAndUpdate(this.club, {room: this.id})
 
   const array = Array(20).fill(0)
   const booths = await mongoose.models['Room'].find({})
@@ -58,10 +58,13 @@ roomSchema.pre('save', async function(){
   return
 })
 
-roomSchema.pre('remove', async function(){
+roomSchema.post('remove', async function(doc){
   console.log('removing room')
 
-  await mongoose.models['Club'].findOneAndUpdate({creator: this.creator}, {room: undefined})
+  await mongoose.models['Club'].findByIdAndUpdate(doc.club, {room: undefined})
+
+  global.phaser.emit('delete-room', doc.index)
+
 })
 
 //INTERNALLY USED HOOKS

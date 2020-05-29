@@ -36,6 +36,12 @@ const startGameServer = (httpServer, data) => {
       socket.broadcast.emit('new-player', data)
     })
 
+    socket.on('call-notif', names => {
+      for(const playerId in players)
+        if(names['receiver'] == players[playerId].name)
+          phaser.to(playerId).emit('call-notif', names)      
+    })
+
     socket.on('disconnect', data => {
       delete players[socket.id]
       phaser.emit('delete-player', socket.id)
@@ -44,8 +50,15 @@ const startGameServer = (httpServer, data) => {
     socket.on('update-sprite', data => {
       const {sprite, playerId} = data
 
-      socket.broadcast.emit('update-player-sprite', {sprite, playerId})
+      socket.broadcast.emit('update-sprite', {sprite, playerId})
       players[socket.id].sprite = sprite
+    })
+
+    socket.on('update-college', data => {
+      const {college, playerId} = data
+
+      socket.broadcast.emit('update-college', {college, playerId})
+      players[socket.id].college = college
     })
 
     // When a player moves
@@ -67,6 +80,7 @@ const startGameServer = (httpServer, data) => {
       players[socket.id].vx = vx
       players[socket.id].vy = vy
       players[socket.id].playerId = playerId
+      players[socket.id].sprite = sprite
     })
   })
 

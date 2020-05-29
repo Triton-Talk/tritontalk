@@ -4,155 +4,41 @@ const createPlayer = game => {
 
   //Set player position
   game.player = game.physics.add.sprite(0, -5, game.user.sprite);
-  game.user.sprite = game.user.sprite;
   game.player.setOrigin(0.5, 0.5);
 
   //Player sprite's animated walk cycles for each direction
+  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun"];
 
   //Tritondude animations
-  game.anims.create({
-      key: 'walkDown-tritondude',
-      frames: game.anims.generateFrameNumbers('tritondude', { start: 0, end: 2, first: 3 }),
-      frameRate: 8,
-      repeat: 0
-  });
+  for (const animSprite of sprites) {
+    game.anims.create({
+        key: 'walkDown-' + animSprite,
+        frames: game.anims.generateFrameNumbers(animSprite, { start: 0, end: 2, first: 3 }),
+        frameRate: 8,
+        repeat: 0
+    });
 
-  game.anims.create({
-      key: 'walkLeft-tritondude',
-      frames: game.anims.generateFrameNumbers('tritondude', { start: 4, end: 6, first: 7 }),
-      frameRate: 8,
-      repeat: 0
-  });
+    game.anims.create({
+        key: 'walkLeft-' + animSprite,
+        frames: game.anims.generateFrameNumbers(animSprite, { start: 4, end: 6, first: 7 }),
+        frameRate: 8,
+        repeat: 0
+    });
 
-  game.anims.create({
-      key: 'walkRight-tritondude',
-      frames: game.anims.generateFrameNumbers('tritondude', { start: 8, end: 10, first: 11 }),
-      frameRate: 8,
-      repeat: 0
-  });
+    game.anims.create({
+        key: 'walkRight-' + animSprite,
+        frames: game.anims.generateFrameNumbers(animSprite, { start: 8, end: 10, first: 11 }),
+        frameRate: 8,
+        repeat: 0
+    });
 
-  game.anims.create({
-      key: 'walkUp-tritondude',
-      frames: game.anims.generateFrameNumbers('tritondude', { start: 12, end: 14, first: 15 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  //Sungod animations
-  game.anims.create({
-    key: 'walkDown-sungod',
-    frames: game.anims.generateFrameNumbers('sungod', { start: 0, end: 2, first: 3 }),
-    frameRate: 8,
-    repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkLeft-sungod',
-      frames: game.anims.generateFrameNumbers('sungod', { start: 4, end: 6, first: 7 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkRight-sungod',
-      frames: game.anims.generateFrameNumbers('sungod', { start: 8, end: 10, first: 11 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkUp-sungod',
-      frames: game.anims.generateFrameNumbers('sungod', { start: 12, end: 14, first: 15 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  //Queen Triton animations
-  game.anims.create({
-    key: 'walkDown-queen',
-    frames: game.anims.generateFrameNumbers('queen', { start: 0, end: 2, first: 3 }),
-    frameRate: 8,
-    repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkLeft-queen',
-      frames: game.anims.generateFrameNumbers('queen', { start: 4, end: 6, first: 7 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkRight-queen',
-      frames: game.anims.generateFrameNumbers('queen', { start: 8, end: 10, first: 11 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkUp-queen',
-      frames: game.anims.generateFrameNumbers('queen', { start: 12, end: 14, first: 15 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  //King Neptune animations
-  game.anims.create({
-    key: 'walkDown-neptune',
-    frames: game.anims.generateFrameNumbers('neptune', { start: 0, end: 2, first: 3 }),
-    frameRate: 8,
-    repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkLeft-neptune',
-      frames: game.anims.generateFrameNumbers('neptune', { start: 4, end: 6, first: 7 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkRight-neptune',
-      frames: game.anims.generateFrameNumbers('neptune', { start: 8, end: 10, first: 11 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkUp-neptune',
-      frames: game.anims.generateFrameNumbers('neptune', { start: 12, end: 14, first: 15 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  //Pokeman animations
-  game.anims.create({
-    key: 'walkDown-pokeman',
-    frames: game.anims.generateFrameNumbers('pokeman', { start: 0, end: 2, first: 3 }),
-    frameRate: 8,
-    repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkLeft-pokeman',
-      frames: game.anims.generateFrameNumbers('pokeman', { start: 4, end: 6, first: 7 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkRight-pokeman',
-      frames: game.anims.generateFrameNumbers('pokeman', { start: 8, end: 10, first: 11 }),
-      frameRate: 8,
-      repeat: 0
-  });
-
-  game.anims.create({
-      key: 'walkUp-pokeman',
-      frames: game.anims.generateFrameNumbers('pokeman', { start: 12, end: 14, first: 15 }),
-      frameRate: 8,
-      repeat: 0
-  });
+    game.anims.create({
+        key: 'walkUp-' + animSprite,
+        frames: game.anims.generateFrameNumbers(animSprite, { start: 12, end: 14, first: 15 }),
+        frameRate: 8,
+        repeat: 0
+    });
+  }
   
   //Player text shows name and college, follows player
   const playerStyle = { 
@@ -163,7 +49,7 @@ const createPlayer = game => {
     align: 'center'
   };
 
-  game.playerText = game.add.text(0, -50, game.name + '\n' + game.college, playerStyle);
+  game.playerText = game.add.text(0, -50, game.user.name + '\n' + game.user.college, playerStyle);
   game.playerText.setOrigin(0.5, 0.5);
 
   //User controls a container which contains the player sprite and player text
@@ -171,8 +57,8 @@ const createPlayer = game => {
   game.container.setSize(30, 30);
   game.physics.world.enable(game.container);
   game.container.body.setCollideWorldBounds(true);
-  game.container.depth = 1000
   game.container.bringToTop(game.playerText);
+  game.container.depth = 200
 
   game.clickCount = 0
   game.input.on('gameobjectdown', console.log)
@@ -181,16 +67,13 @@ const createPlayer = game => {
   game.keyA = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
   game.keyS = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
   game.keyD = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-  game.keyE = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+ 
 
   game.keyShift = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
   game.keyEnter = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-  game.key1 = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-  game.key2 = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-  game.key3 = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
-  game.key4 = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
-  game.key5 = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+
+
 
   //Camera follows the container as it moves until the map's edge
   var camera = game.cameras.main;

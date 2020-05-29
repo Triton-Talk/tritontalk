@@ -5,7 +5,8 @@ const serviceAccount = require("./tritontalk-d063d-a82351d39ace.json")
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://tritontalk-d063d.firebaseio.com"
+    databaseURL: "https://tritontalk-d063d.firebaseio.com",
+    storageBucket: "tritontalk-d063d.appspot.com"
 });
 
 module.exports = admin

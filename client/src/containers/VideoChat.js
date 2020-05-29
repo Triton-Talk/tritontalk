@@ -27,7 +27,7 @@ const VideoChat = (props) => {
 
   const handleLogout = event => {
     setToken(null);
-    history.push("/home")
+    history.push("/")
   }
   console.log(token)
   console.log(roomName)

@@ -1,5 +1,3 @@
-import request from '../utils/request'
-
 const updateSelf = game => {
 
   game.container.body.velocity.set(0, 0);
@@ -7,37 +5,13 @@ const updateSelf = game => {
   game.isMovingX = false;
   let velocity = 250;
 
-  const setSprite = sprite => {
-    if(game.user.sprite === sprite)
-      return
-
-    console.log('old sprite: ', game.user.sprite, 'new sprite: ', sprite)
-
-    game.player.setTexture(sprite)
-    game.user.sprite = sprite
-    
-    const options = {body : {user: game.user}, method: 'PUT'}
-
-    request('/api/user/update', options).catch(error => {
-      console.log(error)
-    })
-  }
-
   if(game.keyShift.isDown)
     velocity *= 2
 
-  game.key1.on('down', () => setSprite('tritondude'))
-  game.key2.on('down', () => setSprite('sungod'))
-  game.key3.on('down', () => setSprite('queen'))
-  game.key4.on('down', () => setSprite('neptune'))
-  game.key5.on('down', () => setSprite('pokeman'))
-
-  //Reset player position to Geisel
   game.keyEnter.on('down', function(event) {
     game.container.x = 1000*game.boothCount - 128
     game.container.y = 200
-  });
-
+  })
   //TODO: Fix animations so that sprite always stops at standing frame
   if (game.keyA.isDown) {
     game.container.body.setVelocityX(-velocity);
@@ -79,6 +53,8 @@ const updateSelf = game => {
     game.player.setFrame(game.standFrame);
     game.doUpdate = false
   }
+
+  game.container.depth = game.container.y
 
   // Socket Update
   if(game.doUpdate)

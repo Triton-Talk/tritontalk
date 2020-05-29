@@ -22,15 +22,14 @@ router.post('/login', async (req, res) => {
     await user.save()
     console.log('New user created')
 
-    res.header('user_found', 0)
-
+    res.setHeader('user_found', 0)
     res.status(200).send(JSON.stringify(user));
   }
 
   else{
     console.log('User successfully found')
     console.log(user)
-    res.header('user_found', 1)
+    res.setHeader('user_found', 1)
     res.status(200).send(JSON.stringify(user));
   }
 });
@@ -69,6 +68,20 @@ router.get('/getAll', async (req, res) => {
     return res.status(404).send('There are no users!')
 
   res.status(200).send(users)
+})
+
+// UPDATE
+router.put('/addFriend', async (req, res) => {
+  const query = {email: req.identity.email}
+
+  const user = await User.findOne(query)
+
+  console.log(user)
+
+  if(!user)
+    return res.status(404).send('Cannot get a nonexistent user')
+
+  res.status(200).send(user)
 })
 
 // UPDATE

@@ -17,7 +17,6 @@ const LibraryWalk  = (props) => {
   const { user } = React.useContext(Auth)
 
   const killTutorial = () => {
-    console.log("THIS WILL KILL THE TUTORIAL")
     cookies.set('killTutorial', true)
   }
 
@@ -35,12 +34,21 @@ const LibraryWalk  = (props) => {
     if(!game){
       game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert)
       config.scene = game
-      const PhaserGame = new Phaser.Game(config)
+      new Phaser.Game(config)
     }
     else{
       document.getElementsByTagName('canvas')[0].style.display='block'
+
       game.input.keyboard.manager.preventDefault = true
       game.input.keyboard.enabled = true
+      game.scale.resize(window.innerWidth, 0.92 * window.innerHeight)
+
+      game.user = user
+      game.player.setTexture(game.user.sprite)
+      game.playerText.setText(game.user.name + '\n' + game.user.college)
+      game.socket.emit('update-sprite', {sprite: user.sprite, playerId: game.socket.id})
+      game.socket.emit('update-college', {college: user.college, playerId: game.socket.id})
+
     }
 
     function handleResize() {

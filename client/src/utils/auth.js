@@ -45,25 +45,25 @@ export const AuthProvider = (props) => {
   const handleSignOut = () => {
     setUser(null);
     cookies.remove('sessionCookie')
-    history.push('/')
+    history.push('/login')
   }
 
   const serverLogin = React.useCallback(credential => {
     const body = {credential}
     request('/api/user/login', {body}, true).then(response => {
       const {body, headers} = response
-      const newUser = headers.get('user_found')
+      const newUser = headers.get('user_found') === "0"
       setUser(body)
-      if (location.pathname === '/'){
-        if(newUser === 0){
-          history.push('/newuser')
+      if (location.pathname === '/login'){
+        if(newUser){
+          history.push({pathname: "/profile", state: {newUser}})
         }
         else
-          history.push('/home')
+          history.push('/')
       }
     }).catch(error => {
       console.log(error)
-      history.push('/')
+      history.push('/login')
     })
   }, [history, location])
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Form, Button, Col } from 'react-bootstrap';
+import { Form, Button, Col, Modal} from 'react-bootstrap';
+import {useHistory} from 'react-router-dom';
 
 import request from '../utils/request'
 import {storage} from '../utils/firebase'
@@ -7,35 +8,65 @@ import {storage} from '../utils/firebase'
 const RegisterOrganization  = () =>  {
   
   const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
+  const [modal, setModal] = React.useState(false)
+
+  const history = useHistory()
 
   const setClub = (c) => {
     _setClub(c)
   }
 
+  const handleClose = () => {
+    setModal(false)
+    history.push('/myclubs')
+  }
+
+  const handleFailClose = () => {
+    setModal(false)
+  }  
+  
   const handleSubmit = async event => {
     
     event.preventDefault()
 
     request('/api/club/get', { body: {name: club.name}, method: 'GET'}).catch(error => {
       
+      let img = undefined
       if(club.booth){
-        const ref = storage.ref().child('/booth_' + club.name +'.jpg')
-        ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+        window.onbeforeunload = function(e) {
+          var dialogText = 'Dialog text here';
+          e.returnValue = dialogText;
+          return dialogText;
+        }
+        img = club.booth[0]
         club.booth = `/booth_${club.name}.jpg`
       }
       else
         club.booth = '/default.jpg'
 
-      if(club.flyer){
-        const ref = storage.ref().child('/flyer_' + club.name +'.jpg')
-        ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
-        club.flyer = `/flyer_${club.name}.jpg`
-      }
-
       const body = {club}
       console.log(body)
 
-      request('/api/club/create', { body, method: 'POST'}).then(response => setClub(response))
+      request('/api/club/create', { body, method: 'POST'}).then(async response => {
+        setModal('created')
+        setClub(response)
+
+        if(img){
+          const ref = storage.ref().child('/booth_' + club.name +'.jpg')
+          try{
+            const snapshot = await ref.put(img)
+            console.log(snapshot)
+            window.onbeforeunload = null
+          }
+          catch(err){
+            console.log(err)
+            window.onbeforeunload = null
+          }
+        }
+      }).catch(e => {
+        setModal('failure')
+        window.onbeforeunload = null
+      })
     })
   }
 
@@ -62,15 +93,6 @@ const RegisterOrganization  = () =>  {
             </Form.File>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="flyer_file">
-            <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid onChange={e => setClub({...club, flyer: e.target.files})}/>
-              <Form.File.Label>
-                Flyer Image
-              </Form.File.Label>
-              <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
-            </Form.File>
-          </Form.Group>
         </Form.Row>
         <Form.Group controlId="description">
           <Form.Label>Organization Description</Form.Label>
@@ -83,8 +105,19 @@ const RegisterOrganization  = () =>  {
             Submit
           </Button>
         </div>
-
       </Form>
+
+      <Modal show={modal === 'created'} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Club successfully created</Modal.Title>
+        </Modal.Header>
+      </Modal>
+
+      <Modal show={modal === 'failure'} onHide={handleFailClose} centered> 
+        <Modal.Header closeButton>
+          <Modal.Title>There was an error! Let's try that again.</Modal.Title>
+        </Modal.Header>
+      </Modal>
 
     </div >
   )

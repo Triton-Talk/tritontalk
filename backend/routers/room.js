@@ -57,13 +57,13 @@ router.post('/createForClub', async (req, res) => {
 
   const room = new Room(req.body.room)
   room.creator = req.user.id
-  room.club = await Club.findOne({name: req.body.club.name})
+  room.club = req.body.club._id
 
   await room.save()
   await room.execPopulate('club')
 
-  req.app.locals.booths.push(room)
-  console.log(req.app.locals.booths)
+  // req.app.locals.booths.push(room)
+  // console.log(req.app.locals.booths)
   req.app.locals.phaser.emit('new-room', room)
 
   res.status(200).send(room)
@@ -93,9 +93,9 @@ router.delete('/delete', async (req, res) => {
 
   await room.remove()
 
-  req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== room.name), 1)
-  console.log(req.app.locals.booths)
-  req.app.locals.phaser.emit('delete-room', room.index)
+  // req.app.locals.booths.splice(req.app.locals.booths.findIndex( element => element.name !== room.name), 1)
+  // console.log(req.app.locals.booths)
+  // req.app.locals.phaser.emit('delete-room', room.index)
 
   return res.status(200).send({summary: 'Room deleted'})
 })

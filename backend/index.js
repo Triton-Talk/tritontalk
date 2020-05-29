@@ -26,7 +26,7 @@ app.use(express.json());
 
 app.use(require('cookie-parser')())
 
-app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+app.use(cors({origin: 'http://localhost:3000', credentials: true, exposedHeaders: ['user_found']}));
 
 // DEFAULT TESTING ROUTE
 app.get('/greeting', (req, res) => {
@@ -54,5 +54,6 @@ server = app.listen(3001, () => console.log('node running on localhost:3001'));
 if(!app.locals.booths)
   app.locals.booths = []
 app.locals.phaser = gameserver.start(server, app.locals)
+global.phaser = app.locals.phaser
 
 module.exports = app

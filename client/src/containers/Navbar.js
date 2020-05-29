@@ -26,11 +26,13 @@ const NavigationBar = () => {
     background: "rgb(23,40,74)",
   }
 
-  const height = show && !(location.pathname === '/' || location.pathname === '/home') ? 'calc(8vh + 17vh)' : '8vh'
+  const height = show && !(location.pathname === '/' || location.pathname === '/login') ? 'calc(8vh + 17vh)' : '8vh'
 
   const lengthOfButtonString = lengthOfButton + "px";
+  //if (location.pathname === '/login') return <></>
   return (
-    <div id="navbar-div" style={{ height, backgroundColor: "rgb(23, 40, 74)", zIndex: "2" }}>
+    <div id="navbar-div" style={{ display: location.pathname === '/login' ? 'none' : 'block',  
+    height, backgroundColor: "rgb(23, 40, 74)", zIndex: "2" }}>
       <Navbar style={navStyle}>
         <Navbar.Toggle />
         {
@@ -39,11 +41,10 @@ const NavigationBar = () => {
               <Link to='/myclubs'>
               <button id="clubsButton" style={{
                 width: 100,
-                cursor: 'default'
               }}>Clubs</button>
               </Link>
               <div className="centered" style={{ textAlign: "center", height: '54px' }}>
-                <Link to="/home"><h1 className="NavBarLogo">TritonTalk</h1></Link>
+                <Link to="/"><h1 className="NavBarLogo">TritonTalk</h1></Link>
               </div>
               <Navbar.Collapse className="justify-content-end">
                 <div className="dropdown">
@@ -56,9 +57,11 @@ const NavigationBar = () => {
                     <Link to='/profile'>
                       <button className="dropdown">Account Settings</button>
                     </Link>
+                    {/*
                     <Link to='/friends'>
                       <button className="dropdown">Friends</button>
                     </Link>
+                    */}
                     <button className="dropdown"
                       onClick={handleSignOut}>Sign out</button>
                   </div>

@@ -3,8 +3,9 @@
      font-family: 'Londrina Solid', cursive;
      font-size:150px;
      text-align: center;
-     -webkit-text-stroke-width: 4px;
-     -webkit-text-stroke-color: #4B7FE6;
+     -webkit-text-stroke-width: 3px;
+     -webkit-text-stroke-color: #629cec;
+     filter: drop-shadow(0px 4px 2px black);
     padding: 100px 0px 0px 0px;
     margin: 0px;
 
@@ -25,26 +26,29 @@
     font-family: 'Londrina Solid', cursive;
     font-style: normal;
     font-weight: normal;
-     font-size: 30px;
+    font-size: 45px;
     text-align: center;
     margin: 0px;
     padding: 0px 0px 80px 0px;
 
     color: #FFF9C0;
+    -webkit-text-stroke: 1.25px #19515f;
+    filter: drop-shadow(0px 3px 1.5px black);
 }
 
 .button {
     border-radius: 50px;
     width:200px;
-    border-width:10px;
+    border-width:6px;
     background-color: white;
-    border-color: blue;
+    border-color:#629cec;
     padding : 0px;
     margin: 0px 0px 10px 0px;
     font-family: 'Londrina Solid', cursive;
     font-size:20px;
-}
-
+    transition-duration: 0.4s;
+    box-shadow: 0px 2px 4px black;
+}  
 .button:hover{
     background-color: #6DCBFF;
     border-color: blue;
@@ -56,4 +60,3 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-

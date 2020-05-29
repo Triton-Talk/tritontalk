@@ -51,7 +51,7 @@ const Lobby = ({ roomName, handleRoomNameChange, handleSubmit }) => {
                   /><br></br>
                   <button style={{ marginRight: "10px", backgroundColor: "rgb(201,226,243)" }} type="submit">Submit</button>
                   <Link to='/newclub'>
-                    <button style={{ backgroundColor: "rgb(248,206,70)" }} >Register a Club</button>
+                    <button style={{ backgroundColor: "rgb(248,206,70)" }}>Register a Club</button>
                   </Link>
                 </div>
               </form>

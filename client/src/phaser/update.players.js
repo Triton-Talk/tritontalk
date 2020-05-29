@@ -15,6 +15,9 @@ const updatePlayers = game => {
         delay: 0
       });
 
+      game.players[playerId].depth = y
+      game.sprites[playerId] = sprite
+
       if (vx < 0) {
         game.players[playerId].first.anims.play('walkLeft-' + sprite, true);
       }

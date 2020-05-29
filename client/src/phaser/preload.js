@@ -24,35 +24,15 @@ const preload = game => {
   game.load.image('profilePicture', 'assets/borger.jpg');
 
   //This is the player sprite with animation frames
-  game.load.spritesheet('sungod', 'assets/spritesheets/sungod.png',{
-    frameWidth: 64,
-    frameHeight: 64,
-    endFrame: 15
-  });
 
-  game.load.spritesheet('pokeman', 'assets/spritesheets/pokeman.png',{
-    frameWidth: 64,
-    frameHeight: 64,
-    endFrame: 15
-  });
-
-  game.load.spritesheet('queen', 'assets/spritesheets/queen triton.png',{
-    frameWidth: 64,
-    frameHeight: 64,
-    endFrame: 15
-  });
-
-  game.load.spritesheet('neptune', 'assets/spritesheets/king_neptune_edition.png',{
-    frameWidth: 64,
-    frameHeight: 64,
-    endFrame: 15
-  });
-
-  game.load.spritesheet('tritondude', 'assets/spritesheets/tritondude.png',{
-    frameWidth: 64,
-    frameHeight: 64,
-    endFrame: 15
-  });
+  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun"];
+  for (const animSprite of sprites) {
+    game.load.spritesheet(animSprite, 'assets/spritesheets/' + animSprite + '.png',{
+      frameWidth: 64,
+      frameHeight: 64,
+      endFrame: 15
+    });
+  }
 
   /*
 

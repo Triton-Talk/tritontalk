@@ -16,46 +16,74 @@ const EditClub = (props) =>  {
     _setClub(c)
   }
 
+  React.useEffect(() => {
+    
+  }, [])
+
   const handleSubmit = async event => {
     
     event.preventDefault()
       
-    if(club.booth){
-      const ref = storage.ref().child('/booth_' + club.name +'.jpg')
-      ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
+    let img = undefined
+    if(club.imageChanged){
+      window.onbeforeunload = function(e) {
+        var dialogText = 'Dialog text here';
+        e.returnValue = dialogText;
+        return dialogText;
+      }
+      img = club.booth[0]
       club.booth = `/booth_${club.name}.jpg`
-    }
-
-    if(club.flyer){
-      const ref = storage.ref().child('/flyer_' + club.name +'.jpg')
-      ref.put(club.booth[0]).then(snapshot => console.log(snapshot))
-      club.flyer = `/flyer_${club.name}.jpg`
     }
 
     const body = {name: club.name, club}
     console.log(body)
 
-    request('/api/club/update', { body, method: 'PUT'}).then(response => {
+    request('/api/club/update', { body, method: 'PUT'}).then(async response => {
       setClub(response)
       setModal('updated')
+      
+      if(img){
+        const ref = storage.ref().child('/booth_' + club.name +'.jpg')
+        try{
+          const snapshot = await ref.put(img)
+          console.log(snapshot)
+          window.onbeforeunload = null
+        }
+        catch(err){
+          console.log(err)
+          window.onbeforeunload = null
+        }
+      }
     }).catch(error => {
       console.log(error)
       setModal('failure')
+      window.onbeforeunload = null
     })
   }
 
   const handleReset = event => {
     event.preventDefault()
-
+    setClub(props.location.state)
   }
 
   const handleDelete = event => {
+
+    window.onbeforeunload = function(e) {
+      var dialogText = "Don't close the tab yet!";
+      e.returnValue = dialogText;
+      return dialogText;
+    }
     
     const options = {body: {name: club.name}, method: 'DELETE'}
     console.log(club)
     
     request('/api/club/delete', options).then(res => {
       console.log(res)
+      const ref = storage.ref().child(club.booth)
+      ref.delete().then(snapshot => {
+        console.log(snapshot)
+        window.onbeforeunload = null
+      })
       history.push('/myclubs')      
     }).catch(error => {
       console.log(error)
@@ -72,7 +100,7 @@ const EditClub = (props) =>  {
       <Form onSubmit={handleSubmit} onReset={handleReset} style={{ maxWidth: "95%" }}>
         <Form.Row>
           <Form.Group as={Col} controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Name <b>(Cannot be changed)</b></Form.Label>
             <Form.Control size="lg" type="name" placeholder={club.name} 
                           onChange={e => setClub({...club, name:e.target.value})} disabled/>
           </Form.Group>
@@ -81,22 +109,13 @@ const EditClub = (props) =>  {
         <Form.Row>
           <Form.Group as={Col} controlId="booth_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files})}/>
+              <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files, imageChanged: true})}/>
               <Form.File.Label> 
                 Booth Image (150px x 150px recommended)
               </Form.File.Label>
             </Form.File>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="flyer_file">
-            <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid onChange={e => setClub({...club, flyer: e.target.files})}/>
-              <Form.File.Label>
-                Flyer Image
-              </Form.File.Label>
-              <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
-            </Form.File>
-          </Form.Group>
         </Form.Row>
         <Form.Group controlId="description">
           <Form.Label>Organization Description</Form.Label>
@@ -121,7 +140,7 @@ const EditClub = (props) =>  {
       
       <Modal show={modal === 'updated' || modal === 'deleted'} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>User successfully {modal}</Modal.Title> :
+          <Modal.Title>Club successfully {modal}</Modal.Title> :
         </Modal.Header>
       </Modal>
 

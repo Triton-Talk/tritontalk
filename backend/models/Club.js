@@ -38,12 +38,12 @@ clubSchema.pre('save', async function(){
   await mongoose.models['User'].findByIdAndUpdate(this.creator, {$addToSet: { clubs: this.id}})
 })
 
-clubSchema.pre('remove', async function(){
+clubSchema.post('remove', async function(doc){
   if(this.room){
-    await mongoose.models['Room'].deleteMany({_id: this.room})
+    await mongoose.models['Room'].deleteMany({_id: doc.room})
   }
 
-  await mongoose.models['User'].findByIdAndUpdate(this.creator, {$pull: { clubs: this.id}})
+  await mongoose.models['User'].findByIdAndUpdate(doc.creator, {$pull: { clubs: doc.id}})
 })
 
 //INTERNALLY USED HOOKS
