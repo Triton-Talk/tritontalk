@@ -18,3 +18,6 @@ const db = firebase.initializeApp(firebaseConfig);
 export default db;
 export const storage = firebase.storage()
 export const GoogleSignOn = new firebase.auth.GoogleAuthProvider()
+GoogleSignOn.setCustomParameters({
+  'prompt': 'select_account'
+});
