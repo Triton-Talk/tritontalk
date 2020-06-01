@@ -20,9 +20,9 @@ const LibraryWalk  = (props) => {
     cookies.set('killTutorial', true)
   }
 
-  const joinRoom = (name) => {
-    console.log("I SHOULD JOIN A CALL FOR " + name)
-    history.push({pathname: "/lobby", state: {name: name}})
+  const joinRoom = (name, host) => {
+    console.log(host)
+    history.push({pathname: "/lobby", state: {name: name, host}})
   }
 
   React.useEffect(() => {

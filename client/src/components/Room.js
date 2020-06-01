@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
-import Participant from './Participant';
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 
-const Room = ({ roomName, token, handleLogout }) => {
+import Participant from './Participant';
+
+const Room = ({ roomName, token, handleLogout, host }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const [complete, setComplete] = useState(false)
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -18,6 +20,11 @@ const Room = ({ roomName, token, handleLogout }) => {
       );
     };
 
+    const roomCompleted = error => {
+      console.log(error)
+      setComplete(true)
+    }
+
     if (token) {
       Video.connect(token, {
         name: roomName
@@ -25,6 +32,7 @@ const Room = ({ roomName, token, handleLogout }) => {
         setRoom(room);
         room.on('participantConnected', participantConnected);
         room.on('participantDisconnected', participantDisconnected);
+        room.once('disconnected', roomCompleted);
         room.participants.forEach(participantConnected);
       });
     }
@@ -49,40 +57,50 @@ const Room = ({ roomName, token, handleLogout }) => {
   ));
 
   return (
-    <Card style={{ width: "100%", height: "100%" }} >
+    <>
+      <Card style={{ width: "100%", height: "100%" }} >
 
-      <div >
+        <div >
 
-        <Card.Header>Room: {roomName}</Card.Header>
-        <Card.Body>
-          <button style={{ top: 0 }} className="btn-danger float-right" onClick={handleLogout}>Leave Room</button>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroupItem>
-            <Card.Body>
-              {room ? (<Card.Title>Remote Participants: {room.localParticipant.identity}</Card.Title>) :
-                (<Card.Title>Remote Participants:</Card.Title>)}
+          <Card.Header>Room: {roomName}</Card.Header>
+          <Card.Body>
+            <button style={{ top: 0 }} className="btn-danger float-right" onClick={handleLogout}>{host ? 'Close Room' : 'Leave Room'}</button>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>
+              <Card.Body>
+                {room ? (<Card.Title>Remote Participants: {room.localParticipant.identity}</Card.Title>) :
+                  (<Card.Title>Remote Participants:</Card.Title>)}
 
-            </Card.Body>
-          </ListGroupItem>
+              </Card.Body>
+            </ListGroupItem>
 
-        </ListGroup>
+          </ListGroup>
 
 
-        <div className="local-participant">
-          {room ? (
-            <Participant
-              key={room.localParticipant.sid}
-              participant={room.localParticipant}
-            />
-          ) : (
-              ''
-            )}
+          <div className="local-participant">
+            {room ? (
+              <Participant
+                key={room.localParticipant.sid}
+                participant={room.localParticipant}
+              />
+            ) : (
+                ''
+              )}
+          </div>
+
+          <div className="remote-participants">{remoteParticipants}</div>
         </div>
-
-        <div className="remote-participants">{remoteParticipants}</div>
-      </div>
-    </Card>
+      </Card>
+      <Modal show={complete} onHide={handleLogout} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Time to find another Booth!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>The club owner has closed this Booth. You will return to Library Walk as soon as you dismiss this alert.</p>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 

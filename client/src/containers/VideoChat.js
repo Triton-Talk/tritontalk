@@ -10,46 +10,39 @@ import request from '../utils/request';
 const VideoChat = (props) => {
   const history = useHistory()
   const { user } = React.useContext(Auth);
-  const roomName = props.roomName
-  //const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
-  /*const handleRoomNameChange = useCallback(event => {
-    setRoomName(event.target.value);
-  }, []);*/
 
-  /* if (!user || !roomName) {
-    alert('You must sign in first!')
-    return
-  }*/
-  const options = { body: { room: roomName } }
-  request('/api/video/token', options).then(res => setToken(res.token))
-  
+  const options = { body: { room: props.roomName } }
 
   const handleLogout = event => {
-    setToken(null);
     history.push("/")
   }
-  console.log(token)
-  console.log(roomName)
+
+  React.useEffect(() => {
+    let mounted = true
+    request('/api/video/token', options).then(res => {
+      console.log('REQUEST',mounted)
+      if(mounted)
+        setToken(res.token)
+    })
+  
+    return () => {
+      mounted = false
+      console.log('cleanup',mounted)
+      if(props.host){
+        const options = {body: {name: props.roomName}, method: 'POST'}
+        return request('/api/video/endCall', options).then(event => console.log('TRIED TO CLOSE', event))
+      }
+      return null
+    }
+  }, [])
+
+
   if (token && user) {
-    return <Room style={{ padding: "10px" }} roomName={roomName} token={token} handleLogout={handleLogout} />
-  } else {
-    return <h1>No token and user</h1>
-    
-    /*return (
-      <div style={{ maxHeight: "100%", maxWidth: "100%" }}>
-        <Lobby
-          roomName={roomName}
-          handleRoomNameChange={handleRoomNameChange}
-          handleSubmit={handleSubmit}
-        />
-        <br></br>
-        <div><center><h1 className="OnlineTextSpecial">3</h1><h1 className="OnlineText"> people are online.</h1></center></div>
-        <div style={{ paddingBottom: "100px" }}>
-        </div>
-      </div>
-    ); */
-    
+    return <Room style={{ padding: "10px" }} roomName={props.roomName} token={token} handleLogout={handleLogout} host={props.host}/>
+  } 
+  else {
+    return <h1>Getting things ready for you</h1>
   }
 };
 
