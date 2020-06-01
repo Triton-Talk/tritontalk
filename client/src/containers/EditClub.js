@@ -78,13 +78,14 @@ const EditClub = (props) =>  {
     console.log(club)
     
     request('/api/club/delete', options).then(res => {
-      console.log(res)
-      const ref = storage.ref().child(club.booth)
-      ref.delete().then(snapshot => {
-        console.log(snapshot)
-        window.onbeforeunload = null
-      })
-      history.push('/myclubs')      
+      if(club.booth !== 'default.jpg'){
+        const ref = storage.ref().child(club.booth)
+        ref.delete().then(snapshot => {
+          console.log(snapshot)
+          window.onbeforeunload = null
+        })
+        history.push('/myclubs')      
+      }
     }).catch(error => {
       console.log(error)
       setModal('failure')
