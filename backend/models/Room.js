@@ -70,6 +70,10 @@ roomSchema.post('remove', async function(doc){
 //INTERNALLY USED HOOKS
 roomSchema.pre('deleteMany', async function(){
   console.log('removing room internallly')
+  const rooms = await mongoose.models['Room'].find(this._conditions)
+  console.log(rooms)
+  for(let doc of rooms)
+    global.phaser.emit('delete-room', doc.index)
 })
 
 
