@@ -48,6 +48,11 @@ const updateSelf = game => {
 
     game.doUpdate = true
   }
+
+  game.input.keyboard.on('keycombomatch', function (event) {
+    game.user.sprite = "gary";
+  });
+
   if(!game.isMoving){
     game.player.anims.stop(null, true);
     game.player.setFrame(game.standFrame);

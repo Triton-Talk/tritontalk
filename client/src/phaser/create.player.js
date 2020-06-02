@@ -7,7 +7,7 @@ const createPlayer = game => {
   game.player.setOrigin(0.5, 0.5);
 
   //Player sprite's animated walk cycles for each direction
-  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun"];
+  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun", "gary"];
 
   //Tritondude animations
   for (const animSprite of sprites) {
@@ -72,8 +72,7 @@ const createPlayer = game => {
   game.keyShift = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
   game.keyEnter = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-
-
+  game.input.keyboard.createCombo('ucsdcse110', { resetOnMatch: true });
 
   //Camera follows the container as it moves until the map's edge
   var camera = game.cameras.main;

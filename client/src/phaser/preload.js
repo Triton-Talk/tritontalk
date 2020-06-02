@@ -25,7 +25,7 @@ const preload = game => {
 
   //This is the player sprite with animation frames
 
-  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun"];
+  var sprites = ["tritondude", "sungod", "queen", "neptune", "anuket", "chalchiuhtlicue", "dakuwaqa", "olokun", "gary"];
   for (const animSprite of sprites) {
     game.load.spritesheet(animSprite, 'assets/spritesheets/' + animSprite + '.png',{
       frameWidth: 64,
