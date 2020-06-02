@@ -57,7 +57,7 @@ const createSocket = game => {
         targets: game.players[data],
         scaleX: 0,
         scaleY: 0,
-        duration: 100,
+        duration: 200,
         ease: 'Linear',
         delay: 0,
         onComplete: function () { game.players[data].destroy(); delete game.players[data] }
