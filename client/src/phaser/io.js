@@ -53,8 +53,20 @@ const createSocket = game => {
     if(game.players[data]) {
       game.player_updates = game.player_updates.filter(element =>element.playerId !== data)
 
+      game.tweens.add({
+        targets: game.players[data],
+        scaleX: 0,
+        scaleY: 0,
+        duration: 100,
+        ease: 'Linear',
+        delay: 0,
+        onComplete: function () { game.players[data].destroy(); delete game.players[data] }
+      });
+
+      /*
       game.players[data].destroy()
       delete game.players[data]
+      */
     }
   })
 
@@ -172,6 +184,18 @@ const addPlayer = (player, game) => {
   game.colleges[playerId] = college
   game.names[playerId] = name
   game.players[playerId].depth = y
+
+  container.alpha = 0.1
+  newplayer.alpha = 0.1
+  newPlayerText.alpha = 0.1
+
+  game.tweens.add({
+    targets: [container, newplayer, newPlayerText],
+    alpha: 1,
+    duration: 200,
+    ease: 'Linear',
+    delay: 0,
+  });
 
 }
 
