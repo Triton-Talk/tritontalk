@@ -88,7 +88,17 @@ router.put('/addFriend', async (req, res) => {
 router.put('/update', async (req, res) => {
   const query = {email: req.identity.email}
 
-  const user = await User.findOneAndUpdate(query, req.body.user, { new: true })
+  const updateObj = {
+    $set: {
+      sprite: req.body.user.sprite, 
+      major: req.body.user.major,
+      year: req.body.user.year, 
+      bio: req.body.user.bio
+    }
+  }
+
+
+  const user = await User.findOneAndUpdate(query, updateObj, { new: true })
 
   if(!user)
     return res.status(404).send('Cannot modify a nonexistent user')
