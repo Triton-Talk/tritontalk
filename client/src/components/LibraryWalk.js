@@ -50,6 +50,8 @@ const LibraryWalk  = (props) => {
 
       game.input.keyboard.manager.preventDefault = true
       game.input.keyboard.enabled = true
+      game.input.keyboard.resetKeys()
+
       game.scale.resize(window.innerWidth, 0.92 * window.innerHeight)
 
       game.user = user

@@ -29,7 +29,7 @@ router.post('/token', (req, res) => {
 router.post('/endCall', (req, res) => {
   client.video.rooms(req.body.name).update({status: 'completed'})
                                    .then(room => res.send({msg: 'success'}))
-                                   .catch(error => res.send({msg:'error'}))
+                                   .catch(error => {console.log(error); res.send({msg:'error'})})
 })
 
 module.exports = router
