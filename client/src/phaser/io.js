@@ -27,7 +27,8 @@ const createSocket = game => {
       sprite: game.user.sprite, 
       name: game.user.name,
       college: game.user.college,
-      bio: game.user.bio
+      bio: game.user.bio,
+      mongoId: game.user._id
     });
   });
 
@@ -72,9 +73,14 @@ const createSocket = game => {
 
   game.socket.on('current-players', (data) => {
     for(let playerId in data){
-      if(playerId === game.socket.id)
-        continue
-
+      if (game.user._id === data[playerId].mongoId) {
+        if (playerId === game.socket.id) {
+          continue
+        } else {
+          game.duplicatePlayer()
+          break
+        }
+      }
       addPlayer(data[playerId], game)
     }
   })

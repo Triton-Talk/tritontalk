@@ -10,6 +10,18 @@
     margin: 0px;
 
 }
+
+.ErrorMessage{
+    color: white;
+    font-family: 'Londrina Solid', cursive;
+    font-size:150px;
+    text-align: center;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #000000;
+    filter: drop-shadow(0px 4px 2px black);
+   margin: 0px;
+}
+
 .vertical{
     display: flex;
     flex-direction: column;

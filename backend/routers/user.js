@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
 router.get('/me', async (req, res) => {
   const query = {email: req.identity.email}
 
-  const user = await User.findOne(query).populate(['clubs', 'hosted_rooms'])
+  const user = await User.findOne(query).populate([{path: 'clubs', populate: {path: 'room', select: 'name'}}, {path: 'hosted_rooms'}])
 
   console.log(user)
 
@@ -93,7 +93,8 @@ router.put('/update', async (req, res) => {
       sprite: req.body.user.sprite, 
       major: req.body.user.major,
       year: req.body.user.year, 
-      bio: req.body.user.bio
+      bio: req.body.user.bio,
+      college: req.body.user.college
     }
   }
 

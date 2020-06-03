@@ -5,11 +5,14 @@ import { Card, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 import Participant from './Participant';
 
 const Room = ({ roomName, token, handleLogout, host }) => {
+
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [complete, setComplete] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
     const participantConnected = participant => {
       setParticipants(prevParticipants => [...prevParticipants, participant]);
     };
@@ -21,7 +24,6 @@ const Room = ({ roomName, token, handleLogout, host }) => {
     };
 
     const roomCompleted = error => {
-      console.log(error)
       setComplete(true)
     }
 
@@ -29,7 +31,11 @@ const Room = ({ roomName, token, handleLogout, host }) => {
       Video.connect(token, {
         name: roomName
       }).then(room => {
-        setRoom(room);
+        if (mounted) {
+          setRoom(room);
+        } else {
+          room.disconnect();
+        }
         room.on('participantConnected', participantConnected);
         room.on('participantDisconnected', participantDisconnected);
         room.once('disconnected', roomCompleted);
@@ -38,6 +44,7 @@ const Room = ({ roomName, token, handleLogout, host }) => {
     }
 
     return () => {
+      mounted = false
       setRoom(currentRoom => {
         if (currentRoom && currentRoom.localParticipant.state === 'connected') {
           currentRoom.localParticipant.tracks.forEach(function (trackPublication) {
@@ -53,7 +60,8 @@ const Room = ({ roomName, token, handleLogout, host }) => {
   }, [roomName, token]);
 
   const remoteParticipants = participants.map(participant => (
-    <Participant key={participant.sid} participant={participant} />
+    <Participant key={participant.sid} participant={participant} isSelf={false}/>
+
   ));
 
   return (
@@ -69,20 +77,21 @@ const Room = ({ roomName, token, handleLogout, host }) => {
           <ListGroup className="list-group-flush">
             <ListGroupItem>
               <Card.Body>
-                {room ? (<Card.Title>Remote Participants: {room.localParticipant.identity}</Card.Title>) :
-                  (<Card.Title>Remote Participants:</Card.Title>)}
+                {room ? 
+                  (<Card.Title>Remote Participants: {room.localParticipant.identity}</Card.Title>) :
+                  (<Card.Title>Remote Participants:</Card.Title>)
+                }
 
               </Card.Body>
             </ListGroupItem>
-
           </ListGroup>
-
 
           <div className="local-participant">
             {room ? (
               <Participant
                 key={room.localParticipant.sid}
                 participant={room.localParticipant}
+                isSelf={true}
               />
             ) : (
                 ''
@@ -92,6 +101,7 @@ const Room = ({ roomName, token, handleLogout, host }) => {
           <div className="remote-participants">{remoteParticipants}</div>
         </div>
       </Card>
+      
       <Modal show={complete} onHide={handleLogout} centered>
         <Modal.Header closeButton>
           <Modal.Title>Time to find another Booth!</Modal.Title>

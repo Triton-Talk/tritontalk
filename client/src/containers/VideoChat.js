@@ -10,39 +10,43 @@ import request from '../utils/request';
 const VideoChat = (props) => {
   const history = useHistory()
   const { user } = React.useContext(Auth);
-  const [token, setToken] = useState(null);
+  const [token, _setToken] = useState(null);
+
+  const setToken = t => _setToken(t)
+
 
   const options = { body: { room: props.roomName } }
 
-  const handleLogout = event => {
-    history.push("/")
-  }
+  const handleLogout = React.useCallback( () => {
+      history.push("/")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   React.useEffect(() => {
     let mounted = true
     request('/api/video/token', options).then(res => {
-      console.log('REQUEST',mounted)
       if(mounted)
         setToken(res.token)
     })
   
     return () => {
       mounted = false
-      console.log('cleanup',mounted)
       if(props.host){
         const options = {body: {name: props.roomName}, method: 'POST'}
-        return request('/api/video/endCall', options).then(event => console.log('TRIED TO CLOSE', event))
+        return request('/api/video/endCall', options)
+            .then(() => request('/api/room/delete', {...options, method: 'DELETE'}))
       }
+    
       return null
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
 
   if (token && user) {
     return <Room style={{ padding: "10px" }} roomName={props.roomName} token={token} handleLogout={handleLogout} host={props.host}/>
   } 
   else {
-    return <h1>Getting things ready for you</h1>
+    return <h1 style={{ color: "white" }}>Getting things ready for you</h1>
   }
 };
 

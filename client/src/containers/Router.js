@@ -13,7 +13,7 @@ import RegisterOrganization from './RegisterOrganization';
 import SplashPage from './SplashPage';
 import RegisterUser from './RegisterUser';
 import EditClub from './EditClub'
-
+import NotPage from './NotPage'
 import MyClubs from './MyClubs'
 import { AuthProvider } from '../utils/auth';
 
@@ -34,6 +34,7 @@ const Router = () => {
             <Route path="/newuser" exact component={RegisterUser} />
             <Route path="/myclubs" exact component={MyClubs} />
             <Route path="/editclub" exact component={EditClub}/>
+            <Route path="/" component={NotPage}/>
           </Switch>
         </div >
       </AuthProvider>

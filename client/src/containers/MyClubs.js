@@ -14,7 +14,7 @@ const ClubOwnerCard = ({club}) =>{
   const [modal, setModal] = React.useState(false)
   const [load, setLoad] = React.useState(false)
 
-  const [name, setName] = React.useState(club.name)
+  const [name, setName] = React.useState(club.room ? club.room.name : club.name)
   
   const createBooth  = (e) => {
     //allow for custom room names later
@@ -24,6 +24,8 @@ const ClubOwnerCard = ({club}) =>{
       body: {room, club},
       method: 'POST'
     }
+
+    console.log(options)
 
     request('/api/room/createForClub', options).then(res => {
       setModal('success')
@@ -40,6 +42,8 @@ const ClubOwnerCard = ({club}) =>{
       body: {name},
       method: 'DELETE'
     }
+
+    console.log(options)
 
     request('/api/room/delete', options).then(res => {
       setModal('delete')
@@ -109,6 +113,7 @@ const ClubOwnerCard = ({club}) =>{
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setModal(false) || setName(club.name)}>Cancel</Button>
+          <Button onClick={() => createBooth()}>Start Booth</Button>
         </Modal.Footer>
       </Modal>
 

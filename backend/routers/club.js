@@ -69,7 +69,7 @@ router.post('/create', async (req, res) => {
   catch(err){
     console.log(err)
 
-    res.status(404).send('Failed to create club')
+    res.status(404).send(err)
   }
 
 });

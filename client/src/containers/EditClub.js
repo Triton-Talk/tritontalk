@@ -17,7 +17,10 @@ const EditClub = (props) =>  {
   }
 
   React.useEffect(() => {
-    
+    storage.ref(club.booth).getDownloadURL().then(url => {
+      setClubImage(<img style={{width: 200, height: 200}} alt={"Booth"}  src={url}></img>)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSubmit = async event => {
@@ -43,10 +46,7 @@ const EditClub = (props) =>  {
       setModal('updated')
       
       if(img){
-        const ref = storage.ref().child('/booth_' + club.name +'.jpg')
         try{
-          const snapshot = await ref.put(img)
-          console.log(snapshot)
           window.onbeforeunload = null
         }
         catch(err){
@@ -63,7 +63,10 @@ const EditClub = (props) =>  {
 
   const handleReset = event => {
     event.preventDefault()
-    setClub(props.location.state)
+    setClub({...(props.location.state), imageChanged: false})
+    storage.ref(props.location.state.booth).getDownloadURL().then(url => {
+      setClubImage(<img style={{width: 200, height: 200}} alt={"Booth"}  src={url}></img>)
+    })
   }
 
   const handleDelete = event => {
@@ -75,13 +78,11 @@ const EditClub = (props) =>  {
     }
     
     const options = {body: {name: club.name}, method: 'DELETE'}
-    console.log(club)
     
     request('/api/club/delete', options).then(res => {
       if(club.booth !== '/default.jpg'){
         const ref = storage.ref().child(club.booth)
         ref.delete().then(snapshot => {
-          console.log(snapshot)
           window.onbeforeunload = null
         })
         history.push('/myclubs')      
@@ -96,8 +97,25 @@ const EditClub = (props) =>  {
 
   const handleClose = () => setModal(false)
 
-  return (
+  var [clubImage, setClubImage] = React.useState(null)
+
+  const setImage = (array) => {
+    if(!array || !array[0]) {
+      return null
+    }
+
+    setClub({...club, booth: array, imageChanged: true})
+    var selectedFile = array[0];
+    var reader = new FileReader();
     
+    reader.onload = function(event) {
+      setClubImage(<img style={{width: 200, height: 200}} alt={array[0].name}  src={event.target.result}></img>)
+    };
+  
+    reader.readAsDataURL(selectedFile);
+  }
+
+  return (
     <div>
       <br></br>
       <Form onSubmit={handleSubmit} onReset={handleReset} style={{ maxWidth: "95%" }}>
@@ -111,8 +129,14 @@ const EditClub = (props) =>  {
 
         <Form.Row>
           <Form.Group as={Col} controlId="booth_file">
+            {clubImage}
+          </Form.Group>
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="booth_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files, imageChanged: true})}/>
+              <Form.File.Input isValid onChange={e => setImage(e.target.files)}/>
               <Form.File.Label> 
                 Booth Image (150px x 150px recommended)
               </Form.File.Label>
@@ -123,7 +147,8 @@ const EditClub = (props) =>  {
         <Form.Group controlId="description">
           <Form.Label>Organization Description</Form.Label>
           <Form.Control size="lg" as="textarea" rows="3" placeholder="What does your organization do" 
-          value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} />
+          value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} 
+          maxlength="250"/>
         </Form.Group>
 
         <div style={{display:'flex', justifyContent: 'space-evenly'}}>

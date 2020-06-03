@@ -1,11 +1,51 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, isSelf }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
+  const [mute, setMute] = useState(false);
+  const [vidDisabled, setVidDisabled] = useState(false);
 
   const videoRef = useRef();
   const audioRef = useRef();
+
+  const muteParticipant = ()  => {
+    if (isSelf) {
+      if (mute) {
+        participant.audioTracks.forEach(publication => {
+          publication.track.enable();
+        });
+      } else {
+        participant.audioTracks.forEach(publication => {
+          publication.track.disable();
+        });
+      }
+    } else {
+      audioRef.current.muted = !mute
+    }
+    setMute(!mute);
+  }
+
+  const stopStartVideo = ()  => {
+    if (isSelf) {
+      if (vidDisabled) {
+        participant.videoTracks.forEach(publication => {
+          publication.track.enable();
+        });
+      } else {
+        participant.videoTracks.forEach(publication => {
+          publication.track.disable();
+        });
+      }
+    } else {
+      if (vidDisabled) {
+        videoRef.current.play()
+      } else {
+        videoRef.current.pause()
+      }
+    }
+    setVidDisabled(!vidDisabled);
+  }
 
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
@@ -61,11 +101,31 @@ const Participant = ({ participant }) => {
     }
   }, [audioTracks]);
 
+
   return (
     <div className="participant" style={{ marginTop: '10px' }}>
       <h3>{participant.identity}</h3>
       <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} />
+      <div style={{textAlign:"center",marginTop:"8px"}}>
+        <button  onClick={() => videoRef.current.requestPictureInPicture()
+                                     .then(t => console.log('success'))
+                                     .catch(f => console.log('fail'))}>
+        P.I.P.
+        </button>
+      
+        {audioRef.current !== undefined ? (
+          <button style={{marginLeft:"8px"}} onClick={() => {muteParticipant()}}>
+            {mute ? 'Unmute' : 'Mute'}
+          </button>
+        ) : null }
+
+        {videoRef.current !== undefined ? (
+          <button style={{marginLeft:"8px"}} onClick={() => {stopStartVideo()}}>
+            {vidDisabled ? 'Enable Video' : 'Disable Video'}
+          </button>
+        ) : null }
+      </div>
     </div>
   );
 };

@@ -43,6 +43,8 @@ const roomSchema = new mongoose.Schema({
 //USER FACING HOOKS
 roomSchema.pre('save', async function(){
   await mongoose.models['Club'].findByIdAndUpdate(this.club, {room: this.id})
+  await mongoose.models['User'].findByIdAndUpdate(this.creator, {$addToSet: { hosted_rooms: this.id}})
+
 
   const array = Array(20).fill(0)
   const booths = await mongoose.models['Room'].find({})
@@ -62,6 +64,7 @@ roomSchema.post('remove', async function(doc){
   console.log('removing room')
 
   await mongoose.models['Club'].findByIdAndUpdate(doc.club, {room: undefined})
+  await mongoose.models['User'].findByIdAndUpdate(doc.creator, {$pull: { hosted_rooms: this.id}})
 
   global.phaser.emit('delete-room', doc.index)
 

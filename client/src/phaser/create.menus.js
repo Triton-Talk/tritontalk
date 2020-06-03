@@ -117,7 +117,7 @@ const createMenus = game => {
 
   game.keyE.on('down', function(event) { 
     if (game.menu.visible) {
-      game.joinRoom(game.booth_list[game.selectedBooth].club.name, game.booth_list[game.selectedBooth].club.creator === game.user._id);
+      game.joinRoom(game.booth_list[game.selectedBooth].name, game.booth_list[game.selectedBooth].club.creator === game.user._id);
     }  else if (game.pmenu.visible) {
       var name1, name2
       if (game.user.name < game.selectedPlayer) {

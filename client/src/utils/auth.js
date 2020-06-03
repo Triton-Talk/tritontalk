@@ -54,12 +54,12 @@ export const AuthProvider = (props) => {
       const {body, headers} = response
       const newUser = headers.get('user_found') === "0"
       setUser(body)
-      if (location.pathname === '/login'){
-        if(newUser){
+      if (location.pathname === '/login') {
+        if (newUser) {
           history.push({pathname: "/profile", state: {newUser}})
-        }
-        else
+        } else {
           history.push('/')
+        }
       }
     }).catch(error => {
       console.log(error)
@@ -68,10 +68,12 @@ export const AuthProvider = (props) => {
   }, [history, location])
 
   React.useEffect(() => {
-    if (sessionCookie)
+    if (sessionCookie) {
       serverLogin(null)
-    else
+    } else {
       console.log('session cookie', sessionCookie, 'was null')
+      history.push('/login')
+    }
    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

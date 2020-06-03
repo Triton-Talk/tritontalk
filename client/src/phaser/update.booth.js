@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 
 const updateBooth = game => {
   const threshold = 130
+  game.pmenu.setX(game.cameras.main.centerX) 
+
   //console.log(game.menu.savisible);
   let nearBooth = false;
   //For each booth, check if player is within distance
@@ -17,10 +19,10 @@ const updateBooth = game => {
         //set the X of the menu dynamically, so it moves on resize
         game.menu.setX(game.cameras.main.centerX)
 
-        game.menu.list[4].text = game.booth_list[i].club.name
+        game.menu.list[4].text = game.booth_list[i].name
         game.menu.list[3].text = game.booth_list[i].club.description
 
-        game.menu.list[5].setTexture('booth_image' + game.booth_list[i].club.name)
+        game.menu.list[5].setTexture('booth_image' + game.booth_list[i].name)
         game.menu.list[5].displayWidth = 150;
         game.menu.list[5].displayHeight = 150;
         game.selectedBooth = i;

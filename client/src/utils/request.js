@@ -14,10 +14,15 @@ const request = async (path, options, headers = false) => {
     options.body = JSON.stringify(options.body)
 
   const response = await fetch(URL + path, options)
-  if (response.status === 404)
-    throw new Error()
-
   const body = await response.json()
+  if (response.status === 404) {
+    if (body.code) {
+      throw body.code
+    } else {
+      throw new Error()
+    }
+  }
+
 
   if(headers)
     return {body, headers: response.headers}

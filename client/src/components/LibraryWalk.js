@@ -21,8 +21,17 @@ const LibraryWalk  = (props) => {
   }
 
   const joinRoom = (name, host) => {
-    console.log(host)
     history.push({pathname: "/lobby", state: {name: name, host}})
+  }
+
+  const duplicatePlayer = () => {
+    //some shit
+    
+    console.log("no no no")
+    history.push({pathname: "/duplicateplayer", state: {duplicate: true}})
+    game.socket.disconnect()
+    game.sys.game.destroy(true)
+    game=undefined
   }
 
   React.useEffect(() => {
@@ -32,7 +41,7 @@ const LibraryWalk  = (props) => {
       return undefined
 
     if(!game){
-      game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert)
+      game = new PhaserScene(user, joinRoom, killTutorial, shouldKillAlert, duplicatePlayer)
       config.scene = game
       new Phaser.Game(config)
     }

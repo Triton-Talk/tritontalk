@@ -64,10 +64,35 @@ const RegisterOrganization  = () =>  {
           }
         }
       }).catch(e => {
-        setModal('failure')
+        console.log(e)
+        if (e === 11000) {
+          setModal('failureDuplicate')
+        } else {
+          setModal('failure')
+        }
         window.onbeforeunload = null
       })
     })
+  }
+
+  
+
+  var [clubImage, setClubImage] = React.useState(null)
+
+  const setImage = (array) => {
+    if(!array || !array[0]) {
+      return null
+    }
+
+    setClub({...club, booth: array})
+    var selectedFile = array[0];
+    var reader = new FileReader();
+    
+    reader.onload = function(event) {
+      setClubImage(<img style={{width: 200, height: 200}} alt={array[0].name} src={event.target.result}></img>)
+    };
+  
+    reader.readAsDataURL(selectedFile);
   }
 
   return (
@@ -85,19 +110,30 @@ const RegisterOrganization  = () =>  {
 
         <Form.Row>
           <Form.Group as={Col} controlId="booth_file">
+            {clubImage}
+          </Form.Group>
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="booth_file">
             <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input isValid onChange={e => setClub({...club, booth: e.target.files})}/>
+              <Form.File.Input isValid onChange={e => setImage(e.target.files)}/>
               <Form.File.Label> 
                 Booth Image (150px x 150px recommended)
               </Form.File.Label>
             </Form.File>
           </Form.Group>
-
+          <Button style={{ backgroundColor: 'gray', height:38}} size="xs" variant="dark"
+                    onClick={()=>{setClubImage(null); setClub({...club, booth: null})}}>
+            Reset Image
+          </Button>
         </Form.Row>
+        
         <Form.Group controlId="description">
           <Form.Label>Organization Description</Form.Label>
           <Form.Control size="lg" as="textarea" rows="3" placeholder="What does your organization do" 
-          value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} />
+          value={club.description} onChange={(e) => setClub({ ...club, description: e.target.value })} 
+          maxlength="250"/>
         </Form.Group>
 
         <div style={{display:'flex', justifyContent: 'space-evenly'}}>
@@ -116,6 +152,12 @@ const RegisterOrganization  = () =>  {
       <Modal show={modal === 'failure'} onHide={handleFailClose} centered> 
         <Modal.Header closeButton>
           <Modal.Title>There was an error! Let's try that again.</Modal.Title>
+        </Modal.Header>
+      </Modal>
+
+      <Modal show={modal === 'failureDuplicate'} onHide={handleFailClose} centered> 
+        <Modal.Header closeButton>
+          <Modal.Title>This club name is already in use! Let's try that again.</Modal.Title>
         </Modal.Header>
       </Modal>
 

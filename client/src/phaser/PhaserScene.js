@@ -8,7 +8,7 @@ import updateMethod from './update.js';
 // create class for scene 1
 class PhaserScene extends Phaser.Scene {
 
-  constructor(user, joinRoom, killTutorial, shouldKillAlert) {
+  constructor(user, joinRoom, killTutorial, shouldKillAlert, duplicatePlayer) {
     // create identifier for class scene
     super({ key: 'phaserScene' });
 
@@ -17,6 +17,7 @@ class PhaserScene extends Phaser.Scene {
     this.joinRoom = joinRoom
     this.killTutorial = killTutorial
     this.shouldKillAlert = shouldKillAlert
+    this.duplicatePlayer = duplicatePlayer
   }
 
   preload() {
