@@ -18,6 +18,10 @@ const Settings = () => {
   const [localUser, _updateLocalUser] = React.useState(user)
   const [modal, setModal] = React.useState(false)
 
+  const [disabled, _setDisabled] = React.useState(false)
+
+  const setDisabled = d => console.log('SETTING DISABLED TO', d, _setDisabled(d))
+
   const location = useLocation()
   const newUser = location.state ? location.state.newUser : false
 
@@ -34,6 +38,8 @@ const Settings = () => {
   }
 
   const handleSubmit = event => {
+    setDisabled(true)
+
     event.preventDefault()
     
     const options = {body: {user: localUser}, method: 'PUT'}
@@ -44,7 +50,7 @@ const Settings = () => {
     }).catch(error => {
       console.log(error)
       setModal('failure')
-    })
+    }).finally(() => setDisabled(false))
   }
 
   const handleReset = event => {
@@ -55,7 +61,8 @@ const Settings = () => {
 
 
   const handleDelete = event => {
-    
+    setDisabled(true)
+
     const options = {body: {user: localUser}, method: 'DELETE'}
     
     request('/api/user/delete', options).then(res => {
@@ -197,14 +204,14 @@ const Settings = () => {
           </Button>
           }
 
-          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit">
+          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit" disabled={disabled}>
             {newUser ? 'Save' : 'Update'}
           </Button>
 
 
           {newUser ? 
           null : 
-          <Button style={{ backgroundColor: 'red' }} size="lg" variant="dark" 
+          <Button style={{ backgroundColor: 'red' }} size="lg" variant="dark"  disabled={disabled}
                   onClick = {e => setModal('delete')}>
             Delete 
           </Button>
@@ -240,8 +247,8 @@ const Settings = () => {
         <h4>This will delete all of your user data permanently! It cannot be undone.</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleDelete}>Delete</Button>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button style={{ backgroundColor: 'red' }} disabled={disabled} onClick={handleDelete}>Delete</Button>
+        <Button onClick={handleClose} disabled={disabled}>Cancel</Button>
       </Modal.Footer>
     </Modal>
     </div>

@@ -10,6 +10,8 @@ const EditClub = (props) =>  {
   const [club, _setClub] = React.useState(props.location.state)
   const [modal, setModal] = React.useState(false)
 
+  const [disabled, setDisabled] = React.useState(false)
+
   const history = useHistory()
 
   const setClub = (c) => {
@@ -24,7 +26,8 @@ const EditClub = (props) =>  {
   }, [])
 
   const handleSubmit = async event => {
-    
+    setDisabled(true)
+
     event.preventDefault()
       
     let img = undefined
@@ -62,6 +65,8 @@ const EditClub = (props) =>  {
   }
 
   const handleReset = event => {
+    setDisabled(true)
+
     event.preventDefault()
     setClub({...(props.location.state), imageChanged: false})
     storage.ref(props.location.state.booth).getDownloadURL().then(url => {
@@ -70,6 +75,7 @@ const EditClub = (props) =>  {
   }
 
   const handleDelete = event => {
+    setDisabled(true)
 
     window.onbeforeunload = function(e) {
       var dialogText = "Don't close the tab yet!";
@@ -95,7 +101,10 @@ const EditClub = (props) =>  {
     })
   }
 
-  const handleClose = () => setModal(false)
+  const handleClose = () => {
+    setDisabled(false)
+    setModal(false)
+  }
 
   var [clubImage, setClubImage] = React.useState(null)
 
@@ -152,13 +161,13 @@ const EditClub = (props) =>  {
         </Form.Group>
 
         <div style={{display:'flex', justifyContent: 'space-evenly'}}>
-          <Button style={{ backgroundColor: 'gray'}} size="lg" variant="dark" type="reset">
+          <Button style={{ backgroundColor: 'gray'}} size="lg" variant="dark" type="reset" disabled={disabled}>
             Reset
           </Button>
-          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit">
+          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit" disabled={disabled}>
             Update
           </Button>
-          <Button style={{ backgroundColor: 'red'}} size="lg" variant="dark" onClick={e => setModal('delete')}>
+          <Button style={{ backgroundColor: 'red'}} size="lg" variant="dark" disabled={disabled} onClick={e => setModal('delete')}>
             Delete
           </Button>
         </div>
@@ -189,8 +198,8 @@ const EditClub = (props) =>  {
         <h4>This will delete all of your club data permanently! It cannot be undone.</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleDelete}>Delete</Button>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button style={{cbackgroundColor: 'red'}} disabled={disabled} onClick={handleDelete}>Delete</Button>
+        <Button disabled={disabled} onClick={handleClose}>Cancel</Button>
       </Modal.Footer>
     </Modal>
     </div >

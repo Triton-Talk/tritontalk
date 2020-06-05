@@ -15,8 +15,11 @@ const ClubOwnerCard = ({club}) =>{
   const [load, setLoad] = React.useState(false)
 
   const [name, setName] = React.useState(club.room ? club.room.name : club.name)
+
+  const [disabled, setDisabled] = React.useState(false)
   
   const createBooth  = (e) => {
+    setDisabled(true)
     //allow for custom room names later
     const room = {name} 
 
@@ -33,10 +36,11 @@ const ClubOwnerCard = ({club}) =>{
       club.room = res
     }).catch(err => {
       setModal('failure')
-    })
+    }).finally(() => setDisabled(false))
   }
 
   const deleteBooth = (e) => {
+    setDisabled(true)
     //allow for custom room names later
     const options = {
       body: {name},
@@ -50,7 +54,7 @@ const ClubOwnerCard = ({club}) =>{
       club.room = null
     }).catch(err => {
       setModal('failure')
-    })
+    }).finally(() => setDisabled(false))
   }
 
   React.useEffect(() => {
@@ -88,10 +92,9 @@ const ClubOwnerCard = ({club}) =>{
             </Link>
             {
               club.room ? 
-              <Button variant="danger" onClick={deleteBooth}>Delete Booth</Button> :
- //             <Button variant="warning" onClick={createBooth}>Create Booth</Button>
+              <Button variant="danger" disabled={disabled} onClick={deleteBooth}>Delete Booth</Button> :
 	      <div style={{display: 'flex'}}>
-		<SplitButton variant='warning' title='Create Booth' alignRight drop='down' onClick={createBooth}>
+		<SplitButton variant='warning' title='Create Booth' disabled={disabled} alignRight drop='down' onClick={createBooth}>
 		  <Dropdown.Item onClick={() => { setModal('named') }} eventKey="1">Create Named Booth</Dropdown.Item>
 		</SplitButton>
 	      </div>

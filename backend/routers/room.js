@@ -48,7 +48,7 @@ router.post('/create', async (req, res) => {
 
   await room.save()
 
-  req.app.locals.booths.push(room)
+  // req.app.locals.booths.push(room)
   res.status(200).send(room)
 
 });

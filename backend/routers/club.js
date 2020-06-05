@@ -54,14 +54,18 @@ router.post('/create', async (req, res) => {
           if(meta.code === 404){
             club.booth = '/default.jpg'
             await club.save()
+            req.app.locals.phaser.emit('check-room', club)
           }
         }
+
         catch(err){
           club.booth = '/default.jpg'
           await club.save()
+          req.app.locals.phaser.emit('check-room', club)
         }
       }, 15000)
 
+      
     await club.save()
 
     res.status(200).send(club)

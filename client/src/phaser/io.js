@@ -111,6 +111,16 @@ const createSocket = game => {
     delete game.booth_list[index]
   })
 
+  game.socket.on('check-room', data => {
+    for (let index in game.booth_list) {
+      let booth = game.booth_list[index]
+      console.log(booth, data)
+      if (booth.club._id === data._id) {
+        addBooth({...booth, club: data}, game)
+      }
+    }
+  })
+
   game.socket.on('call-notif', names => {
     if (game.user.name === names.receiver) {
       //pmenu with names.sender name and sprite

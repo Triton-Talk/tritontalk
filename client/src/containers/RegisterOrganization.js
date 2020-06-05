@@ -10,6 +10,8 @@ const RegisterOrganization  = () =>  {
   const [club, _setClub] = React.useState({name: '', description: '', booth: null, flyer: null, meeting_times: null})
   const [modal, setModal] = React.useState(false)
 
+  const [disabled, setDisabled] = React.useState(false)
+
   const history = useHistory()
 
   const setClub = (c) => {
@@ -23,11 +25,14 @@ const RegisterOrganization  = () =>  {
 
   const handleFailClose = () => {
     setModal(false)
+    setDisabled(false)
   }  
   
   const handleSubmit = async event => {
-    
+
     event.preventDefault()
+
+    setDisabled(true)
 
     request('/api/club/get', { body: {name: club.name}, method: 'GET'}).catch(error => {
       
@@ -137,7 +142,7 @@ const RegisterOrganization  = () =>  {
         </Form.Group>
 
         <div style={{display:'flex', justifyContent: 'space-evenly'}}>
-          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit">
+          <Button style={{ backgroundColor: 'blue'}} size="lg" variant="dark" type="submit" disabled={disabled}>
             Submit
           </Button>
         </div>
