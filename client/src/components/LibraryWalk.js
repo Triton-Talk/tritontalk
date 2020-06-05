@@ -25,9 +25,6 @@ const LibraryWalk  = (props) => {
   }
 
   const duplicatePlayer = () => {
-    //some shit
-    
-    console.log("no no no")
     history.push({pathname: "/duplicateplayer", state: {duplicate: true}})
     game.socket.disconnect()
     game.sys.game.destroy(true)
@@ -59,7 +56,8 @@ const LibraryWalk  = (props) => {
       game.playerText.setText(game.user.name + '\n' + game.user.college)
       game.socket.emit('update-sprite', {sprite: user.sprite, playerId: game.socket.id})
       game.socket.emit('update-college', {college: user.college, playerId: game.socket.id})
-
+      game.socket.emit('update-bio', {bio: user.bio, playerId: game.socket.id})
+      game.socket.emit('player-returned', {name: user.name})
     }
 
     function handleResize() {

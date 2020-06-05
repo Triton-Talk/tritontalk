@@ -53,8 +53,6 @@ module.exports = dependencies => {
         chai.expect(res.body.name).to.eql('Example Room')
         chai.expect(res.body.creator).to.exist
 
-        chai.expect(res.body.creator.name).to.eql('Example User')
-
         done()
       }).catch(function(error){
         throw error; 

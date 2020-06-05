@@ -13,6 +13,7 @@ const createSocket = game => {
   game.sprites = {}
   game.colleges = {}
   game.names = {}
+  game.bios = {}
   
   game.booth_list = {}
 
@@ -44,6 +45,10 @@ const createSocket = game => {
   game.socket.on('update-college', data => {
     game.players[data.playerId].list[1].setText(game.names[data.playerId] + '\n' + data.college)
     game.colleges[data.playerId] = data.college
+  })
+
+  game.socket.on('update-bio', data => {
+    game.bios[data.playerId] = data.bio
   })
 
   game.socket.on('new-player', data => {
@@ -102,11 +107,22 @@ const createSocket = game => {
     console.log(game.booths, index)
     if(!game.booths[index])
       return 
-    game.booths[index].list[2].setTexture('transparent')
-    game.booths[index].list[2].displayWidth = 150;
-    game.booths[index].list[2].displayHeight = 150;
 
-    game.booths[index].list[1].text = '';
+    game.tweens.add({
+      targets: game.booths[index].list[2],
+      alpha: 0,
+      duration: 500,
+      ease: 'Linear',
+      delay: 0,
+      onComplete: function(){
+        game.booths[index].list[2].setTexture('transparent')
+        game.booths[index].list[2].alpha = 1
+        game.booths[index].list[2].displayWidth = 150;
+        game.booths[index].list[2].displayHeight = 150;
+    
+        game.booths[index].list[1].text = '';
+      }
+    });
 
     delete game.booth_list[index]
   })
@@ -138,6 +154,13 @@ const createSocket = game => {
       game.selectedPlayer = names.sender;
     }
   })
+
+  game.socket.on('call-dismissed', data => {
+    // console.log(data.name, game.selectedPlayer)
+    if (game.selectedPlayer === data.name) {
+      game.pmenu.visible = false
+    }
+  })
 }
 
 const addPlayer = (player, game) => {
@@ -165,7 +188,7 @@ const addPlayer = (player, game) => {
       game.pmenu.setX(game.cameras.main.centerX)
 
       game.pmenu.list[3].text = name
-      game.pmenu.list[2].text = bio
+      game.pmenu.list[2].text = game.bios[playerId]
 
       game.pmenu.list[4].setTexture(game.sprites[playerId])
       game.pmenu.list[4].displayWidth = 150;
@@ -198,6 +221,7 @@ const addPlayer = (player, game) => {
   game.players[playerId] = container
   game.sprites[playerId] = sprite
   game.colleges[playerId] = college
+  game.bios[playerId] = bio
   game.names[playerId] = name
   game.players[playerId].depth = y
 

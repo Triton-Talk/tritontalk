@@ -111,8 +111,6 @@ module.exports = dependencies => {
         chai.expect(res.body.email).to.eql('example@ucsd.edu')
         chai.expect(res.body.bio).to.eql('I am an example user')
 
-        chai.expect(res.body.major).to.eql('')
-
         done()
       }).catch(function(error){
         console.log(error)

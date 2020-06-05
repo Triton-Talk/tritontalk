@@ -8,14 +8,18 @@ chai.use(chaiHttp);
 
 const axios = require('axios')
 
+const io = require('socket.io-client')
+
 const app = require('../index')
+
 before(function(){
   this.timeout(0)
   console.log('Waiting for MongoDB connection...')
   return require('../models/db')
 })
 
-dependencies = { chai, axios, app }
+dependencies = { chai, axios, app, io}
+
 
 describe('Sanity check', function(){
   require('./index.js.test')(dependencies)
@@ -35,8 +39,8 @@ describe('Database testing', function(){
 describe('API Endpoint testing', function(){
 
   require('./api_testing/user.js.test')(dependencies)
-  require('./api_testing/room.js.test')(dependencies)
   require('./api_testing/club.js.test')(dependencies)
+  require('./api_testing/room.js.test')(dependencies)
   require('./api_testing/video.js.test')(dependencies)
-
 })
+

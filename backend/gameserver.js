@@ -42,6 +42,10 @@ const startGameServer = (httpServer, data) => {
           phaser.to(playerId).emit('call-notif', names)      
     })
 
+    socket.on('player-returned', name => {
+      socket.broadcast.emit('call-dismissed', name)
+    })
+
     socket.on('disconnect', data => {
       delete players[socket.id]
       phaser.emit('delete-player', socket.id)
@@ -59,6 +63,13 @@ const startGameServer = (httpServer, data) => {
 
       socket.broadcast.emit('update-college', {college, playerId})
       players[socket.id].college = college
+    })
+
+    socket.on('update-bio', data => {
+      const {bio, playerId} = data
+
+      socket.broadcast.emit('update-bio', {bio, playerId})
+      players[socket.id].bio = bio
     })
 
     // When a player moves

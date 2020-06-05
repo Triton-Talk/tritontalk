@@ -45,7 +45,7 @@ module.exports = dependencies => {
     })
 
     it('creates a new club', function(done){
-      const club = {name: 'Example Club'}
+      const club = {name: 'Example Club', booth: '/booth_failure'}
 
       this.agent.post('/api/club/create').send({club}).then(function(res){
 
@@ -53,8 +53,6 @@ module.exports = dependencies => {
 
         chai.expect(res.body.name).to.eql('Example Club')
         chai.expect(res.body.creator).to.exist
-
-        chai.expect(res.body.creator.name).to.eql('Example User')
 
         done()
       }).catch(function(error){
