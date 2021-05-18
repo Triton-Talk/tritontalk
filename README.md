@@ -3,7 +3,8 @@
 # CSE 110 Team :: M^3 and C
 
 This is an interactive video chat application that lets you explore the UCSD Library walk from the comfort of your home.
-Youtube Video of Finished Project: https://www.youtube.com/watch?v=zT_c2fCU5U8&t=243s
+## Youtube Video
+https://www.youtube.com/watch?v=zT_c2fCU5U8&t=243s
 ## Online Demo
 [https://tritontalk.com](https://tritontalk.com)
 
